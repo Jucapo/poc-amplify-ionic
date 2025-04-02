@@ -1,0 +1,7 @@
+{
+  "name": "poc-amplify-ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
