@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "aws-amplify": {
+    "useContainers": false
+  }
+}

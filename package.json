@@ -9,7 +9,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "sandbox": "npx amplify sandbox",
+    "generate-models": "npx ampx generate graphql-client-code --out src/app/models"
   },
   "private": true,
   "dependencies": {
@@ -30,7 +32,19 @@
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "@aws-amplify/backend": "^1.15.0",
+    "@aws-amplify/backend-cli": "^1.5.0",
+    "@aws-amplify/cli": "^13.0.0",
+    "@aws-amplify/data-schema": "^1.20.2",
+    "@aws-amplify/ui-angular": "^5.0.40",
+    "aws-amplify": "^6.14.1",
+    "aws-cdk": "^2.137.0",
+    "aws-cdk-lib": "^2.137.0",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.20.2",
+    "json-schema-to-ts": "3.1.1",
+    "ts-algebra": "2.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.0",

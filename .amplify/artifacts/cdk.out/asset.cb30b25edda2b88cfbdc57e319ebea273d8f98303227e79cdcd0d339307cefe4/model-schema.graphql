@@ -1,0 +1,25 @@
+type UserProfile @model @auth(rules: [{allow: private, operations: [read, create]},
+  {allow: owner, operations: [read, update, delete], ownerField: "email"},
+  {allow: groups, operations: [read, create, update, delete], groups: ["admin"]}])
+{
+  id: ID! @primaryKey
+  email: String!
+  role: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type UserData @model @auth(rules: [{allow: private, operations: [read, create, update, delete]}])
+{
+  id: ID! @primaryKey
+  email: String!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  address: String!
+  birthDate: String!
+  gender: String!
+  occupation: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
