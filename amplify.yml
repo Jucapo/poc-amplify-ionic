@@ -13,6 +13,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - npm install -g @ionic/cli
         - npx ionic info
     build:
       commands:
