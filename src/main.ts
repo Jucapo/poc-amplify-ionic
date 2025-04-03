@@ -17,14 +17,11 @@ import { Amplify } from 'aws-amplify';
 import outputs from '../amplify_outputs.json';
 
 import { addIcons } from 'ionicons';
-import { saveOutline, logOutOutline } from 'ionicons/icons';
+import * as allIcons from 'ionicons/icons';
 
 Amplify.configure(outputs);
 
-addIcons({
-  'save-outline': saveOutline,
-  'log-out-outline': logOutOutline,
-});
+addIcons(allIcons);
 
 // Verify configuration
 console.log('Amplify configured with:', {
