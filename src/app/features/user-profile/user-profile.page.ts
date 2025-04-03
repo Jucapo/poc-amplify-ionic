@@ -30,7 +30,6 @@ import {
   IonSpinner,
   ToastController,
   IonText,
-  IonButton,
 } from '@ionic/angular/standalone';
 import { UserDataService } from '../../core/services/user-data.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -42,7 +41,6 @@ import { UserData, UpdateUserDataInput } from '../../models/API';
   styleUrls: ['./user-profile.page.scss'],
   standalone: true,
   imports: [
-    IonButton,
     IonText,
     CommonModule,
     ReactiveFormsModule,

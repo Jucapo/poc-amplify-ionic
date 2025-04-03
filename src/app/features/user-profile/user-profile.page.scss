@@ -55,6 +55,11 @@ ion-card-title {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--ion-color-primary);
+  text-align: center;
+}
+
+.toolbar-title {
+  text-align: center !important;
 }
 
 ion-card-content {
