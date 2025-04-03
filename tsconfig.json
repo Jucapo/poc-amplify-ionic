@@ -19,7 +19,13 @@
     "target": "es2022",
     "module": "es2020",
     "lib": ["es2018", "dom"],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "paths": {
+      "aws-cdk": ["node_modules/aws-cdk"],
+      "@aws-cdk/*": ["node_modules/@aws-cdk/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

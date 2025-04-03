@@ -1,13 +1,24 @@
 import { Routes } from '@angular/router';
+import { UserProfilePage } from './features/user-profile/user-profile.page';
+import { AdminDashboardPage } from './features/admin-dashboard/admin-dashboard.page';
+import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    path: 'profile',
+    component: UserProfilePage,
+  },
+  {
+    path: 'admin',
+    component: AdminDashboardPage,
   },
   {
     path: '',
-    redirectTo: 'home',
+    component: AppComponent,
     pathMatch: 'full',
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];

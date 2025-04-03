@@ -1,37 +1,229 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-/* Core CSS required for Ionic components to work properly */
+/* ============== */
+/* Core Ionic CSS */
+/* ============== */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* ============== */
+/* Optional Ionic Utils */
+/* ============== */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* ============== */
+/* Dark Mode */
+/* ============== */
+@import "@ionic/angular/css/palettes/dark.system.css";
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* ============== */
+/* Variables Personalizadas */
+/* ============== */
+:root {
+  --primary: #6a3093;
+  --primary-light: #a044ff;
+  --white: #ffffff;
+  --gray-light: #f5f5f5;
+  --gray-medium: #e0e0e0;
+  --gray-dark: #333333;
+  --success: #4caf50;
+  --error: #f44336;
+
+  /* Integración con variables de Ionic */
+  --ion-color-primary: var(--primary);
+  --ion-color-primary-rgb: 106, 48, 147;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #5d2a81;
+  --ion-color-primary-tint: #79459e;
+}
+
+/* ============== */
+/* Base Reset */
+/* ============== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(180deg, var(--primary), var(--white));
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  color: var(--gray-dark);
+  overflow-x: hidden;
+}
+/* ============== */
+/* Authenticator - Adaptado para Ionic */
+/* ============== */
+amplify-authenticator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  --amplify-components-tabs-item-active-color: var(--primary);
+  --amplify-components-tabs-item-active-border-color: var(--primary);
+  --amplify-components-button-primary-background-color: var(--primary);
+  --amplify-components-button-primary-hover-background-color: var(
+    --primary-light
+  );
+}
+
+.amplify-tabs {
+  width: 100%;
+  max-width: 400px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 16px;
+}
+
+/* ============== */
+/* Componentes de Angular Material en Ionic */
+/* ============== */
+.mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    --mdc-snackbar-container-color: var(--success);
+    --mat-mdc-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+
+  &.error-snackbar {
+    --mdc-snackbar-container-color: var(--error);
+    --mat-mdc-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+
+  position: fixed !important;
+  top: 80px !important;
+  right: 24px !important;
+  left: auto !important;
+  bottom: auto !important;
+  max-width: 350px !important;
+  margin: 0 !important;
+  border-radius: 12px !important;
+  z-index: 1050 !important;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ============== */
+/* Loading Overlay - Adaptado para Ionic */
+/* ============== */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(3px);
+
+  .modern-spinner {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+
+    .spinner-circle {
+      border: 8px solid rgba(117, 81, 194, 0.2);
+      border-top: 8px solid var(--primary);
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      animation: spin 1.5s linear infinite;
+      position: absolute;
+    }
+
+    .spinner-logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--primary);
+
+      ion-icon {
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+
+  .loading-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: var(--primary);
+    font-weight: 500;
+    text-align: center;
+    animation: pulse 2s infinite ease-in-out;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+/* ============== */
+/* Adaptaciones para Ionic */
+/* ============== */
+ion-content {
+  --background: var(--gray-light);
+}
+
+ion-header {
+  --background: var(--primary);
+  --color: white;
+}
+
+/* Mejora de compatibilidad */
+.mat-mdc-dialog-container {
+  z-index: 2001 !important; /* Por encima del loading overlay */
+}
+
+/* Corrección para inputs en iOS */
+@media (hover: none) {
+  .mat-mdc-input-element {
+    font-size: 16px !important; /* Evita zoom en iOS */
+  }
+}
