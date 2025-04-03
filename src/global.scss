@@ -56,8 +56,11 @@
 
 html,
 body {
-  height: 100%;
+  background: linear-gradient(180deg, var(--primary), var(--white));
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  color: var(--gray-dark);
+  overflow-x: hidden;
 }
 
 /* ============== */
@@ -123,4 +126,38 @@ ion-item {
   ion-card {
     margin: 8px;
   }
+}
+
+amplify-authenticator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.amplify-tabs {
+  width: 100%;
+  max-width: 400px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.amplify-tabs-item {
+  font-weight: 500 !important;
+  color: var(--gray-dark) !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+.amplify-tabs-item[data-state="active"] {
+  color: var(--primary) !important;
+  border-bottom-color: var(--primary) !important;
+}
+
+.amplify-button--primary {
+  background-color: var(--primary) !important;
+  width: 100%;
+  padding: 12px !important;
 }
