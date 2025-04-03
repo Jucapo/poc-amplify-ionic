@@ -1,9 +1,14 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
-const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+interface CustomCapacitorConfig extends CapacitorConfig {
+  bundledWebRuntime?: boolean;
+}
+
+const config: CustomCapacitorConfig = {
+  appId: 'com.jucapo.poc',
   appName: 'poc-amplify-ionic',
-  webDir: 'www'
+  webDir: 'www',
+  bundledWebRuntime: false,
 };
 
 export default config;

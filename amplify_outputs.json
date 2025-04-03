@@ -1,19 +1,13 @@
 {
   "auth": {
-    "user_pool_id": "us-east-1_sCeUXX8Pw",
+    "user_pool_id": "us-east-1_MBb6bu3Y7",
     "aws_region": "us-east-1",
-    "user_pool_client_id": "1rfnetgl1giniubiomn3sc8j7g",
-    "identity_pool_id": "us-east-1:ee618cdc-e1cc-4173-a46a-f692aa847999",
+    "user_pool_client_id": "1rj7b7j2mifa8bbbr4pc1ptka5",
+    "identity_pool_id": "us-east-1:2e61131b-1d6f-4714-9c8d-63a871e30a09",
     "mfa_methods": [],
-    "standard_required_attributes": [
-      "email"
-    ],
-    "username_attributes": [
-      "email"
-    ],
-    "user_verification_types": [
-      "email"
-    ],
+    "standard_required_attributes": ["email"],
+    "username_attributes": ["email"],
+    "user_verification_types": ["email"],
     "groups": [],
     "mfa_configuration": "NONE",
     "password_policy": {
@@ -26,14 +20,11 @@
     "unauthenticated_identities_enabled": true
   },
   "data": {
-    "url": "https://nnkj5jhq3ffknjrrbfuf7u2a6u.appsync-api.us-east-1.amazonaws.com/graphql",
+    "url": "https://coqvx2djnjaxjhnv4i6racg4zm.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_region": "us-east-1",
-    "api_key": "da2-dvjqzzmuxjfcbcuggoozwy4wsi",
+    "api_key": "da2-6iki2dufejg7pnnqoygl4d24hm",
     "default_authorization_type": "AMAZON_COGNITO_USER_POOLS",
-    "authorization_types": [
-      "API_KEY",
-      "AWS_IAM"
-    ],
+    "authorization_types": ["API_KEY", "AWS_IAM"],
     "model_introspection": {
       "version": 1,
       "models": {
@@ -86,9 +77,7 @@
             {
               "type": "key",
               "properties": {
-                "fields": [
-                  "id"
-                ]
+                "fields": ["id"]
               }
             },
             {
@@ -97,35 +86,21 @@
                 "rules": [
                   {
                     "allow": "private",
-                    "operations": [
-                      "read",
-                      "create"
-                    ]
+                    "operations": ["read", "create"]
                   },
                   {
                     "provider": "userPools",
                     "ownerField": "email",
                     "allow": "owner",
-                    "operations": [
-                      "read",
-                      "update",
-                      "delete"
-                    ],
+                    "operations": ["read", "update", "delete"],
                     "identityClaim": "cognito:username"
                   },
                   {
                     "groupClaim": "cognito:groups",
                     "provider": "userPools",
                     "allow": "groups",
-                    "operations": [
-                      "read",
-                      "create",
-                      "update",
-                      "delete"
-                    ],
-                    "groups": [
-                      "admin"
-                    ]
+                    "operations": ["read", "create", "update", "delete"],
+                    "groups": ["admin"]
                   }
                 ]
               }
@@ -228,9 +203,7 @@
             {
               "type": "key",
               "properties": {
-                "fields": [
-                  "id"
-                ]
+                "fields": ["id"]
               }
             },
             {
@@ -239,12 +212,7 @@
                 "rules": [
                   {
                     "allow": "private",
-                    "operations": [
-                      "read",
-                      "create",
-                      "update",
-                      "delete"
-                    ]
+                    "operations": ["read", "create", "update", "delete"]
                   }
                 ]
               }
