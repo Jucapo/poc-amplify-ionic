@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "io.ionic.starter"
+    namespace "com.cognits.amplifyionic"
     compileSdk rootProject.ext.compileSdkVersion
 
     // Configuración actualizada para Java 21 (requerida por Capacitor 8+)
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "io.ionic.starter"
+        applicationId "com.cognits.amplifyionic"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
