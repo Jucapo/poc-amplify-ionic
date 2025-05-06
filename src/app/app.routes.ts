@@ -5,6 +5,11 @@ import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    component: AppComponent,
+    pathMatch: 'full',
+  },
+  {
     path: 'profile',
     component: UserProfilePage,
   },
@@ -13,9 +18,11 @@ export const routes: Routes = [
     component: AdminDashboardPage,
   },
   {
-    path: '',
-    component: AppComponent,
-    pathMatch: 'full',
+    path: 'privacy-policy',
+    loadComponent: () =>
+      import('./pages/privacy-policy/privacy-policy.page').then(
+        (m) => m.PrivacyPolicyPage,
+      ),
   },
   {
     path: '**',
