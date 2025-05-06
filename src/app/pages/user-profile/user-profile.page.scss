@@ -85,43 +85,39 @@ ion-select {
 /* ============== */
 /* Botón Flotante (FAB) - Versión Mejorada */
 /* ============== */
-ion-fab {
-  position: fixed;
-  bottom: calc(20px + var(--ion-safe-area-bottom));
-  right: 20px;
-  z-index: 100;
-}
 
-ion-fab-button {
-  --background: var(--ion-color-primary);
-  --background-activated: var(--ion-color-primary-shade);
-  --background-focused: var(--ion-color-primary-shade);
-  --color: var(--ion-color-primary-contrast);
-  --box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.3);
+.profile-save-fab {
+  position: fixed !important;
+  bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+  right: calc(16px + env(safe-area-inset-right)) !important;
+  z-index: 1000 !important;
 
-  width: 56px;
-  height: 56px;
-  transition: all 0.2s ease-out;
+  ion-fab-button {
+    /* Colores y sombra */
+    --background: var(--ion-color-primary);
+    --background-activated: var(--ion-color-primary-shade);
+    --background-focused: var(--ion-color-primary-shade);
+    --color: var(--ion-color-primary-contrast);
+    --box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.3);
 
-  ion-icon {
-    font-size: 24px;
-  }
+    /* Tamaño mínimo para icono+texto */
+    min-width: 64px !important;
+    min-height: 64px !important;
 
-  ion-text {
-    display: none;
-    margin-left: 8px;
-    font-size: 14px;
-    font-weight: 500;
-  }
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-  &:active {
-    transform: scale(0.96);
-  }
+    transition: transform 0.2s ease-out !important;
 
-  &[disabled] {
-    --background: var(--gray-medium);
-    --box-shadow: none;
-    opacity: 0.8;
+    &:active {
+      transform: scale(0.96) !important;
+    }
+    &[disabled] {
+      --background: var(--gray-medium) !important;
+      --box-shadow: none !important;
+      opacity: 0.8 !important;
+    }
   }
 }
 
@@ -200,20 +196,6 @@ ion-note[color="danger"] {
 
   ion-col {
     padding: 0 8px;
-  }
-
-  ion-fab {
-    bottom: 24px;
-    right: 24px;
-  }
-
-  ion-fab-button {
-    width: auto;
-    padding: 0 24px;
-
-    ion-text {
-      display: block;
-    }
   }
 }
 
