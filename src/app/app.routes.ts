@@ -1,12 +1,13 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import { UserProfilePage } from './features/user-profile/user-profile.page';
-import { AdminDashboardPage } from './features/admin-dashboard/admin-dashboard.page';
-import { AppComponent } from './app.component';
+import { UserProfilePage } from './pages/user-profile/user-profile.page';
+import { AdminDashboardPage } from './pages/admin-dashboard/admin-dashboard.page';
 
 export const routes: Routes = [
+  // 1) Raíz redirige a /profile (o al que quieras por defecto)
   {
     path: '',
-    component: AppComponent,
+    redirectTo: 'profile',
     pathMatch: 'full',
   },
   {

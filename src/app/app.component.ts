@@ -1,4 +1,3 @@
-// src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
@@ -11,7 +10,6 @@ import {
 import { AuthService } from './core/services/auth.service';
 
 import {
-  IonApp,
   IonRouterOutlet,
   IonHeader,
   IonToolbar,
@@ -20,6 +18,7 @@ import {
   IonButton,
   IonIcon,
   IonButtons,
+  IonApp,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -28,9 +27,9 @@ import {
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [
-    CommonModule, // Para *ngIf en el template
-    AmplifyAuthenticatorModule, // <amplify-authenticator>
     IonApp,
+    CommonModule,
+    AmplifyAuthenticatorModule,
     IonRouterOutlet,
     IonHeader,
     IonToolbar,

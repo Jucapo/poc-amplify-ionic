@@ -1,0 +1,208 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="toolbar-title">Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- 1) Loading vs Form -->
+  <ng-container *ngIf="loadingInitialData(); else formTemplate">
+    <div class="loading-overlay">
+      <div class="modern-spinner">
+        <div class="spinner-circle"></div>
+        <div class="spinner-logo">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </div>
+      </div>
+      <p class="loading-text">Cargando perfil...</p>
+    </div>
+  </ng-container>
+
+  <!-- 2) Template del formulario -->
+  <ng-template #formTemplate>
+    <form
+      [formGroup]="profileForm"
+      (ngSubmit)="onSubmit()"
+      class="profile-container"
+    >
+      <!-- Información Personal -->
+      <ion-card class="form-section">
+        <ion-card-header>
+          <ion-card-title>Información Personal</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid class="form-row">
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Nombre</ion-label>
+                  <ion-input
+                    type="text"
+                    formControlName="firstName"
+                    required
+                  ></ion-input>
+                </ion-item>
+                <ion-note
+                  color="danger"
+                  *ngIf="
+                    profileForm.get('firstName')?.invalid &&
+                    profileForm.get('firstName')?.touched
+                  "
+                  >Nombre es requerido</ion-note
+                >
+              </ion-col>
+
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Apellido</ion-label>
+                  <ion-input
+                    type="text"
+                    formControlName="lastName"
+                    required
+                  ></ion-input>
+                </ion-item>
+                <ion-note
+                  color="danger"
+                  *ngIf="
+                    profileForm.get('lastName')?.invalid &&
+                    profileForm.get('lastName')?.touched
+                  "
+                  >Apellido es requerido</ion-note
+                >
+              </ion-col>
+            </ion-row>
+
+            <ion-item>
+              <ion-label position="floating">Teléfono</ion-label>
+              <ion-input type="tel" formControlName="phone" required>
+              </ion-input>
+            </ion-item>
+            <ion-note
+              color="danger"
+              *ngIf="
+                profileForm.get('phone')?.invalid &&
+                profileForm.get('phone')?.touched
+              "
+              >Teléfono es requerido</ion-note
+            >
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Dirección -->
+      <ion-card class="form-section">
+        <ion-card-header>
+          <ion-card-title>Dirección</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="floating">Dirección</ion-label>
+            <ion-input type="text" formControlName="address" required>
+            </ion-input>
+          </ion-item>
+          <ion-note
+            color="danger"
+            *ngIf="
+              profileForm.get('address')?.invalid &&
+              profileForm.get('address')?.touched
+            "
+            >Dirección es requerida</ion-note
+          >
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Información Adicional -->
+      <ion-card class="form-section">
+        <ion-card-header>
+          <ion-card-title>Información Adicional</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid class="form-row">
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Fecha de Nacimiento</ion-label>
+                  <ion-input
+                    type="date"
+                    formControlName="birthDate"
+                    required
+                  ></ion-input>
+                </ion-item>
+                <ion-note
+                  color="danger"
+                  *ngIf="
+                    profileForm.get('birthDate')?.invalid &&
+                    profileForm.get('birthDate')?.touched
+                  "
+                  >Fecha de nacimiento es requerida</ion-note
+                >
+              </ion-col>
+
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Género</ion-label>
+                  <ion-select
+                    formControlName="gender"
+                    interface="popover"
+                    required
+                  >
+                    <ion-select-option value="">Seleccionar</ion-select-option>
+                    <ion-select-option value="masculino"
+                      >Masculino</ion-select-option
+                    >
+                    <ion-select-option value="femenino"
+                      >Femenino</ion-select-option
+                    >
+                    <ion-select-option value="otro">Otro</ion-select-option>
+                    <ion-select-option value="prefiero-no-decir"
+                      >Prefiero no decir</ion-select-option
+                    >
+                  </ion-select>
+                </ion-item>
+                <ion-note
+                  color="danger"
+                  *ngIf="
+                    profileForm.get('gender')?.invalid &&
+                    profileForm.get('gender')?.touched
+                  "
+                  >Género es requerido</ion-note
+                >
+              </ion-col>
+            </ion-row>
+
+            <ion-item>
+              <ion-label position="floating">Ocupación</ion-label>
+              <ion-input
+                type="text"
+                formControlName="occupation"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-note
+              color="danger"
+              *ngIf="
+                profileForm.get('occupation')?.invalid &&
+                profileForm.get('occupation')?.touched
+              "
+              >Ocupación es requerida</ion-note
+            >
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Botón de Guardar -->
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button
+          [disabled]="!profileForm.valid || loading()"
+          type="submit"
+        >
+          <ion-spinner *ngIf="loading()" name="crescent"></ion-spinner>
+          <ng-container *ngIf="!loading()">
+            <ion-icon name="save-outline"></ion-icon>
+            <ion-text>Guardar</ion-text>
+          </ng-container>
+        </ion-fab-button>
+      </ion-fab>
+    </form>
+  </ng-template>
+</ion-content>
