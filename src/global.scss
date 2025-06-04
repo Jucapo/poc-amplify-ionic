@@ -1,79 +1,64 @@
-/* ========================== */
-/* 1. Ionic Core + Opcional   */
-/* ========================== */
-/* Cargas los estilos base de Ionic */
+/* ============== */
+/* Core Ionic CSS */
+/* ============== */
 @import "@ionic/angular/css/core.css";
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* ====================== */
-/* Ionic Optional CSS     */
-/* ====================== */
+/* ============== */
+/* Ionic Optional CSS */
+/* ============== */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/* ========================== */
-/* 2. Paleta de Colores Global */
-/* ========================== */
+/* ============== */
+/* Variables Globales */
+/* ============== */
 :root {
-  /* Grises (de más claro a más oscuro) */
+  /* ============== */
+  /* Grises suaves (de más claro a más oscuro) */
+  /* ============== */
   --gray-1: #f5f5f7; /* Fondo general muy claro */
   --gray-2: #e1e1e5; /* Contenedores e inputs */
   --gray-3: #c8c8cc; /* Bordes y elementos secundarios */
 
-  /* Negro para texto principal */
+  /* ============== */
+  /* Azul “acción” (botones principales) */
+  /* ============== */
+  --primary: #2d9cdb;
+  --primary-light: #6ec1ff; /* Un poco más claro para variaciones */
+  --primary-dark: #1f78b4; /* Un poco más oscuro */
+
+  /* ============== */
+  /* Blanco y negro */
+  /* ============== */
+  --white: #ffffff;
   --black: #000000;
 
-  /* Azul “Action” (botones principales) */
-  --action: #2d9cdb;
-
-  /* Blanco puro (para textos o botones sobre fondo oscuro) */
-  --white: #ffffff;
-
+  /* ============== */
   /* Variables internas de Ionic basadas en nuestra paleta */
+  /* ============== */
+  --ion-color-primary: var(--primary);
+  --ion-color-primary-rgb: 45, 156, 219;
+  --ion-color-primary-contrast: var(--white);
+  --ion-color-primary-shade: var(--primary-dark);
+  --ion-color-primary-tint: var(--primary-light);
+
+  /* Fondo y texto */
   --ion-background-color: var(--gray-1);
   --ion-text-color: var(--black);
   --ion-toolbar-background: var(--gray-1);
   --ion-toolbar-color: var(--black);
-
-  --ion-color-primary: var(--action);
-  --ion-color-primary-rgb: 45, 156, 219;
-  --ion-color-primary-contrast: var(--white);
-
-  /* Si tu preprocesador no admite “darken/lighten()”, reemplaza con hex manuales */
-  --ion-color-primary-shade: #1f78b4; /* ejemplo de un 15% más oscuro */
-  --ion-color-primary-tint: #6ec1ff; /* ejemplo de un 15% más claro */
 }
 
-/* ============================================== */
-/* 3. CUSTOM PROPERTIES PARA AMPLIFY AUTHENTICATOR  */
-/*    (estas sí “alcanzan” el Shadow DOM de Amplify) */
-/* ============================================== */
-/*
-   ––amplify-form-section-border-radius:
-     controla el radio de esquinas de la “caja blanca” de login.
-   ––amplify-form-section-box-shadow:
-     controla la sombra que rodea esa misma caja.
-
-   Al colocarlas aquí, en global.scss, **Amplify UI** las lee dentro
-   de su Shadow DOM y aplica el borde redondeado y sombra.
-*/
-amplify-authenticator {
-  /* Radio de esquinas de la caja de login */
-  --amplify-form-section-border-radius: 16px;
-
-  /* Sombra suave para que la caja flote ligeramente sobre el fondo */
-  --amplify-form-section-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-/* ========================== */
-/* 4. Estilos Base Generales   */
-/* ========================== */
+/* ============== */
+/* Estilos Base */
+/* ============== */
 * {
   margin: 0;
   padding: 0;
@@ -84,35 +69,34 @@ html,
 body,
 ion-app,
 .ion-page {
-  background-color: var(--gray-1);
+  background: var(--gray-1);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   min-height: 100vh;
   color: var(--black);
   overflow-x: hidden;
 }
 
-/* ===================== */
-/* Ionic Content         */
-/* ===================== */
+/* ============== */
+/* Ionic Content */
+/* ============== */
 ion-content {
   --background: var(--gray-1);
   --color: var(--black);
-  --padding-top: 20px;
-  --padding-bottom: 20px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
   --padding-start: 16px;
   --padding-end: 16px;
 }
 
-/* ===================== */
-/* Ionic Cards           */
-/* ===================== */
+/* ============== */
+/* Ionic Cards */
+/* ============== */
 ion-card {
-  --background: var(--gray-2) !important; /* Tarjetas con gris medio */
+  --background: var(--white) !important;
   --color: var(--black) !important;
   margin: 16px;
   border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--gray-3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 ion-card-header {
@@ -120,114 +104,66 @@ ion-card-header {
 }
 
 ion-card-title {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: var(--action);
+  color: var(--primary);
 }
 
 ion-card-content {
-  padding-top: 14px;
-  font-size: 0.95rem;
-  color: var(--black);
+  padding-top: 12px;
 }
 
-/* ===================== */
-/* Ionic Items (listas)  */
-/* ===================== */
+/* ============== */
+/* Ionic Items */
+/* ============== */
 ion-item {
-  --background: var(--gray-2);
+  --background: var(--white);
   --color: var(--black);
   --border-color: var(--gray-3);
-  --border-width: 1px;
-  --inner-border-width: 1px;
-  margin-bottom: 12px;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 16px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
-/* ===================== */
-/* Campos (Inputs/Select/ */
-/* Textarea)             */
-/* ===================== */
-ion-input,
-ion-textarea,
-ion-select {
-  --background: var(--gray-2);
-  --color: var(--black);
-  --placeholder-color: var(--gray-3);
-  --padding-start: 12px;
-  --padding-end: 12px;
-  border-radius: 8px;
-  border: 1px solid var(--gray-3);
-  box-shadow: none;
-  font-size: 1rem;
-  height: 44px;
+/* ============== */
+/* Scroll Fix */
+/* ============== */
+.scroll-content {
+  overflow-y: auto !important;
 }
 
-/* Al enfocar, borde azul y fondo blanco */
-ion-input:focus-within,
-ion-select:focus-within,
-ion-textarea:focus-within {
-  border: 1px solid var(--action);
-  background-color: var(--white);
+/* ============== */
+/* Responsive */
+/* ============== */
+@media (max-width: 768px) {
+  ion-card {
+    margin: 8px;
+  }
 }
 
-/* ===================== */
-/* Botones               */
-/* ===================== */
-ion-button {
-  border-radius: 8px;
-  font-weight: 500;
-  text-transform: none;
-  --border-width: 1px;
-  --box-shadow: none;
+/* ======================== */
+/* Amplify Authenticator    */
+/* ======================== */
+amplify-authenticator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--gray-1);
+  width: 100%;
 }
 
-/* Botón primario (action) */
-ion-button.ion-color-primary {
-  --background: var(--action);
-  --background-activated: var(--action);
-  --color: var(--white);
-  --padding-start: 16px;
-  --padding-end: 16px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
-  --border-radius: 8px;
-  --box-shadow: none;
-}
-
-/* Botón deshabilitado */
-ion-button[disabled] {
-  --background: var(--gray-3);
-  --color: var(--white);
-}
-
-/* ===================== */
-/* Formularios de Wizard */
-/* ===================== */
-.form-section-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: var(--action);
-}
-
-.form-section-subtitle {
-  font-size: 0.9rem;
-  color: var(--gray-3);
-  margin-bottom: 8px;
-}
-
-/* ===================== */
-/* Tabs personalizados   */
-/* (si usas amplify-tabs) */
-/* ===================== */
+/* ======================== */
+/* Amplify Tabs (si se usan) */
+/* ======================== */
 .amplify-tabs {
   width: 100%;
-  max-width: 380px;
-  background: var(--gray-2);
-  border-radius: 12px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  max-width: 400px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
 
@@ -239,34 +175,33 @@ ion-button[disabled] {
 }
 
 .amplify-tabs-item[data-state="active"] {
-  color: var(--action) !important;
-  border-bottom-color: var(--action) !important;
+  color: var(--primary) !important;
+  border-bottom-color: var(--primary) !important;
 }
 
-/* ===================== */
-/* Botón principal en    */
-/* autenticación         */
-/* ===================== */
+/* ======================== */
+/* Amplify Botón primario   */
+/* ======================== */
 .amplify-button--primary {
-  background-color: var(--action) !important;
+  background-color: var(--primary) !important;
+  color: var(--white) !important;
   width: 100%;
-  padding: 14px !important;
+  padding: 12px !important;
   border-radius: 8px;
-  font-size: 1rem;
   font-weight: 500;
-  box-shadow: none !important;
-  margin-top: 1.2rem;
 }
 
-/* ========================== */
-/* 5. Override: Autofill       */
-/* ========================== */
-/* Chrome, Safari y Edge */
+/* ======================== */
+/* Override: Autofill        */
+/* (para que el navegador    */
+/*  no pinte amarillo/azul)  */
+/* ======================== */
+/* Chrome, Safari, Edge */
 input:-webkit-autofill,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px var(--gray-2) inset !important;
-  box-shadow: 0 0 0px 1000px var(--gray-2) inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--white) inset !important;
+  box-shadow: 0 0 0px 1000px var(--white) inset !important;
   -webkit-text-fill-color: var(--black) !important;
   caret-color: var(--black) !important;
 }
@@ -274,15 +209,6 @@ select:-webkit-autofill {
 input:-moz-autofill,
 textarea:-moz-autofill,
 select:-moz-autofill {
-  box-shadow: 0 0 0px 1000px var(--gray-2) inset !important;
+  box-shadow: 0 0 0px 1000px var(--white) inset !important;
   -moz-text-fill-color: var(--black) !important;
-}
-
-/* ===================== */
-/* 6. Responsive         */
-/* ===================== */
-@media (max-width: 768px) {
-  ion-card {
-    margin: 12px;
-  }
 }

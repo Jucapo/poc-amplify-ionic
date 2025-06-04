@@ -1,14 +1,4 @@
 /* ============== */
-/* Variables y Estilos Base */
-/* ============== */
-:root {
-  --white: #ffffff;
-  --gray-light: #f5f5f5;
-  --gray-medium: #e0e0e0;
-  --gray-dark: #333333;
-}
-
-/* ============== */
 /* Estructura Principal */
 /* ============== */
 .profile-container {
@@ -26,7 +16,7 @@
   border-radius: 12px;
   overflow: hidden;
   background: var(--white);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .form-row {
@@ -46,15 +36,16 @@ ion-card {
 }
 
 ion-card-header {
+  /* Fondo azul muy suave: un 8% de opacidad sobre el color primary */
   background: rgba(var(--ion-color-primary-rgb), 0.08);
   padding: 16px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--gray-3);
 }
 
 ion-card-title {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--ion-color-primary);
+  font-weight: 400;
+  color: var(--primary);
   text-align: center;
 }
 
@@ -73,7 +64,7 @@ ion-item {
   --padding-end: 12px;
   --inner-padding-end: 0;
   margin-bottom: 16px;
-  --border-color: rgba(0, 0, 0, 0.1);
+  --border-color: var(--gray-3);
 }
 
 ion-input,
@@ -85,7 +76,6 @@ ion-select {
 /* ============== */
 /* Botón Flotante (FAB) - Versión Mejorada */
 /* ============== */
-
 .profile-save-fab {
   position: fixed !important;
   bottom: calc(90px + env(safe-area-inset-bottom)) !important;
@@ -93,11 +83,11 @@ ion-select {
   z-index: 1000 !important;
 
   ion-fab-button {
-    /* Colores y sombra */
-    --background: var(--ion-color-primary);
-    --background-activated: var(--ion-color-primary-shade);
-    --background-focused: var(--ion-color-primary-shade);
-    --color: var(--ion-color-primary-contrast);
+    /* Usamos la paleta “primary” y variantes para los estados */
+    --background: var(--primary);
+    --background-activated: var(--primary-dark);
+    --background-focused: var(--primary-dark);
+    --color: var(--white);
     --box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.3);
 
     /* Tamaño mínimo para icono+texto */
@@ -114,7 +104,7 @@ ion-select {
       transform: scale(0.96) !important;
     }
     &[disabled] {
-      --background: var(--gray-medium) !important;
+      --background: var(--gray-2) !important;
       --box-shadow: none !important;
       opacity: 0.8 !important;
     }
@@ -130,7 +120,7 @@ ion-select {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(var(--white), 0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,7 +136,7 @@ ion-select {
 
     .spinner-circle {
       border: 8px solid rgba(var(--ion-color-primary-rgb), 0.2);
-      border-top: 8px solid var(--ion-color-primary);
+      border-top: 8px solid var(--primary);
       border-radius: 50%;
       width: 100%;
       height: 100%;
@@ -158,13 +148,13 @@ ion-select {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: var(--ion-color-primary);
+      color: var(--primary);
       font-size: 36px;
     }
   }
 
   .loading-text {
-    color: var(--ion-color-primary);
+    color: var(--primary);
     font-weight: 500;
     animation: pulse 2s infinite;
   }

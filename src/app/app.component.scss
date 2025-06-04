@@ -1,129 +1,76 @@
-/* ================================= */
-/*   app.component.scss (solo styles no relacionados con el contenedor interno del login)   */
-/* ================================= */
-
-/* Variables locales (no cambian) */
+/* ============== */
+/* Variables       */
+/* ============== */
 :root {
-  --auth-bg: var(--gray-1);
-  --form-bg: var(--gray-2);
-  --input-bg: var(--gray-2);
-  --input-border: var(--gray-3);
-  --button-bg: var(--action);
-  --button-bg-hover: var(--action);
-  --button-text: var(--white);
+  --primary: #2d9cdb; /* Azul principal */
+  --primary-light: #6ec1ff; /* Azul suave */
+  --primary-dark: #1f78b4; /* Azul oscuro */
+  --white: #ffffff;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* ===================== */
-/* Contenedor de Auth    */
-/* (solo para centrar verticalmente) */
-/* ===================== */
-amplify-authenticator {
+/* ============== */
+/* Auth Container */
+/* ============== */
+.auth-logo-container {
+  text-align: center;
+  background-color: transparent;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: var(--auth-bg);
-  padding: 16px;
-  width: 100%;
-}
-
-/* ===================== */
-/* (Opcional) Si quedara .amplify-form-section en algunos casos: */
-/* ===================== */
-.amplify-form-section {
-  max-width: 380px;
-  width: 100%;
-  background: var(--form-bg);
-  border-radius: 12px; /* Solo si esa clase aún existe en el DOM */
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-  padding: 24px 16px;
-}
-
-/* ===================== */
-/* Estilos para los campos dentro de Amplify Auth */
-/* ===================== */
-amplify-input {
-  --background: var(--input-bg);
-  --border-radius: 8px;
-  --border-color: var(--input-border);
-  --border-width: 1px;
-  --padding-start: 12px;
-  --padding-end: 12px;
-  --padding-top: 10px;
-  --padding-bottom: 10px;
-  --color: var(--black);
-  --placeholder-color: var(--gray-3);
   margin-bottom: 16px;
 }
 
-/* Focus en amplify-input: borde azul y fondo blanco */
-amplify-input:focus-within {
-  --border-color: var(--action);
-  --background: var(--white);
+.auth-logo {
+  max-width: 160px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-/* ===================== */
-/* Botones en Authenticator */
-/* ===================== */
-amplify-button--primary {
-  --background: var(--button-bg) !important;
-  --color: var(--button-text) !important;
-  --padding: 12px 0 !important;
-  --border-radius: 8px !important;
-  font-size: 1rem;
-  font-weight: 500;
-  width: 100%;
-  margin-top: 8px;
-  box-shadow: none !important;
-}
-amplify-button--primary:hover {
-  --background: var(--button-bg-hover) !important;
-}
-
-/* ===================== */
-/* “Forgot your password” */
-/* como botón de enlace  */
-/* ===================== */
-amplify-button--link {
-  --color: var(--action) !important;
-  font-size: 0.9rem;
-  margin-top: 8px;
-}
-
-/* ===================== */
-/* Header post-login     */
-/* ===================== */
+/* ============== */
+/* Header Styles  */
+/* ============== */
 ion-header {
-  background-color: var(--white);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid var(--gray-3);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  box-shadow: var(--shadow);
 }
+
 ion-toolbar {
   --background: transparent;
-  --color: var(--black);
-  padding: 0.75rem 1rem;
+  --color: var(--white);
+  padding: 0.5rem 1rem;
 }
+
 .header-logo {
   height: 28px;
   vertical-align: middle;
-  margin-right: 8px;
+  margin-right: 12px;
   filter: brightness(0) invert(1);
 }
 
-/* ===================== */
-/* Contenido principal   */
-/* ===================== */
+.nav-title {
+  font-family: "Comfortaa", cursive;
+  font-style: italic;
+  font-weight: 700; /* puedes usar 400 si lo quieres más delgado */
+  font-size: 1.4rem; /* ajusta el tamaño a tu gusto */
+  color: var(--white); /* o el color que necesites */
+}
+
+/* ============== */
+/* Content Styles */
+/* ============== */
 ion-content {
-  --background: var(--gray-1);
+  --background: var(--white);
   --padding-top: 1rem;
   --padding-bottom: 1rem;
   --padding-start: 1rem;
   --padding-end: 1rem;
 }
 
-/* ===================== */
-/* Responsive            */
-/* ===================== */
+/* ============== */
+/* Responsive     */
+/* ============== */
 @media (max-width: 768px) {
   .auth-logo {
     max-width: 140px;
@@ -135,6 +82,7 @@ ion-content {
     padding: 0.5rem 0.75rem;
   }
 }
+
 @media (max-width: 480px) {
   .auth-logo {
     max-width: 120px;
