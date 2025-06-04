@@ -1,80 +1,257 @@
-/* ============== */
-/* Variables       */
-/* ============== */
+/* ===================== */
+/* Tailwind / Ionic Core */
+/* ===================== */
+/* (En este momento no usamos @tailwind; solo cargamos CSS de Ionic) */
+@import "@ionic/angular/css/core.css";
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* ====================== */
+/* Ionic Optional CSS     */
+/* ====================== */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/* ===================== */
+/* Paleta de Colores     */
+/* ===================== */
 :root {
-  --primary: #3f51b5;
-  --primary-light: #5c6bc0;
+  /* Grises (de más claro a más oscuro) */
+  --gray-1: #f5f5f7; /* Gray No. 1: fondo general más claro */
+  --gray-2: #e1e1e5; /* Gray No. 2: contenedores e inputs */
+  --gray-3: #c8c8cc; /* Gray No. 3: bordes y elementos secundarios */
+
+  /* Negro (para textos principales) */
+  --black: #000000;
+
+  /* “Action” (azul principal para botones) */
+  --action: #2d9cdb;
+
+  /* Blanco puro (solo para textos sobre fondo oscuro o acentos) */
   --white: #ffffff;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  /* Variables de Ionic basadas en nuestra paleta */
+  --ion-background-color: var(--gray-1);
+  --ion-text-color: var(--black);
+  --ion-toolbar-background: var(--gray-1);
+  --ion-toolbar-color: var(--black);
+
+  --ion-color-primary: var(--action);
+  --ion-color-primary-rgb: 45, 156, 219;
+  --ion-color-primary-contrast: var(--white);
+  --ion-color-primary-shade: darken(var(--action), 15%);
+  --ion-color-primary-tint: lighten(var(--action), 15%);
 }
 
-/* ============== */
-/* Auth Container */
-/* ============== */
-.auth-logo-container {
-  text-align: center;
-  background-color: white;
-  height: 100px;
-  display: flex;
+/* ===================== */
+/* Estilos Base          */
+/* ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.auth-logo {
-  max-width: 180px;
-  height: auto;
-  margin: 0 auto;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+html,
+body,
+ion-app,
+.ion-page {
+  background-color: var(--gray-1);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  color: var(--black);
+  overflow-x: hidden;
 }
 
-/* ============== */
-/* Header Styles  */
-/* ============== */
-ion-header {
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
-}
-
-ion-toolbar {
-  --background: transparent;
-  --color: white;
-  padding: 0.5rem 1rem;
-}
-
-.header-logo {
-  height: 28px;
-  vertical-align: middle;
-  margin-right: 12px;
-  filter: brightness(0) invert(1);
-}
-
-/* ============== */
-/* Content Styles */
-/* ============== */
+/* ===================== */
+/* Ionic Content         */
+/* ===================== */
 ion-content {
-  --background: #f5f5f5;
-  --padding-top: 1rem;
-  --padding-bottom: 1rem;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
+  --background: var(--gray-1);
+  --color: var(--black);
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  --padding-start: 16px;
+  --padding-end: 16px;
 }
 
-/* ============== */
-/* Responsive     */
-/* ============== */
+/* ===================== */
+/* Ionic Cards           */
+/* ===================== */
+ion-card {
+  --background: var(
+    --gray-2
+  ) !important; /* Usamos Gray No. 2 para las tarjetas */
+  --color: var(--black) !important;
+  margin: 16px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--gray-3); /* Borde gris medio para diferenciar */
+}
+
+ion-card-header {
+  padding-bottom: 0;
+}
+
+ion-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--action); /* Título en azul */
+}
+
+ion-card-content {
+  padding-top: 14px;
+  font-size: 0.95rem;
+  color: var(--black);
+}
+
+/* ===================== */
+/* Ionic Items (listas)  */
+/* ===================== */
+ion-item {
+  --background: var(--gray-2); /* Gris No. 2 para cada elemento de lista */
+  --color: var(--black);
+  --border-color: var(--gray-3);
+  --border-width: 1px;
+  --inner-border-width: 1px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* ===================== */
+/* Campos de Input/Select/
+/* Textarea              */
+/* ===================== */
+ion-input,
+ion-textarea,
+ion-select {
+  --background: var(--gray-2); /* Fondo Gris No. 2 */
+  --color: var(--black);
+  --placeholder-color: var(--gray-3); /* Placeholder en Gris No. 3 */
+  --padding-start: 12px;
+  --padding-end: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-3); /* Borde Gris No. 3 */
+  box-shadow: none;
+  font-size: 1rem;
+  height: 44px;
+}
+
+/* Borde y fondo al enfocar */
+ion-input:focus-within,
+ion-select:focus-within,
+ion-textarea:focus-within {
+  border: 1px solid var(--action); /* Azul principal al foco */
+  background-color: var(--white);
+}
+
+/* ===================== */
+/* Botones               */
+/* ===================== */
+ion-button {
+  border-radius: 8px;
+  font-weight: 500;
+  text-transform: none;
+  --border-width: 1px;
+  --box-shadow: none;
+}
+
+/* Botones primarios (“Action”) */
+ion-button.ion-color-primary {
+  --background: var(--action);
+  --background-activated: var(
+    --action
+  ); /* Mismo azul, o puedes usar darken(#2d9cdb, 10%) */
+  --color: var(--white);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --border-radius: 8px;
+  --box-shadow: none;
+}
+
+/* Botones en estado deshabilitado */
+ion-button[disabled] {
+  --background: var(--gray-3); /* Gris No. 3 para indicar “off” */
+  --color: var(--white);
+}
+
+/* ===================== */
+/* Formularios de Wizard */
+/* ===================== */
+.form-section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--action);
+}
+
+.form-section-subtitle {
+  font-size: 0.9rem;
+  color: var(--gray-3);
+  margin-bottom: 8px;
+}
+
+/* ===================== */
+/* Tabs personalizados   */
+/* (si usas amplify-tabs) */
+/* ===================== */
+amplify-authenticator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--gray-1);
+  width: 100%;
+}
+
+.amplify-tabs {
+  width: 100%;
+  max-width: 380px;
+  background: var(--gray-2);
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.amplify-tabs-item {
+  font-weight: 500 !important;
+  color: var(--black) !important;
+  border-bottom: 2px solid transparent !important;
+  padding: 12px 0 !important;
+}
+
+.amplify-tabs-item[data-state="active"] {
+  color: var(--action) !important;
+  border-bottom-color: var(--action) !important;
+}
+
+/* ===================== */
+/* Botón principal en    */
+/* autenticación         */
+/* ===================== */
+.amplify-button--primary {
+  background-color: var(--action) !important;
+  width: 100%;
+  padding: 14px !important;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: none !important;
+}
+
+/* ===================== */
+/* Responsive            */
+/* ===================== */
 @media (max-width: 768px) {
-  .auth-logo {
-    max-width: 140px;
-  }
-
-  .header-logo {
-    height: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .auth-logo {
-    max-width: 120px;
-  }
-
-  ion-toolbar {
-    padding: 0.25rem;
+  ion-card {
+    margin: 12px;
   }
 }

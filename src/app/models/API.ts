@@ -2,6 +2,41 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
+export type Prospect = {
+  __typename: "Prospect",
+  agency?: string | null,
+  amountNeeded?: string | null,
+  annualRevenue: string,
+  businessImages?: string | null,
+  companyAddress: string,
+  companyName: string,
+  companySize: string,
+  createdAt?: string | null,
+  department: string,
+  economicSector: string,
+  favorableTerms?: string | null,
+  financingPurpose?: string | null,
+  financingTypeUsed?: string | null,
+  hadFinancingDifficulties: string,
+  id: string,
+  interestedFinancialAdvice: string,
+  interestedSpecializedPrograms: string,
+  legalForm: string,
+  locationCoordinates?: string | null,
+  locationType: string,
+  macroRegion: string,
+  mainChallenges?: string | null,
+  mainDifficultyReason?: string | null,
+  municipality: string,
+  needsFinancingCurrently: string,
+  region: string,
+  registrationDate: string,
+  requestedFinancingLast3Years: string,
+  updatedAt?: string | null,
+  userId: string,
+  yearsInOperation: string,
+};
+
 export type UserData = {
   __typename: "UserData",
   address: string,
@@ -26,21 +61,41 @@ export type UserProfile = {
   updatedAt?: string | null,
 };
 
-export type ModelUserDataFilterInput = {
-  address?: ModelStringInput | null,
-  and?: Array< ModelUserDataFilterInput | null > | null,
-  birthDate?: ModelStringInput | null,
+export type ModelProspectFilterInput = {
+  agency?: ModelStringInput | null,
+  amountNeeded?: ModelStringInput | null,
+  and?: Array< ModelProspectFilterInput | null > | null,
+  annualRevenue?: ModelStringInput | null,
+  businessImages?: ModelStringInput | null,
+  companyAddress?: ModelStringInput | null,
+  companyName?: ModelStringInput | null,
+  companySize?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  firstName?: ModelStringInput | null,
-  gender?: ModelStringInput | null,
+  department?: ModelStringInput | null,
+  economicSector?: ModelStringInput | null,
+  favorableTerms?: ModelStringInput | null,
+  financingPurpose?: ModelStringInput | null,
+  financingTypeUsed?: ModelStringInput | null,
+  hadFinancingDifficulties?: ModelStringInput | null,
   id?: ModelIDInput | null,
-  lastName?: ModelStringInput | null,
-  not?: ModelUserDataFilterInput | null,
-  occupation?: ModelStringInput | null,
-  or?: Array< ModelUserDataFilterInput | null > | null,
-  phone?: ModelStringInput | null,
+  interestedFinancialAdvice?: ModelStringInput | null,
+  interestedSpecializedPrograms?: ModelStringInput | null,
+  legalForm?: ModelStringInput | null,
+  locationCoordinates?: ModelStringInput | null,
+  locationType?: ModelStringInput | null,
+  macroRegion?: ModelStringInput | null,
+  mainChallenges?: ModelStringInput | null,
+  mainDifficultyReason?: ModelStringInput | null,
+  municipality?: ModelStringInput | null,
+  needsFinancingCurrently?: ModelStringInput | null,
+  not?: ModelProspectFilterInput | null,
+  or?: Array< ModelProspectFilterInput | null > | null,
+  region?: ModelStringInput | null,
+  registrationDate?: ModelStringInput | null,
+  requestedFinancingLast3Years?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  userId?: ModelStringInput | null,
+  yearsInOperation?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -105,6 +160,29 @@ export enum ModelSortDirection {
 }
 
 
+export type ModelProspectConnection = {
+  __typename: "ModelProspectConnection",
+  items:  Array<Prospect | null >,
+  nextToken?: string | null,
+};
+
+export type ModelUserDataFilterInput = {
+  address?: ModelStringInput | null,
+  and?: Array< ModelUserDataFilterInput | null > | null,
+  birthDate?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  firstName?: ModelStringInput | null,
+  gender?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  lastName?: ModelStringInput | null,
+  not?: ModelUserDataFilterInput | null,
+  occupation?: ModelStringInput | null,
+  or?: Array< ModelUserDataFilterInput | null > | null,
+  phone?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
 export type ModelUserDataConnection = {
   __typename: "ModelUserDataConnection",
   items:  Array<UserData | null >,
@@ -126,6 +204,76 @@ export type ModelUserProfileConnection = {
   __typename: "ModelUserProfileConnection",
   items:  Array<UserProfile | null >,
   nextToken?: string | null,
+};
+
+export type ModelProspectConditionInput = {
+  agency?: ModelStringInput | null,
+  amountNeeded?: ModelStringInput | null,
+  and?: Array< ModelProspectConditionInput | null > | null,
+  annualRevenue?: ModelStringInput | null,
+  businessImages?: ModelStringInput | null,
+  companyAddress?: ModelStringInput | null,
+  companyName?: ModelStringInput | null,
+  companySize?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  department?: ModelStringInput | null,
+  economicSector?: ModelStringInput | null,
+  favorableTerms?: ModelStringInput | null,
+  financingPurpose?: ModelStringInput | null,
+  financingTypeUsed?: ModelStringInput | null,
+  hadFinancingDifficulties?: ModelStringInput | null,
+  interestedFinancialAdvice?: ModelStringInput | null,
+  interestedSpecializedPrograms?: ModelStringInput | null,
+  legalForm?: ModelStringInput | null,
+  locationCoordinates?: ModelStringInput | null,
+  locationType?: ModelStringInput | null,
+  macroRegion?: ModelStringInput | null,
+  mainChallenges?: ModelStringInput | null,
+  mainDifficultyReason?: ModelStringInput | null,
+  municipality?: ModelStringInput | null,
+  needsFinancingCurrently?: ModelStringInput | null,
+  not?: ModelProspectConditionInput | null,
+  or?: Array< ModelProspectConditionInput | null > | null,
+  region?: ModelStringInput | null,
+  registrationDate?: ModelStringInput | null,
+  requestedFinancingLast3Years?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  userId?: ModelStringInput | null,
+  yearsInOperation?: ModelStringInput | null,
+};
+
+export type CreateProspectInput = {
+  agency?: string | null,
+  amountNeeded?: string | null,
+  annualRevenue: string,
+  businessImages?: string | null,
+  companyAddress: string,
+  companyName: string,
+  companySize: string,
+  createdAt?: string | null,
+  department: string,
+  economicSector: string,
+  favorableTerms?: string | null,
+  financingPurpose?: string | null,
+  financingTypeUsed?: string | null,
+  hadFinancingDifficulties: string,
+  id?: string | null,
+  interestedFinancialAdvice: string,
+  interestedSpecializedPrograms: string,
+  legalForm: string,
+  locationCoordinates?: string | null,
+  locationType: string,
+  macroRegion: string,
+  mainChallenges?: string | null,
+  mainDifficultyReason?: string | null,
+  municipality: string,
+  needsFinancingCurrently: string,
+  region: string,
+  registrationDate: string,
+  requestedFinancingLast3Years: string,
+  updatedAt?: string | null,
+  userId: string,
+  yearsInOperation: string,
 };
 
 export type ModelUserDataConditionInput = {
@@ -176,12 +324,50 @@ export type CreateUserProfileInput = {
   updatedAt?: string | null,
 };
 
+export type DeleteProspectInput = {
+  id: string,
+};
+
 export type DeleteUserDataInput = {
   id: string,
 };
 
 export type DeleteUserProfileInput = {
   id: string,
+};
+
+export type UpdateProspectInput = {
+  agency?: string | null,
+  amountNeeded?: string | null,
+  annualRevenue?: string | null,
+  businessImages?: string | null,
+  companyAddress?: string | null,
+  companyName?: string | null,
+  companySize?: string | null,
+  createdAt?: string | null,
+  department?: string | null,
+  economicSector?: string | null,
+  favorableTerms?: string | null,
+  financingPurpose?: string | null,
+  financingTypeUsed?: string | null,
+  hadFinancingDifficulties?: string | null,
+  id: string,
+  interestedFinancialAdvice?: string | null,
+  interestedSpecializedPrograms?: string | null,
+  legalForm?: string | null,
+  locationCoordinates?: string | null,
+  locationType?: string | null,
+  macroRegion?: string | null,
+  mainChallenges?: string | null,
+  mainDifficultyReason?: string | null,
+  municipality?: string | null,
+  needsFinancingCurrently?: string | null,
+  region?: string | null,
+  registrationDate?: string | null,
+  requestedFinancingLast3Years?: string | null,
+  updatedAt?: string | null,
+  userId?: string | null,
+  yearsInOperation?: string | null,
 };
 
 export type UpdateUserDataInput = {
@@ -206,20 +392,40 @@ export type UpdateUserProfileInput = {
   updatedAt?: string | null,
 };
 
-export type ModelSubscriptionUserDataFilterInput = {
-  address?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserDataFilterInput | null > | null,
-  birthDate?: ModelSubscriptionStringInput | null,
+export type ModelSubscriptionProspectFilterInput = {
+  agency?: ModelSubscriptionStringInput | null,
+  amountNeeded?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionProspectFilterInput | null > | null,
+  annualRevenue?: ModelSubscriptionStringInput | null,
+  businessImages?: ModelSubscriptionStringInput | null,
+  companyAddress?: ModelSubscriptionStringInput | null,
+  companyName?: ModelSubscriptionStringInput | null,
+  companySize?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  firstName?: ModelSubscriptionStringInput | null,
-  gender?: ModelSubscriptionStringInput | null,
+  department?: ModelSubscriptionStringInput | null,
+  economicSector?: ModelSubscriptionStringInput | null,
+  favorableTerms?: ModelSubscriptionStringInput | null,
+  financingPurpose?: ModelSubscriptionStringInput | null,
+  financingTypeUsed?: ModelSubscriptionStringInput | null,
+  hadFinancingDifficulties?: ModelSubscriptionStringInput | null,
   id?: ModelSubscriptionIDInput | null,
-  lastName?: ModelSubscriptionStringInput | null,
-  occupation?: ModelSubscriptionStringInput | null,
-  or?: Array< ModelSubscriptionUserDataFilterInput | null > | null,
-  phone?: ModelSubscriptionStringInput | null,
+  interestedFinancialAdvice?: ModelSubscriptionStringInput | null,
+  interestedSpecializedPrograms?: ModelSubscriptionStringInput | null,
+  legalForm?: ModelSubscriptionStringInput | null,
+  locationCoordinates?: ModelSubscriptionStringInput | null,
+  locationType?: ModelSubscriptionStringInput | null,
+  macroRegion?: ModelSubscriptionStringInput | null,
+  mainChallenges?: ModelSubscriptionStringInput | null,
+  mainDifficultyReason?: ModelSubscriptionStringInput | null,
+  municipality?: ModelSubscriptionStringInput | null,
+  needsFinancingCurrently?: ModelSubscriptionStringInput | null,
+  or?: Array< ModelSubscriptionProspectFilterInput | null > | null,
+  region?: ModelSubscriptionStringInput | null,
+  registrationDate?: ModelSubscriptionStringInput | null,
+  requestedFinancingLast3Years?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
+  userId?: ModelStringInput | null,
+  yearsInOperation?: ModelSubscriptionStringInput | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -252,6 +458,22 @@ export type ModelSubscriptionIDInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionUserDataFilterInput = {
+  address?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserDataFilterInput | null > | null,
+  birthDate?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  firstName?: ModelSubscriptionStringInput | null,
+  gender?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  lastName?: ModelSubscriptionStringInput | null,
+  occupation?: ModelSubscriptionStringInput | null,
+  or?: Array< ModelSubscriptionUserDataFilterInput | null > | null,
+  phone?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+};
+
 export type ModelSubscriptionUserProfileFilterInput = {
   and?: Array< ModelSubscriptionUserProfileFilterInput | null > | null,
   createdAt?: ModelSubscriptionStringInput | null,
@@ -260,6 +482,47 @@ export type ModelSubscriptionUserProfileFilterInput = {
   or?: Array< ModelSubscriptionUserProfileFilterInput | null > | null,
   role?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
+};
+
+export type GetProspectQueryVariables = {
+  id: string,
+};
+
+export type GetProspectQuery = {
+  getProspect?:  {
+    __typename: "Prospect",
+    agency?: string | null,
+    amountNeeded?: string | null,
+    annualRevenue: string,
+    businessImages?: string | null,
+    companyAddress: string,
+    companyName: string,
+    companySize: string,
+    createdAt?: string | null,
+    department: string,
+    economicSector: string,
+    favorableTerms?: string | null,
+    financingPurpose?: string | null,
+    financingTypeUsed?: string | null,
+    hadFinancingDifficulties: string,
+    id: string,
+    interestedFinancialAdvice: string,
+    interestedSpecializedPrograms: string,
+    legalForm: string,
+    locationCoordinates?: string | null,
+    locationType: string,
+    macroRegion: string,
+    mainChallenges?: string | null,
+    mainDifficultyReason?: string | null,
+    municipality: string,
+    needsFinancingCurrently: string,
+    region: string,
+    registrationDate: string,
+    requestedFinancingLast3Years: string,
+    updatedAt?: string | null,
+    userId: string,
+    yearsInOperation: string,
+  } | null,
 };
 
 export type GetUserDataQueryVariables = {
@@ -295,6 +558,55 @@ export type GetUserProfileQuery = {
     id: string,
     role: string,
     updatedAt?: string | null,
+  } | null,
+};
+
+export type ListProspectsQueryVariables = {
+  filter?: ModelProspectFilterInput | null,
+  id?: string | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListProspectsQuery = {
+  listProspects?:  {
+    __typename: "ModelProspectConnection",
+    items:  Array< {
+      __typename: "Prospect",
+      agency?: string | null,
+      amountNeeded?: string | null,
+      annualRevenue: string,
+      businessImages?: string | null,
+      companyAddress: string,
+      companyName: string,
+      companySize: string,
+      createdAt?: string | null,
+      department: string,
+      economicSector: string,
+      favorableTerms?: string | null,
+      financingPurpose?: string | null,
+      financingTypeUsed?: string | null,
+      hadFinancingDifficulties: string,
+      id: string,
+      interestedFinancialAdvice: string,
+      interestedSpecializedPrograms: string,
+      legalForm: string,
+      locationCoordinates?: string | null,
+      locationType: string,
+      macroRegion: string,
+      mainChallenges?: string | null,
+      mainDifficultyReason?: string | null,
+      municipality: string,
+      needsFinancingCurrently: string,
+      region: string,
+      registrationDate: string,
+      requestedFinancingLast3Years: string,
+      updatedAt?: string | null,
+      userId: string,
+      yearsInOperation: string,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -350,6 +662,48 @@ export type ListUserProfilesQuery = {
   } | null,
 };
 
+export type CreateProspectMutationVariables = {
+  condition?: ModelProspectConditionInput | null,
+  input: CreateProspectInput,
+};
+
+export type CreateProspectMutation = {
+  createProspect?:  {
+    __typename: "Prospect",
+    agency?: string | null,
+    amountNeeded?: string | null,
+    annualRevenue: string,
+    businessImages?: string | null,
+    companyAddress: string,
+    companyName: string,
+    companySize: string,
+    createdAt?: string | null,
+    department: string,
+    economicSector: string,
+    favorableTerms?: string | null,
+    financingPurpose?: string | null,
+    financingTypeUsed?: string | null,
+    hadFinancingDifficulties: string,
+    id: string,
+    interestedFinancialAdvice: string,
+    interestedSpecializedPrograms: string,
+    legalForm: string,
+    locationCoordinates?: string | null,
+    locationType: string,
+    macroRegion: string,
+    mainChallenges?: string | null,
+    mainDifficultyReason?: string | null,
+    municipality: string,
+    needsFinancingCurrently: string,
+    region: string,
+    registrationDate: string,
+    requestedFinancingLast3Years: string,
+    updatedAt?: string | null,
+    userId: string,
+    yearsInOperation: string,
+  } | null,
+};
+
 export type CreateUserDataMutationVariables = {
   condition?: ModelUserDataConditionInput | null,
   input: CreateUserDataInput,
@@ -385,6 +739,48 @@ export type CreateUserProfileMutation = {
     id: string,
     role: string,
     updatedAt?: string | null,
+  } | null,
+};
+
+export type DeleteProspectMutationVariables = {
+  condition?: ModelProspectConditionInput | null,
+  input: DeleteProspectInput,
+};
+
+export type DeleteProspectMutation = {
+  deleteProspect?:  {
+    __typename: "Prospect",
+    agency?: string | null,
+    amountNeeded?: string | null,
+    annualRevenue: string,
+    businessImages?: string | null,
+    companyAddress: string,
+    companyName: string,
+    companySize: string,
+    createdAt?: string | null,
+    department: string,
+    economicSector: string,
+    favorableTerms?: string | null,
+    financingPurpose?: string | null,
+    financingTypeUsed?: string | null,
+    hadFinancingDifficulties: string,
+    id: string,
+    interestedFinancialAdvice: string,
+    interestedSpecializedPrograms: string,
+    legalForm: string,
+    locationCoordinates?: string | null,
+    locationType: string,
+    macroRegion: string,
+    mainChallenges?: string | null,
+    mainDifficultyReason?: string | null,
+    municipality: string,
+    needsFinancingCurrently: string,
+    region: string,
+    registrationDate: string,
+    requestedFinancingLast3Years: string,
+    updatedAt?: string | null,
+    userId: string,
+    yearsInOperation: string,
   } | null,
 };
 
@@ -426,6 +822,48 @@ export type DeleteUserProfileMutation = {
   } | null,
 };
 
+export type UpdateProspectMutationVariables = {
+  condition?: ModelProspectConditionInput | null,
+  input: UpdateProspectInput,
+};
+
+export type UpdateProspectMutation = {
+  updateProspect?:  {
+    __typename: "Prospect",
+    agency?: string | null,
+    amountNeeded?: string | null,
+    annualRevenue: string,
+    businessImages?: string | null,
+    companyAddress: string,
+    companyName: string,
+    companySize: string,
+    createdAt?: string | null,
+    department: string,
+    economicSector: string,
+    favorableTerms?: string | null,
+    financingPurpose?: string | null,
+    financingTypeUsed?: string | null,
+    hadFinancingDifficulties: string,
+    id: string,
+    interestedFinancialAdvice: string,
+    interestedSpecializedPrograms: string,
+    legalForm: string,
+    locationCoordinates?: string | null,
+    locationType: string,
+    macroRegion: string,
+    mainChallenges?: string | null,
+    mainDifficultyReason?: string | null,
+    municipality: string,
+    needsFinancingCurrently: string,
+    region: string,
+    registrationDate: string,
+    requestedFinancingLast3Years: string,
+    updatedAt?: string | null,
+    userId: string,
+    yearsInOperation: string,
+  } | null,
+};
+
 export type UpdateUserDataMutationVariables = {
   condition?: ModelUserDataConditionInput | null,
   input: UpdateUserDataInput,
@@ -461,6 +899,48 @@ export type UpdateUserProfileMutation = {
     id: string,
     role: string,
     updatedAt?: string | null,
+  } | null,
+};
+
+export type OnCreateProspectSubscriptionVariables = {
+  filter?: ModelSubscriptionProspectFilterInput | null,
+  userId?: string | null,
+};
+
+export type OnCreateProspectSubscription = {
+  onCreateProspect?:  {
+    __typename: "Prospect",
+    agency?: string | null,
+    amountNeeded?: string | null,
+    annualRevenue: string,
+    businessImages?: string | null,
+    companyAddress: string,
+    companyName: string,
+    companySize: string,
+    createdAt?: string | null,
+    department: string,
+    economicSector: string,
+    favorableTerms?: string | null,
+    financingPurpose?: string | null,
+    financingTypeUsed?: string | null,
+    hadFinancingDifficulties: string,
+    id: string,
+    interestedFinancialAdvice: string,
+    interestedSpecializedPrograms: string,
+    legalForm: string,
+    locationCoordinates?: string | null,
+    locationType: string,
+    macroRegion: string,
+    mainChallenges?: string | null,
+    mainDifficultyReason?: string | null,
+    municipality: string,
+    needsFinancingCurrently: string,
+    region: string,
+    registrationDate: string,
+    requestedFinancingLast3Years: string,
+    updatedAt?: string | null,
+    userId: string,
+    yearsInOperation: string,
   } | null,
 };
 
@@ -501,6 +981,48 @@ export type OnCreateUserProfileSubscription = {
   } | null,
 };
 
+export type OnDeleteProspectSubscriptionVariables = {
+  filter?: ModelSubscriptionProspectFilterInput | null,
+  userId?: string | null,
+};
+
+export type OnDeleteProspectSubscription = {
+  onDeleteProspect?:  {
+    __typename: "Prospect",
+    agency?: string | null,
+    amountNeeded?: string | null,
+    annualRevenue: string,
+    businessImages?: string | null,
+    companyAddress: string,
+    companyName: string,
+    companySize: string,
+    createdAt?: string | null,
+    department: string,
+    economicSector: string,
+    favorableTerms?: string | null,
+    financingPurpose?: string | null,
+    financingTypeUsed?: string | null,
+    hadFinancingDifficulties: string,
+    id: string,
+    interestedFinancialAdvice: string,
+    interestedSpecializedPrograms: string,
+    legalForm: string,
+    locationCoordinates?: string | null,
+    locationType: string,
+    macroRegion: string,
+    mainChallenges?: string | null,
+    mainDifficultyReason?: string | null,
+    municipality: string,
+    needsFinancingCurrently: string,
+    region: string,
+    registrationDate: string,
+    requestedFinancingLast3Years: string,
+    updatedAt?: string | null,
+    userId: string,
+    yearsInOperation: string,
+  } | null,
+};
+
 export type OnDeleteUserDataSubscriptionVariables = {
   filter?: ModelSubscriptionUserDataFilterInput | null,
 };
@@ -535,6 +1057,48 @@ export type OnDeleteUserProfileSubscription = {
     id: string,
     role: string,
     updatedAt?: string | null,
+  } | null,
+};
+
+export type OnUpdateProspectSubscriptionVariables = {
+  filter?: ModelSubscriptionProspectFilterInput | null,
+  userId?: string | null,
+};
+
+export type OnUpdateProspectSubscription = {
+  onUpdateProspect?:  {
+    __typename: "Prospect",
+    agency?: string | null,
+    amountNeeded?: string | null,
+    annualRevenue: string,
+    businessImages?: string | null,
+    companyAddress: string,
+    companyName: string,
+    companySize: string,
+    createdAt?: string | null,
+    department: string,
+    economicSector: string,
+    favorableTerms?: string | null,
+    financingPurpose?: string | null,
+    financingTypeUsed?: string | null,
+    hadFinancingDifficulties: string,
+    id: string,
+    interestedFinancialAdvice: string,
+    interestedSpecializedPrograms: string,
+    legalForm: string,
+    locationCoordinates?: string | null,
+    locationType: string,
+    macroRegion: string,
+    mainChallenges?: string | null,
+    mainDifficultyReason?: string | null,
+    municipality: string,
+    needsFinancingCurrently: string,
+    region: string,
+    registrationDate: string,
+    requestedFinancingLast3Years: string,
+    updatedAt?: string | null,
+    userId: string,
+    yearsInOperation: string,
   } | null,
 };
 

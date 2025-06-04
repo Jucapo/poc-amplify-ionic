@@ -8,6 +8,49 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateProspect = /* GraphQL */ `subscription OnCreateProspect(
+  $filter: ModelSubscriptionProspectFilterInput
+  $userId: String
+) {
+  onCreateProspect(filter: $filter, userId: $userId) {
+    agency
+    amountNeeded
+    annualRevenue
+    businessImages
+    companyAddress
+    companyName
+    companySize
+    createdAt
+    department
+    economicSector
+    favorableTerms
+    financingPurpose
+    financingTypeUsed
+    hadFinancingDifficulties
+    id
+    interestedFinancialAdvice
+    interestedSpecializedPrograms
+    legalForm
+    locationCoordinates
+    locationType
+    macroRegion
+    mainChallenges
+    mainDifficultyReason
+    municipality
+    needsFinancingCurrently
+    region
+    registrationDate
+    requestedFinancingLast3Years
+    updatedAt
+    userId
+    yearsInOperation
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateProspectSubscriptionVariables,
+  APITypes.OnCreateProspectSubscription
+>;
 export const onCreateUserData = /* GraphQL */ `subscription OnCreateUserData($filter: ModelSubscriptionUserDataFilterInput) {
   onCreateUserData(filter: $filter) {
     address
@@ -45,6 +88,49 @@ export const onCreateUserProfile = /* GraphQL */ `subscription OnCreateUserProfi
   APITypes.OnCreateUserProfileSubscriptionVariables,
   APITypes.OnCreateUserProfileSubscription
 >;
+export const onDeleteProspect = /* GraphQL */ `subscription OnDeleteProspect(
+  $filter: ModelSubscriptionProspectFilterInput
+  $userId: String
+) {
+  onDeleteProspect(filter: $filter, userId: $userId) {
+    agency
+    amountNeeded
+    annualRevenue
+    businessImages
+    companyAddress
+    companyName
+    companySize
+    createdAt
+    department
+    economicSector
+    favorableTerms
+    financingPurpose
+    financingTypeUsed
+    hadFinancingDifficulties
+    id
+    interestedFinancialAdvice
+    interestedSpecializedPrograms
+    legalForm
+    locationCoordinates
+    locationType
+    macroRegion
+    mainChallenges
+    mainDifficultyReason
+    municipality
+    needsFinancingCurrently
+    region
+    registrationDate
+    requestedFinancingLast3Years
+    updatedAt
+    userId
+    yearsInOperation
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteProspectSubscriptionVariables,
+  APITypes.OnDeleteProspectSubscription
+>;
 export const onDeleteUserData = /* GraphQL */ `subscription OnDeleteUserData($filter: ModelSubscriptionUserDataFilterInput) {
   onDeleteUserData(filter: $filter) {
     address
@@ -81,6 +167,49 @@ export const onDeleteUserProfile = /* GraphQL */ `subscription OnDeleteUserProfi
 ` as GeneratedSubscription<
   APITypes.OnDeleteUserProfileSubscriptionVariables,
   APITypes.OnDeleteUserProfileSubscription
+>;
+export const onUpdateProspect = /* GraphQL */ `subscription OnUpdateProspect(
+  $filter: ModelSubscriptionProspectFilterInput
+  $userId: String
+) {
+  onUpdateProspect(filter: $filter, userId: $userId) {
+    agency
+    amountNeeded
+    annualRevenue
+    businessImages
+    companyAddress
+    companyName
+    companySize
+    createdAt
+    department
+    economicSector
+    favorableTerms
+    financingPurpose
+    financingTypeUsed
+    hadFinancingDifficulties
+    id
+    interestedFinancialAdvice
+    interestedSpecializedPrograms
+    legalForm
+    locationCoordinates
+    locationType
+    macroRegion
+    mainChallenges
+    mainDifficultyReason
+    municipality
+    needsFinancingCurrently
+    region
+    registrationDate
+    requestedFinancingLast3Years
+    updatedAt
+    userId
+    yearsInOperation
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateProspectSubscriptionVariables,
+  APITypes.OnUpdateProspectSubscription
 >;
 export const onUpdateUserData = /* GraphQL */ `subscription OnUpdateUserData($filter: ModelSubscriptionUserDataFilterInput) {
   onUpdateUserData(filter: $filter) {

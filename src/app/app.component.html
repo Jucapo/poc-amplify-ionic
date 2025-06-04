@@ -3,14 +3,16 @@
 </ng-container>
 
 <ng-template #authFlow>
-  <amplify-authenticator>
-    <!-- Logo y configuración de autenticación -->
-    <ng-template amplifySlot="header">
+  <!-- Ocultamos la opción de “Create Account” -->
+  <amplify-authenticator [hideSignUp]="true">
+    <!-- Slot de cabecera (logo, etc.) -->
+    <!-- <ng-template amplifySlot="header">
       <div class="auth-logo-container">
         <img src="assets/Logo.svg" alt="Logo" class="auth-logo" />
       </div>
-    </ng-template>
+    </ng-template> -->
 
+    <!-- Slot que se renderiza cuando el usuario ya está autenticado -->
     <ng-template
       amplifySlot="authenticated"
       let-user="user"
@@ -21,7 +23,7 @@
           <ion-toolbar>
             <ion-title>
               <img src="assets/Logo-1.svg" alt="Logo" class="header-logo" />
-              POC Amplify
+              BANRURAL
             </ion-title>
             <ion-buttons slot="end">
               <ion-button (click)="signOut()" fill="clear">
