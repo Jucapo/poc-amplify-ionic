@@ -1,257 +1,145 @@
-/* ===================== */
-/* Tailwind / Ionic Core */
-/* ===================== */
-/* (En este momento no usamos @tailwind; solo cargamos CSS de Ionic) */
-@import "@ionic/angular/css/core.css";
-@import "@ionic/angular/css/normalize.css";
-@import "@ionic/angular/css/structure.css";
-@import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
+/* ================================= */
+/*   app.component.scss (solo styles no relacionados con el contenedor interno del login)   */
+/* ================================= */
 
-/* ====================== */
-/* Ionic Optional CSS     */
-/* ====================== */
-@import "@ionic/angular/css/padding.css";
-@import "@ionic/angular/css/float-elements.css";
-@import "@ionic/angular/css/text-alignment.css";
-@import "@ionic/angular/css/text-transformation.css";
-@import "@ionic/angular/css/flex-utils.css";
-
-/* ===================== */
-/* Paleta de Colores     */
-/* ===================== */
+/* Variables locales (no cambian) */
 :root {
-  /* Grises (de más claro a más oscuro) */
-  --gray-1: #f5f5f7; /* Gray No. 1: fondo general más claro */
-  --gray-2: #e1e1e5; /* Gray No. 2: contenedores e inputs */
-  --gray-3: #c8c8cc; /* Gray No. 3: bordes y elementos secundarios */
-
-  /* Negro (para textos principales) */
-  --black: #000000;
-
-  /* “Action” (azul principal para botones) */
-  --action: #2d9cdb;
-
-  /* Blanco puro (solo para textos sobre fondo oscuro o acentos) */
-  --white: #ffffff;
-
-  /* Variables de Ionic basadas en nuestra paleta */
-  --ion-background-color: var(--gray-1);
-  --ion-text-color: var(--black);
-  --ion-toolbar-background: var(--gray-1);
-  --ion-toolbar-color: var(--black);
-
-  --ion-color-primary: var(--action);
-  --ion-color-primary-rgb: 45, 156, 219;
-  --ion-color-primary-contrast: var(--white);
-  --ion-color-primary-shade: darken(var(--action), 15%);
-  --ion-color-primary-tint: lighten(var(--action), 15%);
+  --auth-bg: var(--gray-1);
+  --form-bg: var(--gray-2);
+  --input-bg: var(--gray-2);
+  --input-border: var(--gray-3);
+  --button-bg: var(--action);
+  --button-bg-hover: var(--action);
+  --button-text: var(--white);
 }
 
 /* ===================== */
-/* Estilos Base          */
-/* ===================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body,
-ion-app,
-.ion-page {
-  background-color: var(--gray-1);
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  min-height: 100vh;
-  color: var(--black);
-  overflow-x: hidden;
-}
-
-/* ===================== */
-/* Ionic Content         */
-/* ===================== */
-ion-content {
-  --background: var(--gray-1);
-  --color: var(--black);
-  --padding-top: 20px;
-  --padding-bottom: 20px;
-  --padding-start: 16px;
-  --padding-end: 16px;
-}
-
-/* ===================== */
-/* Ionic Cards           */
-/* ===================== */
-ion-card {
-  --background: var(
-    --gray-2
-  ) !important; /* Usamos Gray No. 2 para las tarjetas */
-  --color: var(--black) !important;
-  margin: 16px;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--gray-3); /* Borde gris medio para diferenciar */
-}
-
-ion-card-header {
-  padding-bottom: 0;
-}
-
-ion-card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--action); /* Título en azul */
-}
-
-ion-card-content {
-  padding-top: 14px;
-  font-size: 0.95rem;
-  color: var(--black);
-}
-
-/* ===================== */
-/* Ionic Items (listas)  */
-/* ===================== */
-ion-item {
-  --background: var(--gray-2); /* Gris No. 2 para cada elemento de lista */
-  --color: var(--black);
-  --border-color: var(--gray-3);
-  --border-width: 1px;
-  --inner-border-width: 1px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-
-/* ===================== */
-/* Campos de Input/Select/
-/* Textarea              */
-/* ===================== */
-ion-input,
-ion-textarea,
-ion-select {
-  --background: var(--gray-2); /* Fondo Gris No. 2 */
-  --color: var(--black);
-  --placeholder-color: var(--gray-3); /* Placeholder en Gris No. 3 */
-  --padding-start: 12px;
-  --padding-end: 12px;
-  border-radius: 8px;
-  border: 1px solid var(--gray-3); /* Borde Gris No. 3 */
-  box-shadow: none;
-  font-size: 1rem;
-  height: 44px;
-}
-
-/* Borde y fondo al enfocar */
-ion-input:focus-within,
-ion-select:focus-within,
-ion-textarea:focus-within {
-  border: 1px solid var(--action); /* Azul principal al foco */
-  background-color: var(--white);
-}
-
-/* ===================== */
-/* Botones               */
-/* ===================== */
-ion-button {
-  border-radius: 8px;
-  font-weight: 500;
-  text-transform: none;
-  --border-width: 1px;
-  --box-shadow: none;
-}
-
-/* Botones primarios (“Action”) */
-ion-button.ion-color-primary {
-  --background: var(--action);
-  --background-activated: var(
-    --action
-  ); /* Mismo azul, o puedes usar darken(#2d9cdb, 10%) */
-  --color: var(--white);
-  --padding-start: 16px;
-  --padding-end: 16px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
-  --border-radius: 8px;
-  --box-shadow: none;
-}
-
-/* Botones en estado deshabilitado */
-ion-button[disabled] {
-  --background: var(--gray-3); /* Gris No. 3 para indicar “off” */
-  --color: var(--white);
-}
-
-/* ===================== */
-/* Formularios de Wizard */
-/* ===================== */
-.form-section-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: var(--action);
-}
-
-.form-section-subtitle {
-  font-size: 0.9rem;
-  color: var(--gray-3);
-  margin-bottom: 8px;
-}
-
-/* ===================== */
-/* Tabs personalizados   */
-/* (si usas amplify-tabs) */
+/* Contenedor de Auth    */
+/* (solo para centrar verticalmente) */
 /* ===================== */
 amplify-authenticator {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: var(--gray-1);
+  background: var(--auth-bg);
+  padding: 16px;
   width: 100%;
 }
 
-.amplify-tabs {
-  width: 100%;
+/* ===================== */
+/* (Opcional) Si quedara .amplify-form-section en algunos casos: */
+/* ===================== */
+.amplify-form-section {
   max-width: 380px;
-  background: var(--gray-2);
-  border-radius: 12px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-}
-
-.amplify-tabs-item {
-  font-weight: 500 !important;
-  color: var(--black) !important;
-  border-bottom: 2px solid transparent !important;
-  padding: 12px 0 !important;
-}
-
-.amplify-tabs-item[data-state="active"] {
-  color: var(--action) !important;
-  border-bottom-color: var(--action) !important;
-}
-
-/* ===================== */
-/* Botón principal en    */
-/* autenticación         */
-/* ===================== */
-.amplify-button--primary {
-  background-color: var(--action) !important;
   width: 100%;
-  padding: 14px !important;
-  border-radius: 8px;
+  background: var(--form-bg);
+  border-radius: 12px; /* Solo si esa clase aún existe en el DOM */
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  padding: 24px 16px;
+}
+
+/* ===================== */
+/* Estilos para los campos dentro de Amplify Auth */
+/* ===================== */
+amplify-input {
+  --background: var(--input-bg);
+  --border-radius: 8px;
+  --border-color: var(--input-border);
+  --border-width: 1px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  --color: var(--black);
+  --placeholder-color: var(--gray-3);
+  margin-bottom: 16px;
+}
+
+/* Focus en amplify-input: borde azul y fondo blanco */
+amplify-input:focus-within {
+  --border-color: var(--action);
+  --background: var(--white);
+}
+
+/* ===================== */
+/* Botones en Authenticator */
+/* ===================== */
+amplify-button--primary {
+  --background: var(--button-bg) !important;
+  --color: var(--button-text) !important;
+  --padding: 12px 0 !important;
+  --border-radius: 8px !important;
   font-size: 1rem;
   font-weight: 500;
+  width: 100%;
+  margin-top: 8px;
   box-shadow: none !important;
+}
+amplify-button--primary:hover {
+  --background: var(--button-bg-hover) !important;
+}
+
+/* ===================== */
+/* “Forgot your password” */
+/* como botón de enlace  */
+/* ===================== */
+amplify-button--link {
+  --color: var(--action) !important;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+/* ===================== */
+/* Header post-login     */
+/* ===================== */
+ion-header {
+  background-color: var(--white);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--gray-3);
+}
+ion-toolbar {
+  --background: transparent;
+  --color: var(--black);
+  padding: 0.75rem 1rem;
+}
+.header-logo {
+  height: 28px;
+  vertical-align: middle;
+  margin-right: 8px;
+  filter: brightness(0) invert(1);
+}
+
+/* ===================== */
+/* Contenido principal   */
+/* ===================== */
+ion-content {
+  --background: var(--gray-1);
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
 }
 
 /* ===================== */
 /* Responsive            */
 /* ===================== */
 @media (max-width: 768px) {
-  ion-card {
-    margin: 12px;
+  .auth-logo {
+    max-width: 140px;
+  }
+  .header-logo {
+    height: 24px;
+  }
+  ion-toolbar {
+    padding: 0.5rem 0.75rem;
+  }
+}
+@media (max-width: 480px) {
+  .auth-logo {
+    max-width: 120px;
+  }
+  ion-toolbar {
+    padding: 0.25rem 0.5rem;
   }
 }

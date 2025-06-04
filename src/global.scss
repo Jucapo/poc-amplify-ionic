@@ -1,7 +1,7 @@
-/* ===================== */
-/* Tailwind / Ionic Core */
-/* ===================== */
-/* (En este momento no usamos @tailwind; solo cargamos CSS de Ionic) */
+/* ========================== */
+/* 1. Ionic Core + Opcional   */
+/* ========================== */
+/* Cargas los estilos base de Ionic */
 @import "@ionic/angular/css/core.css";
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
@@ -17,25 +17,25 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/* ===================== */
-/* Paleta de Colores     */
-/* ===================== */
+/* ========================== */
+/* 2. Paleta de Colores Global */
+/* ========================== */
 :root {
   /* Grises (de más claro a más oscuro) */
-  --gray-1: #f5f5f7; /* Gray No. 1: fondo general más claro */
-  --gray-2: #e1e1e5; /* Gray No. 2: contenedores e inputs */
-  --gray-3: #c8c8cc; /* Gray No. 3: bordes y elementos secundarios */
+  --gray-1: #f5f5f7; /* Fondo general muy claro */
+  --gray-2: #e1e1e5; /* Contenedores e inputs */
+  --gray-3: #c8c8cc; /* Bordes y elementos secundarios */
 
-  /* Negro (para textos principales) */
+  /* Negro para texto principal */
   --black: #000000;
 
-  /* “Action” (azul principal para botones) */
+  /* Azul “Action” (botones principales) */
   --action: #2d9cdb;
 
-  /* Blanco puro (solo para textos sobre fondo oscuro o acentos) */
+  /* Blanco puro (para textos o botones sobre fondo oscuro) */
   --white: #ffffff;
 
-  /* Variables de Ionic basadas en nuestra paleta */
+  /* Variables internas de Ionic basadas en nuestra paleta */
   --ion-background-color: var(--gray-1);
   --ion-text-color: var(--black);
   --ion-toolbar-background: var(--gray-1);
@@ -44,13 +44,36 @@
   --ion-color-primary: var(--action);
   --ion-color-primary-rgb: 45, 156, 219;
   --ion-color-primary-contrast: var(--white);
-  --ion-color-primary-shade: darken(var(--action), 15%);
-  --ion-color-primary-tint: lighten(var(--action), 15%);
+
+  /* Si tu preprocesador no admite “darken/lighten()”, reemplaza con hex manuales */
+  --ion-color-primary-shade: #1f78b4; /* ejemplo de un 15% más oscuro */
+  --ion-color-primary-tint: #6ec1ff; /* ejemplo de un 15% más claro */
 }
 
-/* ===================== */
-/* Estilos Base          */
-/* ===================== */
+/* ============================================== */
+/* 3. CUSTOM PROPERTIES PARA AMPLIFY AUTHENTICATOR  */
+/*    (estas sí “alcanzan” el Shadow DOM de Amplify) */
+/* ============================================== */
+/*
+   ––amplify-form-section-border-radius:
+     controla el radio de esquinas de la “caja blanca” de login.
+   ––amplify-form-section-box-shadow:
+     controla la sombra que rodea esa misma caja.
+
+   Al colocarlas aquí, en global.scss, **Amplify UI** las lee dentro
+   de su Shadow DOM y aplica el borde redondeado y sombra.
+*/
+amplify-authenticator {
+  /* Radio de esquinas de la caja de login */
+  --amplify-form-section-border-radius: 16px;
+
+  /* Sombra suave para que la caja flote ligeramente sobre el fondo */
+  --amplify-form-section-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ========================== */
+/* 4. Estilos Base Generales   */
+/* ========================== */
 * {
   margin: 0;
   padding: 0;
@@ -84,14 +107,12 @@ ion-content {
 /* Ionic Cards           */
 /* ===================== */
 ion-card {
-  --background: var(
-    --gray-2
-  ) !important; /* Usamos Gray No. 2 para las tarjetas */
+  --background: var(--gray-2) !important; /* Tarjetas con gris medio */
   --color: var(--black) !important;
   margin: 16px;
   border-radius: 12px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--gray-3); /* Borde gris medio para diferenciar */
+  border: 1px solid var(--gray-3);
 }
 
 ion-card-header {
@@ -101,7 +122,7 @@ ion-card-header {
 ion-card-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--action); /* Título en azul */
+  color: var(--action);
 }
 
 ion-card-content {
@@ -114,7 +135,7 @@ ion-card-content {
 /* Ionic Items (listas)  */
 /* ===================== */
 ion-item {
-  --background: var(--gray-2); /* Gris No. 2 para cada elemento de lista */
+  --background: var(--gray-2);
   --color: var(--black);
   --border-color: var(--gray-3);
   --border-width: 1px;
@@ -125,29 +146,29 @@ ion-item {
 }
 
 /* ===================== */
-/* Campos de Input/Select/
-/* Textarea              */
+/* Campos (Inputs/Select/ */
+/* Textarea)             */
 /* ===================== */
 ion-input,
 ion-textarea,
 ion-select {
-  --background: var(--gray-2); /* Fondo Gris No. 2 */
+  --background: var(--gray-2);
   --color: var(--black);
-  --placeholder-color: var(--gray-3); /* Placeholder en Gris No. 3 */
+  --placeholder-color: var(--gray-3);
   --padding-start: 12px;
   --padding-end: 12px;
   border-radius: 8px;
-  border: 1px solid var(--gray-3); /* Borde Gris No. 3 */
+  border: 1px solid var(--gray-3);
   box-shadow: none;
   font-size: 1rem;
   height: 44px;
 }
 
-/* Borde y fondo al enfocar */
+/* Al enfocar, borde azul y fondo blanco */
 ion-input:focus-within,
 ion-select:focus-within,
 ion-textarea:focus-within {
-  border: 1px solid var(--action); /* Azul principal al foco */
+  border: 1px solid var(--action);
   background-color: var(--white);
 }
 
@@ -162,12 +183,10 @@ ion-button {
   --box-shadow: none;
 }
 
-/* Botones primarios (“Action”) */
+/* Botón primario (action) */
 ion-button.ion-color-primary {
   --background: var(--action);
-  --background-activated: var(
-    --action
-  ); /* Mismo azul, o puedes usar darken(#2d9cdb, 10%) */
+  --background-activated: var(--action);
   --color: var(--white);
   --padding-start: 16px;
   --padding-end: 16px;
@@ -177,9 +196,9 @@ ion-button.ion-color-primary {
   --box-shadow: none;
 }
 
-/* Botones en estado deshabilitado */
+/* Botón deshabilitado */
 ion-button[disabled] {
-  --background: var(--gray-3); /* Gris No. 3 para indicar “off” */
+  --background: var(--gray-3);
   --color: var(--white);
 }
 
@@ -203,15 +222,6 @@ ion-button[disabled] {
 /* Tabs personalizados   */
 /* (si usas amplify-tabs) */
 /* ===================== */
-amplify-authenticator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: var(--gray-1);
-  width: 100%;
-}
-
 .amplify-tabs {
   width: 100%;
   max-width: 380px;
@@ -245,10 +255,31 @@ amplify-authenticator {
   font-size: 1rem;
   font-weight: 500;
   box-shadow: none !important;
+  margin-top: 1.2rem;
+}
+
+/* ========================== */
+/* 5. Override: Autofill       */
+/* ========================== */
+/* Chrome, Safari y Edge */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px var(--gray-2) inset !important;
+  box-shadow: 0 0 0px 1000px var(--gray-2) inset !important;
+  -webkit-text-fill-color: var(--black) !important;
+  caret-color: var(--black) !important;
+}
+/* Firefox */
+input:-moz-autofill,
+textarea:-moz-autofill,
+select:-moz-autofill {
+  box-shadow: 0 0 0px 1000px var(--gray-2) inset !important;
+  -moz-text-fill-color: var(--black) !important;
 }
 
 /* ===================== */
-/* Responsive            */
+/* 6. Responsive         */
 /* ===================== */
 @media (max-width: 768px) {
   ion-card {
