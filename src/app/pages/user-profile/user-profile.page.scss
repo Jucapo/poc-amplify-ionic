@@ -1,212 +1,281 @@
 /* ============== */
+/* Variables Globales */
+/* ============== */
+/* Aquí solo definimos alguna variable local si fuera necesario,
+   pero nos apoyamos en las Custom Properties definidas en global.scss:
+   --gray-1, --gray-2, --gray-3, --white, --black, --primary
+*/
+
+/* ============== */
 /* Estructura Principal */
 /* ============== */
-.profile-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 16px;
-  padding-bottom: 100px; /* Espacio para FAB */
+.admin-content {
+  padding: 0;
+  background: var(--gray-1);
 }
 
 /* ============== */
-/* Componentes de Formulario */
+/* Toolbar principal */
 /* ============== */
-.form-section {
-  margin-bottom: 24px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--white);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.form-row {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* ============== */
-/* Componentes Ionic Personalizados */
-/* ============== */
-ion-card {
-  --background: var(--white);
-  margin: 0;
-  box-shadow: none;
-  border-radius: 12px;
-}
-
-ion-card-header {
-  /* Fondo azul muy suave: un 8% de opacidad sobre el color primary */
-  background: rgba(var(--ion-color-primary-rgb), 0.08);
-  padding: 16px;
-  border-bottom: 1px solid var(--gray-3);
-}
-
-ion-card-title {
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--primary);
-  text-align: center;
+.toolbar-primary {
+  --background: var(--primary);
+  --color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .toolbar-title {
-  text-align: center !important;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
-ion-card-content {
-  padding: 16px;
+/* ============== */
+/* Controles de filtrado  */
+/* ============== */
+.dashboard-controls {
+  background: var(--white);
+  padding: 12px 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 8px;
 }
 
-ion-item {
-  --background: var(--white);
+.filter-item,
+.search-item {
+  --background: var(--gray-2);
   --border-radius: 8px;
-  --padding-start: 12px;
-  --padding-end: 12px;
-  --inner-padding-end: 0;
+  --placeholder-color: var(--gray-3);
+  border: 1px solid var(--gray-3);
+  margin-top: 8px;
+}
+
+/* Icono de búsqueda movido al lado para que no se superponga */
+.search-icon {
+  font-size: 1.2rem;
+  color: var(--gray-3);
+}
+
+/* Botón Actualizar */
+.refresh-button {
+  --background: var(--primary);
+  --color: var(--white);
+  --border-radius: 8px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  height: 44px;
+}
+
+/* ============== */
+/* TABLA – Desktop  */
+/* ============== */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+.table-scroll-container {
+  overflow-x: auto;
+  padding: 0 16px;
+}
+
+/* Tabla propiamente */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Forzar ancho mínimo, pero permitirá scroll en mobile */
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px 8px;
+  text-align: left;
+}
+
+/* Header de tabla: fondo azul suave + texto blanco */
+.user-table thead .table-header {
+  background: var(--primary);
+}
+
+.user-table thead th {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.95rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.user-table thead th ion-icon {
+  font-size: 0.8rem;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* Filas alternas de color */
+.user-table tbody .table-row:nth-child(even) {
+  background: var(--gray-2);
+}
+
+.user-table tbody .table-row:nth-child(odd) {
+  background: var(--white);
+}
+
+/* Borde inferior suave entre filas */
+.user-table td {
+  border-bottom: 1px solid var(--gray-3);
+  font-size: 0.9rem;
+}
+
+/* Columna de acciones: centramos */
+.actions-col {
+  width: 100px;
+  text-align: center;
+}
+
+/* Iconos de editar/eliminar */
+.actions-col ion-button {
+  font-size: 1.1rem;
+  --padding-start: 0;
+  --padding-end: 0;
+  color: var(--primary);
+}
+
+.actions-col ion-button[color="danger"] {
+  color: var(--error);
+}
+
+/* ============== */
+/* Card List – Mobile  */
+/* ============== */
+.user-card-list {
+  padding: 0 16px;
+}
+
+.user-card {
   margin-bottom: 16px;
-  --border-color: var(--gray-3);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 }
 
-ion-input,
-ion-select {
-  --padding-start: 8px;
-  --padding-end: 8px;
+.user-card .card-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
 }
 
-/* ============== */
-/* Botón Flotante (FAB) - Versión Mejorada */
-/* ============== */
-.profile-save-fab {
-  position: fixed !important;
-  bottom: calc(90px + env(safe-area-inset-bottom)) !important;
-  right: calc(16px + env(safe-area-inset-right)) !important;
-  z-index: 1000 !important;
+.user-card .card-label {
+  font-weight: 500;
+  color: var(--gray-dark);
+  font-size: 0.85rem;
+}
 
-  ion-fab-button {
-    /* Usamos la paleta “primary” y variantes para los estados */
-    --background: var(--primary);
-    --background-activated: var(--primary-dark);
-    --background-focused: var(--primary-dark);
-    --color: var(--white);
-    --box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.3);
+.user-card .card-value {
+  font-size: 0.9rem;
+  color: var(--black);
+}
 
-    /* Tamaño mínimo para icono+texto */
-    min-width: 64px !important;
-    min-height: 64px !important;
+.user-card .card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--gray-3);
+}
 
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    transition: transform 0.2s ease-out !important;
-
-    &:active {
-      transform: scale(0.96) !important;
-    }
-    &[disabled] {
-      --background: var(--gray-2) !important;
-      --box-shadow: none !important;
-      opacity: 0.8 !important;
-    }
-  }
+.user-card .card-actions ion-button {
+  font-size: 0.9rem;
+  --padding-start: 6px;
+  --padding-end: 6px;
+  --padding-top: 4px;
+  --padding-bottom: 4px;
 }
 
 /* ============== */
-/* Loading Overlay */
+/* Paginación */
+/* ============== */
+.pagination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px 0 32px;
+  gap: 8px;
+}
+
+.page-size-control {
+  width: 80%;
+  max-width: 300px;
+}
+
+.page-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--gray-dark);
+}
+
+/* ============== */
+/* “No hay datos” */
+/* ============== */
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  color: var(--gray-dark);
+  font-size: 1rem;
+}
+
+.no-data ion-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+/* ============== */
+/* Overlay de carga */
 /* ============== */
 .loading-overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(var(--white), 0.9);
+  background: rgba(255, 255, 255, 0.85);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(3px);
-
-  .modern-spinner {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
-
-    .spinner-circle {
-      border: 8px solid rgba(var(--ion-color-primary-rgb), 0.2);
-      border-top: 8px solid var(--primary);
-      border-radius: 50%;
-      width: 100%;
-      height: 100%;
-      animation: spin 1.5s linear infinite;
-    }
-
-    .spinner-logo ion-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--primary);
-      font-size: 36px;
-    }
-  }
-
-  .loading-text {
-    color: var(--primary);
-    font-weight: 500;
-    animation: pulse 2s infinite;
-  }
+  z-index: 100;
 }
 
 /* ============== */
-/* Validación de Formulario */
+/* Responsive Breakpoints */
 /* ============== */
-ion-note[color="danger"] {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.8rem;
-  padding: 0 12px;
-  color: var(--ion-color-danger);
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+
+  .dashboard-controls {
+    padding: 8px 12px;
+  }
+
+  .user-card .card-row {
+    flex-direction: column;
+    gap: 4px;
+  }
 }
 
-/* ============== */
-/* Responsive Design */
-/* ============== */
 @media (min-width: 768px) {
-  .profile-container {
-    padding: 24px;
-    padding-bottom: 120px;
+  .desktop-only {
+    display: block;
   }
-
-  .form-row {
-    flex-direction: row;
-  }
-
-  ion-col {
-    padding: 0 8px;
-  }
-}
-
-/* ============== */
-/* Animaciones */
-/* ============== */
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
+  .mobile-only {
+    display: none;
   }
 }

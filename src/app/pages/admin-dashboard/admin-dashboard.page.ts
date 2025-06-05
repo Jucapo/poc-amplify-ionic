@@ -17,6 +17,10 @@ import {
   IonButton,
   IonSpinner,
   ToastController,
+  IonList,
+  IonCardContent,
+  IonCard,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { UserDataService } from '../../core/services/user-data.service';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +31,10 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./admin-dashboard.page.scss'],
   standalone: true,
   imports: [
+    IonButtons,
+    IonCard,
+    IonCardContent,
+    IonList,
     CommonModule,
     FormsModule,
     IonHeader,

@@ -1,300 +1,391 @@
-/* ============== */
-/* Variables */
-/* ============== */
-:root {
-  --primary-color: #3f51b5;
-  --primary-light: #757de8;
-  --primary-dark: #002984;
-  --text-color: #212121;
-  --text-light: #757575;
-  --background: #f8f9fa;
-  --white: #ffffff;
-  --border-color: #e0e0e0;
-  --hover-color: #f5f5f5;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --border-radius: 8px;
-  --input-height: 56px;
-}
+/* =================================================================================== */
+/* admin-dashboard.page.scss                                                           */
+/*                                                                                     */
+/* Ajustes finales para:                                                                */
+/*  - Sticky (versión móvil): el bloque de filtros no “flote” sino que se pegue al top. */
+/*  - Desktop: recuperar el gutter horizontal para que los inputs no queden pegados.    */
+/*  - Alinear correctamente el pop-over de ion-select “Filtrar por rol”.               */
+/*                                                                                     */
+/* Se apoya en las Custom Properties definidas en global.scss:                         */
+/*   --gray-1    (gris muy claro, fondo general)                                       */
+/*   --gray-2    (gris claro, fondos de tarjetas/inputs)                               */
+/*   --gray-3    (gris medio, bordes y separadores)                                    */
+/*   --white     (blanco puro)                                                         */
+/*   --black     (texto principal)                                                     */
+/*   --primary   (azul “acción”)                                                       */
+/*   --error     (rojo para eliminar)                                                  */
+/* =================================================================================== */
 
-/* ============== */
-/* Estructura Principal */
-/* ============== */
+/* ================================================================= */
+/* 1) ADMIN CONTENT (NO MODIFICAR)                                   */
+/* ================================================================= */
 .admin-content {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: var(--background);
-  min-height: 100%;
+  /* Dejamos que ion-content maneje el scroll vertical completo */
+  padding: 0;
+  background: var(--gray-1);
 }
 
-/* ============== */
-/* Controles del Dashboard */
-/* ============== */
+/* ================================================================= */
+/* 2) BLOQUE DE FILTROS Y BÚSQUEDA                                     */
+/* ================================================================= */
 .dashboard-controls {
-  padding: 16px;
   background: var(--white);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  padding: 12px 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 8px;
+  top: 0;
+  z-index: 1000;
 
-  ion-grid {
-    padding: 0;
-  }
-
+  /* 2.2) Alinear verticalmente todos los <ion-col> en la fila       */
+  /*      para centrar el botón “Actualizar” con respecto a los inputs */
   ion-row {
-    align-items: flex-end;
+    display: flex;
+    align-items: center;
+
+    /* 2.3) Restauramos el gutter horizontal original de IonGrid para desktop */
+    /*      (por defecto Ionic usa 16px entre columnas; aquí nos aseguramos  */
+    /*      de no “pisar” ese gutter).                                         */
+    --ion-grid-gutter-width: 16px;
   }
 }
 
-/* ============== */
-/* Estilos Generales para Inputs y Selects */
-/* ============== */
-ion-item {
-  --border-radius: var(--border-radius);
-  --border-color: var(--border-color);
-  --highlight-color-focused: var(--primary-color);
-  --padding-start: 0;
-  --inner-padding-end: 0;
+/* —————————————————————————————————————————————————————————————————— */
+/* 2.4) ion-col internamente ya trae su padding lateral, así que si   */
+/*      queremos más separación en desktop, 16px suele bastar.       */
+/*      No añadimos margin extra a cada ion-col para no romper el    */
+/*      grid responsive.                                              */
+/* —————————————————————————————————————————————————————————————————— */
 
-  ion-label {
-    color: var(--text-light);
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-
-  &.item-has-focus {
-    --border-color: var(--primary-color);
-
-    ion-label {
-      color: var(--primary-color);
-    }
-  }
-}
-
-/* Estilo específico para el campo de búsqueda */
+/* ================================================================= */
+/* 3) ESTILOS PARA LOS ion-item (FILTROS)                              */
+/* ================================================================= */
+.filter-item,
 .search-item {
-  ion-icon.search-icon {
-    color: var(--text-light);
-    font-size: 20px;
-    margin-right: 12px;
-    transition: color 0.3s ease;
-  }
+  /* 3.1) Fondo blanco (antes estaban grises) */
+  --background: var(--white) !important;
 
-  &.item-has-focus ion-icon {
-    color: var(--primary-color);
-  }
+  /* 3.2) Borde gris medio y esquinas redondeadas */
+  --border-radius: 8px !important;
+  border: 1px solid var(--gray-3);
+
+  /* 3.3) Padding interno para que no queden pegados: */
+  padding: 8px;
+  /* 3.4) Margen vertical para separación en mobile */
+  margin-top: 8px;
+  margin-bottom: 8px;
+
+  /* 3.5) Posicionamos relativo para ubicar la lupa dentro de .search-item */
+  position: relative;
 }
 
-/* Estilos generales para todos los selects */
-.custom-select {
-  width: 100%;
-  min-height: var(--input-height);
-
-  .select-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-
-    .select-icon-inner {
-      border-top: 5px solid;
-      border-right: 5px solid transparent;
-      border-left: 5px solid transparent;
-      left: 5px;
-      top: 50%;
-      margin-top: -2px;
-    }
-  }
-
-  .select-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+/* ————————————————————————————————————————————————————————————— */
+/* 3.6) Etiqueta (“Filtrar por rol”, “Buscar”): color más tenue,    */
+/*      fuente más pequeña                                          */
+/* ————————————————————————————————————————————————————————————— */
+.filter-item ion-label,
+.search-item ion-label {
+  color: var(--gray-3);
+  font-size: 0.85rem;
 }
 
-/* Botón de actualizar */
+/* ================================================================= */
+/* 4) CENTRAR ICONO DE LUPA DENTRO DE “Buscar”                         */
+/* ================================================================= */
+.search-item .search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: var(--gray-3);
+}
+
+/* ================================================================= */
+/* 5) Quitar la “línea inferior” (underline) de los ion-inputs         */
+/*    dentro de los ion-item de filtro                                 */
+/* ================================================================= */
+.filter-item ion-input,
+.search-item ion-input {
+  /* Se anula la animación de highlight y se elimina cualquier border */
+  --highlight-width: 0;
+  --highlight-color-focused: transparent;
+  --border-width: 0;
+  background: transparent;
+}
+
+/* En algunos navegadores el “autofill” pinta un fondo gris, así que: */
+.filter-item ion-input .native-input,
+.search-item ion-input .native-input {
+  background: transparent !important;
+}
+
+/* ================================================================= */
+/* 6) BOTÓN “Actualizar”                                              */
+/* ================================================================= */
 .refresh-button {
-  --border-radius: var(--border-radius);
-  height: var(--input-height);
-  margin: 0;
+  --background: var(--primary) !important;
+  --color: var(--white) !important;
+  --border-radius: 8px !important;
+  margin-top: 0; /* Centrado vertical con align-items en ion-row */
+  margin-bottom: 8px;
+  height: 44px;
+}
 
-  ion-icon {
-    font-size: 20px;
+@media (min-width: 768px) {
+  .refresh-button {
+    width: 100%;
   }
 }
 
-/* ============== */
-/* Tabla con Scroll Horizontal */
-/* ============== */
+/* ================================================================= */
+/* 7) CONTENEDOR DE TABLA Y TARJETAS                                   */
+/*    (NO CAMBIAR MÁS DE LO NECESARIO)                                 */
+/* ================================================================= */
 .table-scroll-container {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  background: var(--white);
+  overflow-x: auto; /* Solo scroll horizontal si hace falta */
+  overflow-y: visible; /* No generar scroll vertical extra */
+  padding: 0 16px;
+  max-width: 100%;
 }
 
-.table-wrapper {
-  min-width: 100%;
-  width: max-content;
+/* ————————————————————————————————————————————————————————————————————— */
+/* 7.1) TABLA – VISIBLE SOLO EN DESKTOP                                     */
+/* ————————————————————————————————————————————————————————————————————— */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
 }
 
 .user-table {
   width: 100%;
-  min-width: 800px;
   border-collapse: collapse;
-
-  th,
-  td {
-    padding: 12px 16px;
-    text-align: left;
-  }
+  min-width: 600px; /* Forzar ancho mínimo para que aparezca scroll si faltan columnas */
 }
 
-.table-header {
-  background: var(--primary-color);
+.user-table th,
+.user-table td {
+  padding: 12px 8px;
+  text-align: left;
+}
+
+.user-table thead .table-header {
+  background: var(--primary);
+}
+
+.user-table thead th {
   color: var(--white);
-
-  th {
-    font-weight: 500;
-    white-space: nowrap;
-    position: relative;
-    cursor: pointer;
-
-    &:hover {
-      background: var(--primary-dark);
-    }
-
-    ion-icon {
-      margin-left: 4px;
-      vertical-align: middle;
-    }
-  }
+  font-weight: 600;
+  font-size: 0.95rem;
+  position: relative;
+  cursor: pointer;
 }
 
-.table-row {
-  border-bottom: 1px solid var(--border-color);
+.user-table thead th ion-icon {
+  font-size: 0.8rem;
+  margin-left: 4px;
+  vertical-align: middle;
+}
 
-  &:hover {
-    background: var(--hover-color);
-  }
+.user-table tbody .table-row:nth-child(even) {
+  background: var(--gray-2);
+}
 
-  td {
-    vertical-align: middle;
-    white-space: nowrap;
-  }
+.user-table tbody .table-row:nth-child(odd) {
+  background: var(--white);
+}
+
+.user-table td {
+  border-bottom: 1px solid var(--gray-3);
+  font-size: 0.9rem;
 }
 
 .actions-col {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-
-  ion-button {
-    --padding-start: 8px;
-    --padding-end: 8px;
-    min-width: auto;
-
-    ion-icon {
-      font-size: 20px;
-    }
-  }
+  width: 100px;
+  text-align: center;
 }
 
-/* ============== */
-/* Paginación */
-/* ============== */
-.pagination-container {
+.actions-col ion-button {
+  font-size: 1.1rem;
+  --padding-start: 0;
+  --padding-end: 0;
+  color: var(--primary);
+}
+
+.actions-col ion-button[color="danger"] {
+  color: var(--error);
+}
+
+/* ————————————————————————————————————————————————————————————————————— */
+/* 7.2) TARJETAS – VISIBLE SOLO EN MÓVIL                                     */
+/* ————————————————————————————————————————————————————————————————————— */
+.user-card-list {
+  padding: 0 16px;
+  max-width: 100%;
+}
+
+.user-card {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user-card .card-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  background: var(--white);
-  border-top: 1px solid var(--border-color);
-
-  .page-size-control {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .page-navigation {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    span {
-      color: var(--text-light);
-    }
-
-    ion-button {
-      --padding-start: 8px;
-      --padding-end: 8px;
-    }
-  }
+  padding: 8px 12px;
+  flex-wrap: wrap;
 }
 
-/* ============== */
-/* Estados Especiales */
-/* ============== */
+.user-card .card-label {
+  font-weight: 500;
+  color: var(--gray-dark);
+  font-size: 0.85rem;
+  width: 40%;
+  min-width: 120px;
+}
+
+.user-card .card-value {
+  font-size: 0.9rem;
+  color: var(--black);
+  width: 55%;
+}
+
+.user-card .card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--gray-3);
+}
+
+.user-card .card-actions ion-button {
+  font-size: 0.9rem;
+  --padding-start: 6px;
+  --padding-end: 6px;
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+}
+
+/* ————————————————————————————————————————————————————————————————————— */
+/* 7.3) PAGINACIÓN                                                              */
+/* ————————————————————————————————————————————————————————————————————— */
+.pagination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px 0 32px;
+  gap: 8px;
+}
+
+.page-size-control {
+  width: 80%;
+  max-width: 300px;
+}
+
+.page-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--gray-dark);
+}
+
+.pagination-container ion-button {
+  /* Botones “chevron” más pequeños */
+  --padding-start: 0;
+  --padding-end: 0;
+  font-size: 1.2rem;
+}
+
+/* ————————————————————————————————————————————————————————————————————— */
+/* 7.4) “NO HAY DATOS”                                                            */
+/* ————————————————————————————————————————————————————————————————————— */
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  color: var(--gray-dark);
+  font-size: 1rem;
+}
+
+.no-data ion-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+/* ————————————————————————————————————————————————————————————————————— */
+/* 7.5) OVERLAY DE CARGA                                                        */
+/* ————————————————————————————————————————————————————————————————————— */
 .loading-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
 }
 
-.no-data {
-  padding: 40px;
-  text-align: center;
-  color: var(--text-light);
+/* ————————————————————————————————————————————————————————————————————— */
+/* 7.6) ALINEAR EL POPOVER de ion-select (“Filtrar por rol”)                     */
+/*                                                                                 */
+/*   Ahora la lista de opciones sale alineada justo debajo del campo,             */
+/*   sin desbordar lateralmente.                                                   */
+/* ————————————————————————————————————————————————————————————————————— */
+ion-select-interface-popover {
+  margin-top: 4px !important;
 
-  ion-icon {
-    font-size: 48px;
-    color: #ccc;
-    margin-bottom: 16px;
-  }
-
-  p {
-    margin: 0;
-    font-size: 16px;
+  /* Si el ancho fuera mayor que el del input padre, lo forzamos a que quepa */
+  /* de manera centrada respecto al input.                                     */
+  .popover-content {
+    /* Hacemos que el popover coincida con el ancho del ion-item padre (± 32px) */
+    width: auto !important;
+    min-width: calc(100% - 32px) !important;
+    margin: 0 auto !important;
   }
 }
 
-/* ============== */
-/* Responsive */
-/* ============== */
-@media (max-width: 768px) {
-  .admin-content {
-    padding: 8px;
+/* =============================================== */
+/* 8) BREAKPOINTS RESPONSIVE: mostrar/ocultar bloques */
+/* =============================================== */
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
   }
 
   .dashboard-controls {
-    ion-col {
-      padding-bottom: 12px;
-    }
+    padding: 8px 12px;
   }
 
-  .pagination-container {
+  /* En móvil, las card-rows apilan verticalmente si no caben */
+  .user-card .card-row {
     flex-direction: column;
-    gap: 16px;
-    align-items: stretch;
+    gap: 4px;
   }
 
-  .page-size-control,
-  .page-navigation {
-    width: 100%;
-    justify-content: center;
+  /* Ajuste: no mostrar scroll vertical extra en el contenedor */
+  .table-scroll-container {
+    padding: 0 8px;
   }
+}
 
-  .refresh-button {
-    width: 100%;
+@media (min-width: 768px) {
+  .desktop-only {
+    display: block;
+  }
+  .mobile-only {
+    display: none;
   }
 }

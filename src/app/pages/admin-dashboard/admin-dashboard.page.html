@@ -1,11 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Panel de Administración</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true" class="admin-content">
+  <!-- ============== -->
   <!-- Controles de filtrado -->
+  <!-- ============== -->
   <div class="dashboard-controls">
     <ion-grid>
       <ion-row>
@@ -28,7 +24,7 @@
         </ion-col>
 
         <ion-col size="12" size-md="5">
-          <ion-item class="search-item">
+          <ion-item class="search-item !mx-8">
             <ion-label position="stacked">Buscar</ion-label>
             <ion-input
               [value]="searchText()"
@@ -53,55 +49,123 @@
     </ion-grid>
   </div>
 
-  <!-- Tabla de usuarios -->
+  <!-- ============== -->
+  <!-- Tabla Desktop + Lista Móvil -->
+  <!-- ============== -->
   <div class="table-scroll-container">
-    @if (isLoading()) {
-    <div class="loading-overlay">
-      <ion-spinner name="crescent"></ion-spinner>
-    </div>
-    } @if (displayedUsers() && displayedUsers().length > 0) {
-    <div class="table-wrapper">
-      <table class="user-table">
-        <thead>
-          <tr class="table-header">
-            <th
-              *ngFor="let column of displayedColumns"
-              (click)="onSortChange(column)"
-              [class.active]="sortState().active === column"
-            >
-              {{ getColumnName(column) }} @if (sortState().active === column) {
-              <ion-icon
-                [name]="sortState().direction === 'asc' ? 'arrow-up' : 'arrow-down'"
-              ></ion-icon>
-              }
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of displayedUsers()" class="table-row">
-            <td>{{ user.email }}</td>
-            <td>{{ user.firstName || '-' }}</td>
-            <td>{{ user.lastName || '-' }}</td>
-            <td>{{ (user.role | titlecase) || '-' }}</td>
-            <td>{{ user.phone || '-' }}</td>
-            <td class="actions-col">
-              <ion-button fill="clear" color="primary" (click)="editUser(user)">
-                <ion-icon name="create"></ion-icon>
-              </ion-button>
-              <ion-button
-                fill="clear"
-                color="danger"
-                (click)="deleteUser(user)"
-              >
-                <ion-icon name="trash"></ion-icon>
-              </ion-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <ng-container *ngIf="isLoading()">
+      <div class="loading-overlay">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    </ng-container>
 
-    <div class="pagination-container">
+    <ng-container
+      *ngIf="displayedUsers() && displayedUsers().length > 0; else noData"
+    >
+      <!-- DESKTOP: tabla con scroll horizontal suave -->
+      <div class="desktop-only">
+        <table class="user-table">
+          <thead>
+            <tr class="table-header">
+              <th
+                *ngFor="let column of displayedColumns"
+                (click)="onSortChange(column)"
+                [class.active]="sortState().active === column"
+              >
+                {{ getColumnName(column) }}
+                <ion-icon
+                  *ngIf="sortState().active === column"
+                  [name]="sortState().direction === 'asc' ? 'arrow-up' : 'arrow-down'"
+                ></ion-icon>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of displayedUsers()" class="table-row">
+              <td>{{ user.email }}</td>
+              <td>{{ user.firstName || '-' }}</td>
+              <td>{{ user.lastName || '-' }}</td>
+              <td>{{ (user.role | titlecase) || '-' }}</td>
+              <td>{{ user.phone || '-' }}</td>
+              <td class="actions-col">
+                <ion-button
+                  fill="clear"
+                  color="primary"
+                  (click)="editUser(user)"
+                >
+                  <ion-icon name="create"></ion-icon>
+                </ion-button>
+                <ion-button
+                  fill="clear"
+                  color="danger"
+                  (click)="deleteUser(user)"
+                >
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MÓVIL: lista de tarjetas para cada usuario -->
+      <div class="mobile-only user-card-list">
+        <ion-list>
+          <ion-card *ngFor="let user of displayedUsers()" class="user-card">
+            <ion-card-content>
+              <div class="card-row">
+                <div class="card-label">Email:</div>
+                <div class="card-value">{{ user.email }}</div>
+              </div>
+              <div class="card-row">
+                <div class="card-label">Nombre:</div>
+                <div class="card-value">{{ user.firstName || '-' }}</div>
+              </div>
+              <div class="card-row">
+                <div class="card-label">Apellido:</div>
+                <div class="card-value">{{ user.lastName || '-' }}</div>
+              </div>
+              <div class="card-row">
+                <div class="card-label">Rol:</div>
+                <div class="card-value">
+                  {{ (user.role | titlecase) || '-' }}
+                </div>
+              </div>
+              <div class="card-row">
+                <div class="card-label">Teléfono:</div>
+                <div class="card-value">{{ user.phone || '-' }}</div>
+              </div>
+              <div class="card-actions">
+                <ion-button
+                  fill="clear"
+                  color="primary"
+                  size="small"
+                  (click)="editUser(user)"
+                >
+                  <ion-icon slot="start" name="create"></ion-icon>
+                  Editar
+                </ion-button>
+                <ion-button
+                  fill="clear"
+                  color="danger"
+                  size="small"
+                  (click)="deleteUser(user)"
+                >
+                  <ion-icon slot="start" name="trash"></ion-icon>
+                  Eliminar
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+      </div>
+    </ng-container>
+
+    <!-- Paginación -->
+    <div
+      class="pagination-container"
+      *ngIf="displayedUsers() && displayedUsers().length > 0"
+    >
       <div class="page-size-control">
         <ion-item>
           <ion-label position="stacked">Elementos por página:</ion-label>
@@ -137,11 +201,13 @@
         </ion-button>
       </div>
     </div>
-    } @else if (!isLoading()) {
-    <div class="no-data">
-      <ion-icon name="people-outline"></ion-icon>
-      <p>No se encontraron usuarios</p>
-    </div>
-    }
+
+    <!-- Mensaje “No hay datos” -->
+    <ng-template #noData>
+      <div class="no-data">
+        <ion-icon name="people-outline"></ion-icon>
+        <p>No se encontraron usuarios</p>
+      </div>
+    </ng-template>
   </div>
 </ion-content>
