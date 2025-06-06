@@ -127,8 +127,29 @@ ion-item {
 }
 
 /* =======================================================================
-   AMPLIFY COMPONENTS (sin cambios)
+   AMPLIFY COMPONENTS
    ==================================================================== */
+/* src/global.scss  ─ ó  ─  styles.scss */
+amplify-authenticator {
+  /* tomamos todo el alto/ ancho de la pantalla */
+  width: 100%;
+  height: 100vh;
+
+  /* sistema de centrado */
+  display: flex;
+  justify-content: center; /* eje X */
+  align-items: center; /* eje Y */
+
+  /* evita que el formulario herede paddings del body  */
+  margin: 0;
+  padding: 0;
+}
+
+/* opcional: acotamos el ancho máximo de la tarjeta  */
+amplify-authenticator::part(router) {
+  max-width: 420px; /* ajusta a tu gusto */
+}
+
 .loading-overlay {
   position: fixed;
   top: 0;
