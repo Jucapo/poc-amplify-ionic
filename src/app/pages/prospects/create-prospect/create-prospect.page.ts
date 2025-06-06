@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   HostListener,
@@ -36,6 +37,7 @@ export class CreateProspectPage {
   private modalCtrl = inject(ModalController);
   readonly nav = inject(NavController);
   private prospectSvc = inject(ProspectService);
+  private cdr = inject(ChangeDetectorRef);
 
   /* ───────────────────────── formulario con TODO el modelo */
   prospectForm = this.fb.group({
@@ -113,6 +115,8 @@ export class CreateProspectPage {
       municipality: data.municipality,
       locationCoordinates: data.coords,
     });
+
+    this.cdr.markForCheck();
   }
 
   /* ───────────────────────── imágenes (pendiente de implementar) */

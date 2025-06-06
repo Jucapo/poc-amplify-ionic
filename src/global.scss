@@ -264,26 +264,39 @@ ion-item[button].ion-activated {
 /* =======================================================================
    SEGMENT (Sí/No – usa --primary-light en activo)
    ==================================================================== */
-ion-segment {
-  --border-radius: 10px;
+/* =====================================================================
+   SEGMENT-MD  estilo “pill” (Track gris, botón activo azul claro)
+   ==================================================================== */
+ion-segment.segment-md {
   --background: var(--gray-2); /* track */
-  --indicator-border-radius: 8px;
-  --indicator-color: var(--white);
-  --indicator-background: var(--primary-light); /* botón activo */
+  --border-radius: 10px;
+  border: none !important; /* quita línea inferior */
+
+  /* Ajustamos indicador a toda la altura */
+  .segment-button-indicator {
+    top: 4px;
+    bottom: 4px;
+    left: var(--indicator-start);
+    right: var(--indicator-end);
+    height: auto; /* ocupa alto completo */
+    background: var(--primary-light);
+    border-radius: 8px;
+    box-shadow: none;
+  }
+}
+
+/* Texto activo = blanco, inactivo = negro */
+ion-segment.segment-md ion-segment-button {
   --color: var(--black);
-  --color-checked: var(--white);
-  --padding-top: 4px;
-  --padding-bottom: 4px;
-  --padding-start: 4px;
-  --padding-end: 4px;
+  font-weight: 600;
 }
-ion-segment-button {
-  --background: transparent;
-  --ripple-color: var(--primary-light);
+ion-segment.segment-md ion-segment-button[aria-checked="true"] {
+  --color: var(--white);
 }
-/* elimina sombra iOS */
-ion-segment.segment-ios .segment-button-indicator {
-  box-shadow: none;
+
+/* Ripple color */
+ion-segment.segment-md ion-segment-button::part(ripple) {
+  color: rgba(var(--ion-color-primary-rgb), 0.14);
 }
 
 /* =====================================================================
