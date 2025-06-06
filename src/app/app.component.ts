@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-
 import {
   AmplifyAuthenticatorModule,
   AuthenticatorService,
 } from '@aws-amplify/ui-angular';
 import { AuthService } from './core/services/auth.service';
-
 import {
+  IonApp,
   IonRouterOutlet,
+  IonButton,
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonButton,
-  IonIcon,
   IonButtons,
-  IonApp,
+  IonIcon,
 } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -26,20 +24,19 @@ import {
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [
-    IonApp,
     CommonModule,
-    AmplifyAuthenticatorModule,
-    IonRouterOutlet,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButton,
     IonIcon,
     IonButtons,
+    IonTitle,
+    IonToolbar,
+    IonHeader,
+    IonButton,
+    IonRouterOutlet,
+    IonApp,
+    AmplifyAuthenticatorModule,
   ],
 })
 export class AppComponent implements OnInit {
-  /** Será true cuando la ruta sea exactamente '/privacy-policy' */
   public isPrivacyRoute = false;
 
   constructor(
@@ -49,51 +46,46 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // 1) Detectar cambios de ruta para exponer /privacy-policy sin login
+    // Detectar cambios de ruta para exponer /privacy-policy sin login
     this.router.events
       .pipe(filter((evt) => evt instanceof NavigationEnd))
       .subscribe((evt: NavigationEnd) => {
         this.isPrivacyRoute = evt.urlAfterRedirects === '/privacy-policy';
       });
 
-    // 2) Monitorizar estado de autenticación
+    // Monitorizar estado de autenticación
     this.checkAuthStatus();
     this.authenticator.subscribe(() => this.checkAuthStatus());
   }
 
-  /** Comprueba si el usuario está autenticado y redirige según corresponda */
   private async checkAuthStatus() {
     const status = await this.authenticator.authStatus;
-
     if (status === 'authenticated') {
-      // Si ya está dentro de /privacy-policy, no redirijo
       if (!this.isPrivacyRoute) {
         await this.redirectBasedOnRole();
       }
     } else {
-      // No autenticado: limpio cache
       this.authService.clearCache();
-      // Si no es la página pública, lo dejo caer al flujo de login
       if (!this.isPrivacyRoute) {
-        // Amplify mostrará el login automáticamente vía <amplify-authenticator>
-        // Si quisieras forzar navegación, podrías hacer:
-        // await this.router.navigate(['/']);
+        // Amplify sacará el login automáticamente
       }
     }
   }
 
-  /** Redirige a /admin o /tabs/dashboard según rol */
   private async redirectBasedOnRole() {
     const role = await this.authService.getCurrentUserRole();
     if (role === 'admin') {
+      // Si no está ya en /admin, lo enviamos ahí
       if (!this.router.url.startsWith('/admin')) {
         await this.router.navigate(['/admin']);
       }
     } else if (role === 'user') {
+      // ENLACE a /tabs/dashboard – ojo: no a “/dashboard” suelto
       if (!this.router.url.startsWith('/tabs/dashboard')) {
         await this.router.navigate(['/tabs/dashboard']);
       }
     } else {
+      // Rol desconocido → vuelvo a /
       await this.router.navigate(['/']);
     }
   }

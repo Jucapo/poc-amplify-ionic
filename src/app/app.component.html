@@ -1,7 +1,7 @@
-<!-- app.component.html -->
+<!-- src/app/app.component.html -->
 
 <ng-container *ngIf="isPrivacyRoute; else authFlow">
-  <!-- Si la ruta es /privacy-policy, dejo que se muestre solo esa página (sin header ni tabs) -->
+  <!-- Si la ruta es /privacy-policy, SOLO mostramos esa página (sin header ni tabs) -->
   <ion-router-outlet></ion-router-outlet>
 </ng-container>
 
@@ -13,7 +13,7 @@
       let-signOut="signOut"
     >
       <ion-app>
-        <!-- Único header “global” de toda la aplicación -->
+        <!-- Header global de toda la app -->
         <ion-header>
           <ion-toolbar>
             <ion-title class="nav-title">BANRURAL</ion-title>
@@ -25,7 +25,7 @@
           </ion-toolbar>
         </ion-header>
 
-        <!-- Aquí se inyectarán todas las páginas hijas, incluyendo el componente de tabs -->
+        <!-- AQUÍ va el outlet principal donde caerán “/admin”, “/profile”, “/tabs/*”, etc -->
         <ion-router-outlet></ion-router-outlet>
       </ion-app>
     </ng-template>

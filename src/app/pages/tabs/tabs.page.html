@@ -1,20 +1,39 @@
-<ion-tabs>
-  <ion-router-outlet tabs="true"></ion-router-outlet>
+<!-- src/pages/tabs/tabs.page.html -->
 
-  <ion-tab-bar slot="bottom" class="tabs-bar">
-    <ion-tab-button tab="dashboard" routerLink="/tabs/dashboard">
+<ion-tabs>
+  <!-- 1) Outlet interno donde cargan las rutas hijas de “/tabs/…” -->
+  <ion-router-outlet tabs></ion-router-outlet>
+
+  <!-- 2) Barra de pestañas fija abajo, con routerLink hacia /tabs/... -->
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button
+      tab="dashboard"
+      routerLink="/tabs/dashboard"
+      routerDirection="root"
+    >
       <ion-icon name="home-outline"></ion-icon>
       <ion-label>Inicio</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="prospects" routerLink="/tabs/prospects/list">
+
+    <ion-tab-button
+      tab="prospects"
+      routerLink="/tabs/prospects/list"
+      routerDirection="root"
+    >
       <ion-icon name="list-outline"></ion-icon>
       <ion-label>Prospectos</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="activity" routerLink="/tabs/activity">
+
+    <ion-tab-button
+      tab="activity"
+      routerLink="/tabs/activity"
+      routerDirection="root"
+    >
       <ion-icon name="time-outline"></ion-icon>
       <ion-label>Actividad</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="help" routerLink="/tabs/help">
+
+    <ion-tab-button tab="help" routerLink="/tabs/help" routerDirection="root">
       <ion-icon name="help-circle-outline"></ion-icon>
       <ion-label>Ayuda</ion-label>
     </ion-tab-button>

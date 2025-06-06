@@ -1,18 +1,54 @@
-<ion-content [fullscreen]="true" class="admin-content">
-  <h2>Mis Prospectos</h2>
+<ion-content [fullscreen]="true" class="bg-gray-50">
+  <ng-container *ngIf="loadingInitialData(); else dashboard">
+    <div class="loading-overlay">
+      <!-- Spinner de carga (mantener igual) -->
+    </div>
+  </ng-container>
 
-  <ion-list>
-    <!-- Aquí irían tus <ion-item> para cada prospecto -->
-    <!-- Ejemplo: -->
-    <ion-item *ngFor="let p of prospects">
-      <ion-label> {{ p.nombre }} ({{ p.ubicacion }}) </ion-label>
-      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-    </ion-item>
-  </ion-list>
+  <ng-template #dashboard>
+    <div class="dashboard-container">
+      <div class="header-section">
+        <h2 class="greeting">Hola, {{username}}</h2>
+        <h3 class="welcome-message">Bienvenido a tu asistente personal</h3>
+      </div>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="abrirCrearProspecto()">
-      <ion-icon name="add-circle-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+      <!-- Tarjeta ÚNICA de Agregar Prospecto -->
+      <ion-card class="add-prospect-card" button (click)="onCreateProspect()">
+        <ion-item lines="none" detail="false">
+          <ion-icon
+            name="add-circle-outline"
+            slot="start"
+            class="card-icon"
+          ></ion-icon>
+          <ion-label>
+            <h2>Agregar nuevo Prospecto</h2>
+            <p>Agrega un nuevo Prospecto a la lista</p>
+          </ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+      </ion-card>
+
+      <!-- Sección de Prospectos -->
+      <div class="prospects-section">
+        <div class="section-header">
+          <h2>Tus Prospectos</h2>
+          <span class="counter">{{prospects.length}} registros</span>
+        </div>
+
+        <ion-list lines="none" class="prospect-list">
+          <ion-item
+            *ngFor="let p of prospects"
+            class="prospect-item p-4"
+            (click)="onViewProspect(p.id)"
+          >
+            <ion-label>
+              <h3>{{p.nombre}}</h3>
+              <p>{{p.direccion}}</p>
+            </ion-label>
+            <ion-icon name="chevron-forward" slot="end"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </ng-template>
 </ion-content>

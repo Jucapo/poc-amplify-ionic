@@ -9,6 +9,7 @@ export const routes: Routes = [
     redirectTo: 'profile',
     pathMatch: 'full',
   },
+
   {
     path: 'profile',
     component: UserProfilePage,
@@ -17,11 +18,7 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminDashboardPage,
   },
-  {
-    path: 'dashboard',
-    loadComponent: () =>
-      import('./pages/dashboard/dashboard.page').then((m) => m.DashboardPage),
-  },
+
   {
     path: 'tabs',
     loadComponent: () =>
@@ -38,6 +35,13 @@ export const routes: Routes = [
         path: 'prospects',
         children: [
           {
+            path: 'list',
+            loadComponent: () =>
+              import(
+                './pages/prospects/prospects-list/prospects-list.page'
+              ).then((m) => m.ProspectsListPage),
+          },
+          {
             path: 'new',
             loadComponent: () =>
               import(
@@ -50,13 +54,6 @@ export const routes: Routes = [
               import('./pages/prospects/edit-prospect/edit-prospect.page').then(
                 (m) => m.EditProspectPage,
               ),
-          },
-          {
-            path: 'list',
-            loadComponent: () =>
-              import(
-                './pages/prospects/prospects-list/prospects-list.page'
-              ).then((m) => m.ProspectsListPage),
           },
           {
             path: '',
@@ -75,6 +72,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/help/help.page').then((m) => m.HelpPage),
       },
+
       {
         path: '',
         redirectTo: 'dashboard',
@@ -82,6 +80,7 @@ export const routes: Routes = [
       },
     ],
   },
+
   {
     path: 'privacy-policy',
     loadComponent: () =>
