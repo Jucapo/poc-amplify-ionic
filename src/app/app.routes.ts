@@ -74,6 +74,14 @@ export const routes: Routes = [
       },
 
       {
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/user-profile/user-profile.page').then(
+            (m) => m.UserProfilePage,
+          ),
+      },
+
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',

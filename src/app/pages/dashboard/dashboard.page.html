@@ -20,7 +20,7 @@
 
       <!-- Tarjeta ÚNICA de Agregar Prospecto -->
       <ion-card class="add-prospect-card" button (click)="onCreateProspect()">
-        <ion-item lines="none" detail="false">
+        <ion-item class="!mb-0 py-4" lines="none" detail="false">
           <ion-icon
             name="add-circle-outline"
             slot="start"
@@ -34,6 +34,23 @@
         </ion-item>
       </ion-card>
 
+      <!-- Tarjeta ÚNICA de Agregar Prospecto -->
+      <ion-card class="add-prospect-card" button (click)="onCreateProspect()">
+        <ion-item class="!mb-0 py-4" lines="none" detail="false">
+          <ion-icon
+            name="notifications-outline"
+            slot="start"
+            class="card-icon"
+          ></ion-icon>
+          <ion-label>
+            <h2>Farmacia General</h2>
+            <p>Edificio Multiusos, Local 3, 2da Ave 15-92</p>
+            <p class="semi-bold">Compartido por Josué Martínez</p>
+          </ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+      </ion-card>
+
       <!-- Sección de Prospectos -->
       <div class="prospects-section">
         <div class="section-header">
@@ -41,19 +58,72 @@
           <span class="counter">{{prospects.length}} registros</span>
         </div>
 
-        <ion-list lines="none" class="prospect-list">
-          <ion-item
+        <div class="space-y-3 prospect-list">
+          <!-- Item de Prospecto -->
+          <div
             *ngFor="let p of prospects"
-            class="prospect-item p-4"
             (click)="onViewProspect(p.id)"
+            class="prospect-item bg-white rounded-lg shadow-sm border border-gray-200 p-2 hover:shadow-md transition-shadow cursor-pointer"
           >
-            <ion-label>
-              <h3>{{p.nombre}}</h3>
-              <p>{{p.direccion}}</p>
-            </ion-label>
-            <ion-icon name="chevron-forward" slot="end"></ion-icon>
-          </ion-item>
-        </ion-list>
+            <div class="flex items-center">
+              <!-- Status del prospecto (puedes agregar lógica según necesites) -->
+              <div class="mr-3 flex-shrink-0">
+                <span *ngIf="p.status === 'completed'" class="text-green-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span *ngIf="p.status === 'info'" class="text-gray-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+
+              <!-- Contenido -->
+              <div class="flex-1 min-w-0">
+                <h6 class="text-gray-800">{{p.nombre}}</h6>
+                <p class="text-gray-600 mt-1">
+                  {{p.direccion || 'Información faltante'}}
+                </p>
+              </div>
+
+              <!-- Flecha de navegación -->
+              <div class="ml-4 flex-shrink-0 text-gray-400">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </ng-template>
