@@ -44,6 +44,14 @@
     "awsAppsyncApiKey",
     "awsAppsyncAdditionalAuthenticationTypes"
    ]
+  },
+  "AWS::Amplify::Storage": {
+   "version": "1",
+   "stackOutputs": [
+    "buckets",
+    "storageRegion",
+    "bucketName"
+   ]
   }
  },
  "Outputs": {
@@ -208,6 +216,40 @@
   },
   "awsAppsyncAdditionalAuthenticationTypes": {
    "Value": "API_KEY,AWS_IAM"
+  },
+  "storageRegion": {
+   "Value": {
+    "Ref": "AWS::Region"
+   }
+  },
+  "bucketName": {
+   "Value": {
+    "Fn::GetAtt": [
+     "storage0EC3F24A",
+     "Outputs.amplifypocamplifyionicUsuariosandboxe6e0213c2estorageamplifyTeamDriveBucket9D841447Ref"
+    ]
+   }
+  },
+  "buckets": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "[\"{\\\"name\\\":\\\"amplifyTeamDrive\\\",\\\"bucketName\\\":\\\"",
+      {
+       "Fn::GetAtt": [
+        "storage0EC3F24A",
+        "Outputs.amplifypocamplifyionicUsuariosandboxe6e0213c2estorageamplifyTeamDriveBucket9D841447Ref"
+       ]
+      },
+      "\\\",\\\"storageRegion\\\":\\\"",
+      {
+       "Ref": "AWS::Region"
+      },
+      "\\\"}\"]"
+     ]
+    ]
+   }
   }
  },
  "Resources": {
@@ -308,7 +350,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/5bf5a668b118f20b226408ca4706bd9173494d3a4b6e721e4614ad6c4be89692.json"
+       "/65e40ce072cf5903e72461864e20d8ce3569e8a00ae8887e35b1d3fb2c88fd9f.json"
       ]
      ]
     }
@@ -318,6 +360,48 @@
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/data.NestedStack/data.NestedStackResource",
     "aws:asset:path": "amplifypocamplifyionicUsuariosandboxe6e0213c2edata59FFC306.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "storage0EC3F24A": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/d41c384e97067132109f4da2e3364d13b788f37205d15b177c71ffc49798ac2c.json"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/storage.NestedStack/storage.NestedStackResource",
+    "aws:asset:path": "amplifypocamplifyionicUsuariosandboxe6e0213c2estorage1A8BA024.nested.template.json",
     "aws:asset:property": "TemplateURL"
    }
   },

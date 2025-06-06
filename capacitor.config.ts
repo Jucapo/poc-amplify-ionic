@@ -9,6 +9,12 @@ const config: CustomCapacitorConfig = {
   appName: 'poc-amplify-ionic',
   webDir: 'www',
   bundledWebRuntime: false,
+  plugins: {
+    Camera: {
+      quality: 85,
+      saveToGallery: false,
+    },
+  },
 };
 
 export default config;

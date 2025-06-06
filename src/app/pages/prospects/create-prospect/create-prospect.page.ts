@@ -15,6 +15,10 @@ import { cameraOutline, locationOutline } from 'ionicons/icons';
 import { ProspectService } from '../../../core/services/prospect.service';
 import { MapPickerModalComponent } from '../../../shared/components/map-picker-modal/map-picker-modal.component';
 
+import { Camera, CameraSource, CameraResultType } from '@capacitor/camera';
+import { uploadData, getUrl } from '@aws-amplify/storage';
+import { v4 as uuid } from 'uuid';
+
 @Component({
   selector: 'app-create-prospect',
   templateUrl: './create-prospect.page.html',
@@ -119,9 +123,33 @@ export class CreateProspectPage {
     this.cdr.markForCheck();
   }
 
-  /* ───────────────────────── imágenes (pendiente de implementar) */
+  /* ───────────────────────── imágenes: cámara / galería */
   async addImages() {
-    console.log('Abrir cámara / galería (pendiente implementar)');
+    /* 1. Foto (cámara o galería) */
+    const photo = await Camera.getPhoto({
+      source: CameraSource.Photos, // o CameraSource.Camera
+      resultType: CameraResultType.DataUrl, // base64 en web
+      quality: 85,
+    });
+
+    /* 2. DataURL → Blob */
+    const blob = await fetch(photo.webPath!).then((r) => r.blob());
+
+    /* 3. Subir a S3:  usa prefijo public/  */
+    const upload = await uploadData({
+      data: blob,
+      path: `public/prospects/${uuid()}.${photo.format}`, // ACL=public
+      options: { contentType: blob.type },
+    }).result; // <- espera la promesa interna
+
+    /* 4. Obtener URL pública  */
+    const { url } = await getUrl({ path: upload.path });
+
+    /* 5. Guardar en el formulario */
+    const list = (this.prospectForm.value.businessImages as string[]) ?? [];
+    this.prospectForm.patchValue({
+      businessImages: [...list, url.href], // URL → string
+    });
   }
 
   /* ───────────────────────── guardar / cancelar */
