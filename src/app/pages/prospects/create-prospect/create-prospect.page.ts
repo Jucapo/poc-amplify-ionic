@@ -1,20 +1,18 @@
-// create-prospect.page.ts
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  HostListener,
   inject,
   signal,
 } from '@angular/core';
 import { IonicModule, NavController, ModalController } from '@ionic/angular';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { locationOutline } from 'ionicons/icons';
+import { cameraOutline, locationOutline } from 'ionicons/icons';
+
 import { ProspectService } from '../../../core/services/prospect.service';
-import {
-  LocationSelectedPayload,
-  MapPickerModalComponent,
-} from 'src/app/shared/components/map-picker-modal/map-picker-modal.component';
+import { MapPickerModalComponent } from '../../../shared/components/map-picker-modal/map-picker-modal.component';
 
 @Component({
   selector: 'app-create-prospect',
@@ -22,44 +20,83 @@ import {
   styleUrls: ['./create-prospect.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, IonicModule, ReactiveFormsModule],
-  /** `CUSTOM_ELEMENTS_SCHEMA` permite <map-picker> en el modal wrapper */
+  imports: [
+    CommonModule,
+    IonicModule,
+    ReactiveFormsModule,
+    MapPickerModalComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CreateProspectPage {
-  /* DI */
+  /* ───────────────────────── responsive */
+  isDesktop = signal<boolean>(window.innerWidth >= 768);
+  @HostListener('window:resize')
+  onResize() {
+    this.isDesktop.set(window.innerWidth >= 768);
+  }
+
+  /* ───────────────────────── DI */
   private fb = inject(FormBuilder);
   private modalCtrl = inject(ModalController);
   readonly nav = inject(NavController);
   private prospectSvc = inject(ProspectService);
 
-  /* Formulario reactivo */
+  /* ───────────────────────── formulario con TODO el modelo */
   prospectForm = this.fb.group({
+    /* Paso 1 – Identificación */
     companyName: ['', Validators.required],
     companyAddress: ['', Validators.required],
     department: ['', Validators.required],
     municipality: ['', Validators.required],
     locationType: ['', Validators.required],
     locationCoordinates: [''],
-    // pasos posteriores
-    legalForm: [''],
-    companySize: [''],
-    economicSector: [''],
+
+    /* Paso 2 – Imágenes */
+    businessImages: [[] as string[]],
+
+    /* Paso 3 – Características */
+    legalForm: ['', Validators.required],
+    economicSector: ['', Validators.required],
+    yearsInOperation: ['', Validators.required],
+    companySize: ['', Validators.required],
+    annualRevenue: ['', Validators.required],
+
+    /* Paso 4 – Acceso a financiamiento */
+    requestedFinancingLast3Years: ['', Validators.required],
+    financingTypeUsed: [''],
+    hadFinancingDifficulties: ['', Validators.required],
+    mainDifficultyReason: [''],
+
+    /* Paso 5 – Necesidades de financiamiento */
+    needsFinancingCurrently: ['', Validators.required],
+    financingPurpose: [''],
+    amountNeeded: [''],
+    favorableTerms: [''],
+
+    /* Paso 6 – Retos y perspectivas */
+    mainChallenges: [''],
+    interestedFinancialAdvice: ['', Validators.required],
+    interestedSpecializedPrograms: ['', Validators.required],
+
+    /* campos extra del esquema (puedes pre-setearlos o mostrarlos aparte) */
+    macroRegion: ['Centro'],
+    region: ['Zona Metropolitana'],
+    agency: [''],
   });
 
-  /* Flujo multi-paso */
+  /* ───────────────────────── navegación pasos (solo mobile) */
+  readonly maxStep = 6;
   readonly step = signal(1);
   prev() {
     this.step.update((s) => Math.max(1, s - 1));
   }
   next() {
-    this.step.update((s) => s + 1);
+    this.step.update((s) => Math.min(this.maxStep, s + 1));
   }
 
-  /* ───── Abrir picker de mapa ───── */
+  /* ───────────────────────── mapa */
   async openMap() {
-    console.log('🗺️  Open map pressed');
-    /* “presentingElement” = modal actual => animación apilada correcta */
     const presenting = document.querySelector(
       'ion-modal:not([aria-hidden])',
     ) as HTMLIonModalElement | null;
@@ -72,10 +109,9 @@ export class CreateProspectPage {
 
     await modal.present().then(() => console.log('Modal presented'));
 
-    const { data } = await modal.onWillDismiss<LocationSelectedPayload>();
-    if (!data) return; // usuario canceló
+    const { data } = await modal.onWillDismiss<LocationPayload>();
+    if (!data) return;
 
-    /* Actualiza el form con lo seleccionado */
     this.prospectForm.patchValue({
       companyAddress: data.address,
       department: data.department,
@@ -84,13 +120,27 @@ export class CreateProspectPage {
     });
   }
 
-  /* Guardar / Cancelar */
+  /* ───────────────────────── imágenes (pendiente de implementar) */
+  async addImages() {
+    console.log('Abrir cámara / galería (pendiente implementar)');
+  }
+
+  /* ───────────────────────── guardar / cancelar */
   cancel() {
     this.nav.back();
   }
 
   async save() {
-    if (this.prospectForm.invalid) return;
+    if (this.prospectForm.invalid) {
+      /* en mobile navega al primer paso con error */
+      if (!this.isDesktop()) {
+        const idx = this.formOrder.findIndex(
+          (k) => this.prospectForm.get(k)?.invalid,
+        );
+        if (idx !== -1) this.step.set(idx + 1);
+      }
+      return;
+    }
 
     await this.prospectSvc.createProspect(
       this.prospectForm.getRawValue() as any,
@@ -98,6 +148,15 @@ export class CreateProspectPage {
     this.nav.back();
   }
 
-  /* Iconos para template */
-  icons = { locationOutline };
+  /* ───────────────────────── helpers */
+  formOrder = ['companyName']; // primer campo para ir al paso con error
+  icons = { locationOutline, cameraOutline };
+}
+
+/* payload emitido desde MapPickerModalComponent */
+export interface LocationPayload {
+  address: string;
+  department: string;
+  municipality: string;
+  coords: string;
 }

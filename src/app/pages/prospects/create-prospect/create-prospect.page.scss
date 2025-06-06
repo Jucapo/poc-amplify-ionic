@@ -2,7 +2,10 @@
   @apply flex flex-col h-full;
 }
 
-ion-modal.fullscreen-modal {
-  --height: 100%;
-  --width: 100%;
+ion-card {
+  @apply bg-white shadow-md rounded-lg;
+}
+
+ion-card[hidden] {
+  display: none !important;
 }

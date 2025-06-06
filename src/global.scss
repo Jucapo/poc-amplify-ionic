@@ -18,50 +18,40 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/* ============== */
-/* Variables Globales */
-/* ============== */
+/* =======================================================================
+   VARIABLES GLOBALES
+   ==================================================================== */
 :root {
-  /* ============== */
-  /* Grises suaves (de más claro a más oscuro) */
-  /* ============== */
-  --gray-1: #f5f5f7; /* Fondo general muy claro */
-  --gray-2: #e1e1e5; /* Contenedores e inputs */
-  --gray-3: #c8c8cc; /* Bordes y elementos secundarios */
+  --gray-1: #f5f5f7;
+  --gray-2: #e1e1e5;
+  --gray-3: #c8c8cc;
 
   --ion-color-dark: #222428;
   --ion-color-medium: #92949c;
   --ion-color-light: #f4f5f8;
 
-  /* ============== */
-  /* Azul “acción” (botones principales) */
-  /* ============== */
   --primary: #2d9cdb;
-  --primary-light: #6ec1ff; /* Un poco más claro para variaciones */
-  --primary-dark: #1f78b4; /* Un poco más oscuro */
+  --primary-light: #6ec1ff;
+  --primary-dark: #1f78b4;
 
-  /* ============== */
-  /* Blanco y negro */
-  /* ============== */
   --white: #ffffff;
   --black: #000000;
 
-  /* ============== */
-  /* Variables internas de Ionic basadas en nuestra paleta */
-  /* ============== */
   --ion-color-primary: var(--primary);
   --ion-color-primary-rgb: 45, 156, 219;
   --ion-color-primary-contrast: var(--white);
   --ion-color-primary-shade: var(--primary-dark);
   --ion-color-primary-tint: var(--primary-light);
 
-  /* Fondo y texto */
   --ion-background-color: var(--gray-1);
   --ion-text-color: var(--black);
   --ion-toolbar-background: var(--gray-1);
   --ion-toolbar-color: var(--black);
 }
 
+/* =======================================================================
+   BASE
+   ==================================================================== */
 html,
 body,
 ion-app,
@@ -73,9 +63,7 @@ ion-app,
   overflow-x: hidden;
 }
 
-/* ============== */
-/* Ionic Content */
-/* ============== */
+/* Content padding */
 ion-content {
   --background: var(--gray-1);
   --color: var(--black);
@@ -85,30 +73,33 @@ ion-content {
   --padding-end: 16px;
 }
 
-/* ============== */
-/* Ionic Cards */
-/* ============== */
+/* =======================================================================
+   CARDS
+   ==================================================================== */
 ion-card {
   --background: var(--white) !important;
   --color: var(--black) !important;
   margin: 16px;
+  padding: 16px;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 5%);
 }
 
 ion-card-title {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--primary);
+  padding: 1rem 0;
 }
 
 ion-card-content {
-  padding-top: 12px;
+  padding: 8px !important;
+  margin: 0 8px !important;
 }
 
-/* ============== */
-/* Ionic Items */
-/* ============== */
+/* =======================================================================
+   IONIC ITEMS (estilo base)
+   ==================================================================== */
 ion-item {
   --background: var(--white);
   --color: var(--black);
@@ -117,98 +108,27 @@ ion-item {
   --inner-padding-end: 0;
   margin-bottom: 16px;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
-/* ============== */
-/* Scroll Fix */
-/* ============== */
+/* =======================================================================
+   SCROLL FIX
+   ==================================================================== */
 .scroll-content {
   overflow-y: auto !important;
 }
 
-/* ============== */
-/* Responsive */
-/* ============== */
+/* =======================================================================
+   RESPONSIVE
+   ==================================================================== */
 @media (max-width: 768px) {
   ion-card {
     margin: 8px;
   }
 }
 
-/* ======================== */
-/* Amplify Authenticator    */
-/* ======================== */
-amplify-authenticator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: var(--gray-1);
-  width: 100%;
-}
-
-/* ======================== */
-/* Amplify Tabs (si se usan) */
-/* ======================== */
-.amplify-tabs {
-  width: 100%;
-  max-width: 400px;
-  background: var(--white);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-}
-
-.amplify-tabs-item {
-  font-weight: 500 !important;
-  color: var(--black) !important;
-  border-bottom: 2px solid transparent !important;
-  padding: 12px 0 !important;
-}
-
-.amplify-tabs-item[data-state="active"] {
-  color: var(--primary) !important;
-  border-bottom-color: var(--primary) !important;
-}
-
-/* ======================== */
-/* Amplify Botón primario   */
-/* ======================== */
-.amplify-button--primary {
-  background-color: var(--primary) !important;
-  color: var(--white) !important;
-  width: 100%;
-  padding: 12px !important;
-  border-radius: 8px;
-  font-weight: 500;
-}
-
-/* ======================== */
-/* Override: Autofill        */
-/* (para que el navegador    */
-/*  no pinte amarillo/azul)  */
-/* ======================== */
-/* Chrome, Safari, Edge */
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px var(--white) inset !important;
-  box-shadow: 0 0 0px 1000px var(--white) inset !important;
-  -webkit-text-fill-color: var(--black) !important;
-  caret-color: var(--black) !important;
-}
-/* Firefox */
-input:-moz-autofill,
-textarea:-moz-autofill,
-select:-moz-autofill {
-  box-shadow: 0 0 0px 1000px var(--white) inset !important;
-  -moz-text-fill-color: var(--black) !important;
-}
-
-/* ============== */
-/* Loading Overlay */
-/* ============== */
+/* =======================================================================
+   AMPLIFY COMPONENTS (sin cambios)
+   ==================================================================== */
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -261,4 +181,142 @@ select:-moz-autofill {
   color: var(--primary);
   font-weight: 500;
   text-align: center;
+}
+
+/* =======================================================================
+   🎨 FORM-FIELDS (INPUTS, SELECTS, TEXTAREAS)
+   ==================================================================== */
+ion-item.item-input {
+  --background: var(--white);
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--gray-3);
+  --border-radius: 12px;
+  --inner-border-width: 0;
+  --min-height: 56px;
+  --padding-start: 14px;
+  --inner-padding-end: 14px;
+  --inner-padding-top: 12px;
+  --inner-padding-bottom: 12px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 4%);
+}
+ion-item.item-input.ion-focused {
+  --border-color: var(--ion-color-primary);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--ion-color-primary) 35%, transparent);
+}
+ion-item.item-input ion-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 4px;
+}
+ion-input,
+ion-select,
+ion-textarea {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--black);
+}
+ion-input::placeholder,
+ion-textarea::placeholder {
+  color: #9ca3af;
+}
+ion-select::part(icon) {
+  color: #6b7280;
+}
+ion-item[disabled] {
+  opacity: 0.55;
+}
+
+/* =====================================================================
+   ITEM-BUTTON  (Mapa / Imágenes) – padding & flecha alineada
+   =================================================================== */
+
+ion-item[button] {
+  --inner-padding-start: 14px;
+  --inner-padding-end: 14px;
+
+  /* Chevron y borde */
+  --detail-icon-color: var(--primary-light);
+  --detail-icon-opacity: 1;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--primary-light);
+  --border-radius: 12px;
+
+  /* 🔥 desactiva la línea interna */
+  --inner-border-width: 0;
+  --inner-border-style: none;
+
+  /* 🎯 ALTURA */
+  --min-height: 50px; /*  ←  la nueva altura   */
+  --padding-top: 8px; /*  opcional: aire extra */
+  --padding-bottom: 8px;
+}
+
+/* Detalle: quita la sombra al hacer clic para que no parpadee */
+ion-item[button].ion-activated {
+  --background: var(--gray-2);
+  box-shadow: none;
+}
+
+/* =======================================================================
+   SEGMENT (Sí/No – usa --primary-light en activo)
+   ==================================================================== */
+ion-segment {
+  --border-radius: 10px;
+  --background: var(--gray-2); /* track */
+  --indicator-border-radius: 8px;
+  --indicator-color: var(--white);
+  --indicator-background: var(--primary-light); /* botón activo */
+  --color: var(--black);
+  --color-checked: var(--white);
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+  --padding-start: 4px;
+  --padding-end: 4px;
+}
+ion-segment-button {
+  --background: transparent;
+  --ripple-color: var(--primary-light);
+}
+/* elimina sombra iOS */
+ion-segment.segment-ios .segment-button-indicator {
+  box-shadow: none;
+}
+
+/* =====================================================================
+   BOTONES
+   =================================================================== */
+
+/* ⇢  A) Botones sólidos  (fill = «solid» o sin atributo)  */
+ion-button:not([fill]),
+ion-button[fill="solid"] {
+  --background: var(--primary-light);
+  --background-hover: var(--primary);
+  --background-activated: var(--primary-dark);
+  --background-focused: var(--primary);
+  --border-radius: 12px;
+  --box-shadow: none;
+  font-weight: 500;
+}
+
+/* ⇢  B) Botones outline / clear  → sin fondo  */
+ion-button[fill="clear"],
+ion-button[fill="outline"] {
+  --background: transparent;
+  --background-hover: transparent;
+  --background-activated: transparent;
+  --background-focused: transparent;
+  --border-radius: 12px;
+}
+
+/* =======================================================================
+   KEYFRAMES
+   ==================================================================== */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

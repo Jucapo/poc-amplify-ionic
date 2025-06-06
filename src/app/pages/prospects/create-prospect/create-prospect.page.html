@@ -2,69 +2,223 @@
   <form
     [formGroup]="prospectForm"
     (ngSubmit)="save()"
-    class="mx-auto w-full max-w-xl space-y-6"
+    class="mx-auto w-full max-w-3xl space-y-6"
   >
-    <!-- Paso 1 – Identificación -->
-    <ion-card class="bg-white shadow-md rounded-lg py-8 px-4">
+    <!-- Paso 1 -->
+    <ion-card [hidden]="!isDesktop() && step() !== 1">
       <ion-card-header>
-        <ion-card-title clas>1. Identificación de la empresa</ion-card-title>
+        <ion-card-title>1. Identificación de la empresa</ion-card-title>
       </ion-card-header>
 
-      <ion-card-content class="space-y-4 my-4">
-        <ion-item lines="full my-4">
-          <ion-label position="stacked">Nombre de la empresa</ion-label>
-          <ion-input
-            formControlName="companyName"
-            placeholder="Tiendita la Esquina"
-          ></ion-input>
+      <ion-card-content class="space-y-4">
+        <ion-item lines="full">
+          <ion-label class position="stacked">Nombre de la empresa</ion-label>
+          <ion-input formControlName="companyName"></ion-input>
         </ion-item>
 
-        <ion-item lines="full my-4">
+        <!-- Botón mapa -->
+        <ion-item button (click)="openMap()" class="rounded-lg text-primary">
+          <ion-icon
+            slot="start"
+            color="danger"
+            class="ml-2"
+            [icon]="icons.locationOutline"
+          ></ion-icon>
+          <ion-label class="!text-sm px-2">
+            {{ prospectForm.value.companyAddress ?
+            prospectForm.value.companyAddress : 'Dirección de comercio' }}
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="full">
           <ion-label position="stacked">Tipo de ubicación</ion-label>
           <ion-select formControlName="locationType" placeholder="Seleccionar">
             <ion-select-option value="Urban">Urbano</ion-select-option>
             <ion-select-option value="Rural">Rural</ion-select-option>
           </ion-select>
         </ion-item>
-
-        <!-- Botón para abrir el mapa -->
-        <ion-item
-          button
-          (click)="openMap()"
-          class="rounded-lg border border-primary text-primary"
-        >
-          <ion-icon
-            class="mx-2"
-            slot="start"
-            [icon]="icons.locationOutline"
-          ></ion-icon>
-          <ion-label>
-            {{ prospectForm.value.companyAddress ?
-            prospectForm.value.companyAddress : 'Dirección de comercio' }}
-          </ion-label>
-        </ion-item>
-
-        <!-- Resumen -->
-        <ng-container *ngIf="prospectForm.value.companyAddress">
-          <p class="text-sm">
-            <strong>Departamento:</strong>
-            {{ prospectForm.value.department }}
-          </p>
-          <p class="text-sm">
-            <strong>Municipio:</strong>
-            {{ prospectForm.value.municipality }}
-          </p>
-        </ng-container>
       </ion-card-content>
     </ion-card>
 
-    <!-- Navegación / Guardar -->
-    <div class="flex justify-between">
+    <!-- Paso 2 -->
+    <ion-card [hidden]="!isDesktop() && step() !== 2">
+      <ion-card-header>
+        <ion-card-title>2. Imágenes de la localidad</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item button (click)="addImages()" class="rounded-lg text-primary">
+          <ion-icon
+            slot="start"
+            class="ml-2"
+            [icon]="icons.cameraOutline"
+          ></ion-icon>
+          <ion-label>Imágenes del negocio</ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Paso 3 -->
+    <ion-card [hidden]="!isDesktop() && step() !== 3">
+      <ion-card-header>
+        <ion-card-title>3. Características de la empresa</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="space-y-4">
+        <ion-item lines="full">
+          <ion-label position="stacked">Forma jurídica</ion-label>
+          <ion-input formControlName="legalForm"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Sector económico</ion-label>
+          <ion-input formControlName="economicSector"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Años de operación</ion-label>
+          <ion-input formControlName="yearsInOperation"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Tamaño de la empresa</ion-label>
+          <ion-input formControlName="companySize"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Facturación anual</ion-label>
+          <ion-input formControlName="annualRevenue"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Paso 4 -->
+    <ion-card [hidden]="!isDesktop() && step() !== 4">
+      <ion-card-header>
+        <ion-card-title>4. Acceso a financiamiento</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="space-y-6">
+        <div>
+          <p class="font-medium mb-2">
+            ¿Ha solicitado financiamiento en los últimos 3 años?
+          </p>
+          <ion-segment formControlName="requestedFinancingLast3Years">
+            <ion-segment-button value="Yes">Si</ion-segment-button>
+            <ion-segment-button value="No">No</ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <ion-item
+          *ngIf="prospectForm.value.requestedFinancingLast3Years === 'Yes'"
+          lines="full"
+        >
+          <ion-label position="stacked">Tipo de financiamiento</ion-label>
+          <ion-input formControlName="financingTypeUsed"></ion-input>
+        </ion-item>
+
+        <div>
+          <p class="font-medium mb-2">
+            ¿Ha tenido dificultades para acceder a financiamiento?
+          </p>
+          <ion-segment formControlName="hadFinancingDifficulties">
+            <ion-segment-button value="Yes">Si</ion-segment-button>
+            <ion-segment-button value="No">No</ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <ion-item
+          *ngIf="prospectForm.value.hadFinancingDifficulties === 'Yes'"
+          lines="full"
+        >
+          <ion-label position="stacked">Motivo principal</ion-label>
+          <ion-input formControlName="mainDifficultyReason"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Paso 5 -->
+    <ion-card [hidden]="!isDesktop() && step() !== 5">
+      <ion-card-header>
+        <ion-card-title>5. Necesidades de financiamiento</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="space-y-6">
+        <div>
+          <p class="font-medium mb-2">
+            ¿Actualmente necesita financiamiento para su empresa?
+          </p>
+          <ion-segment formControlName="needsFinancingCurrently">
+            <ion-segment-button value="Yes">Si</ion-segment-button>
+            <ion-segment-button value="No">No</ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Monto aproximado</ion-label>
+          <ion-input formControlName="amountNeeded"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Condiciones favorables</ion-label>
+          <ion-input formControlName="favorableTerms"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Propósito</ion-label>
+          <ion-input formControlName="financingPurpose"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Paso 6 -->
+    <ion-card [hidden]="!isDesktop() && step() !== 6">
+      <ion-card-header>
+        <ion-card-title>6. Perspectivas y retos</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="space-y-6">
+        <ion-item lines="full">
+          <ion-label position="stacked">Principal desafío</ion-label>
+          <ion-input formControlName="mainChallenges"></ion-input>
+        </ion-item>
+
+        <div>
+          <p class="font-medium mb-2">¿Le interesaría asesoría financiera?</p>
+          <ion-segment formControlName="interestedFinancialAdvice">
+            <ion-segment-button value="Yes">Si</ion-segment-button>
+            <ion-segment-button value="No">No</ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <div>
+          <p class="font-medium mb-2">¿Programas especializados?</p>
+          <ion-segment formControlName="interestedSpecializedPrograms">
+            <ion-segment-button value="Yes">Si</ion-segment-button>
+            <ion-segment-button value="No">No</ion-segment-button>
+          </ion-segment>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Navegación inferior (móvil) -->
+    <div class="flex justify-between md:hidden mt-4">
       <ion-button fill="clear" [disabled]="step() === 1" (click)="prev()">
         Anterior
       </ion-button>
 
-      <ion-button type="submit" class="ion-color-primary">Guardar</ion-button>
+      <ion-button *ngIf="step() < maxStep" (click)="next()">
+        Siguiente
+      </ion-button>
+
+      <ion-button type="submit" *ngIf="step() === maxStep">
+        Guardar
+      </ion-button>
     </div>
+
+    <!-- Botón Guardar (desktop) -->
+    <ion-button type="submit" expand="block" class="hidden md:block">
+      Guardar Prospecto
+    </ion-button>
   </form>
 </ion-content>
