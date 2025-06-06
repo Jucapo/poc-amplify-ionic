@@ -1,13 +1,70 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>create-prospect</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="bg-gray-50">
+  <form
+    [formGroup]="prospectForm"
+    (ngSubmit)="save()"
+    class="mx-auto w-full max-w-xl space-y-6"
+  >
+    <!-- Paso 1 – Identificación -->
+    <ion-card class="bg-white shadow-md rounded-lg py-8 px-4">
+      <ion-card-header>
+        <ion-card-title clas>1. Identificación de la empresa</ion-card-title>
+      </ion-card-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">create-prospect</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <ion-card-content class="space-y-4 my-4">
+        <ion-item lines="full my-4">
+          <ion-label position="stacked">Nombre de la empresa</ion-label>
+          <ion-input
+            formControlName="companyName"
+            placeholder="Tiendita la Esquina"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="full my-4">
+          <ion-label position="stacked">Tipo de ubicación</ion-label>
+          <ion-select formControlName="locationType" placeholder="Seleccionar">
+            <ion-select-option value="Urban">Urbano</ion-select-option>
+            <ion-select-option value="Rural">Rural</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Botón para abrir el mapa -->
+        <ion-item
+          button
+          (click)="openMap()"
+          class="rounded-lg border border-primary text-primary"
+        >
+          <ion-icon
+            class="mx-2"
+            slot="start"
+            [icon]="icons.locationOutline"
+          ></ion-icon>
+          <ion-label>
+            {{ prospectForm.value.companyAddress ?
+            prospectForm.value.companyAddress : 'Dirección de comercio' }}
+          </ion-label>
+        </ion-item>
+
+        <!-- Resumen -->
+        <ng-container *ngIf="prospectForm.value.companyAddress">
+          <p class="text-sm">
+            <strong>Departamento:</strong>
+            {{ prospectForm.value.department }}
+          </p>
+          <p class="text-sm">
+            <strong>Municipio:</strong>
+            {{ prospectForm.value.municipality }}
+          </p>
+        </ng-container>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Navegación / Guardar -->
+    <div class="flex justify-between">
+      <ion-button fill="clear" [disabled]="step() === 1" (click)="prev()">
+        Anterior
+      </ion-button>
+
+      <ion-button type="submit" class="ion-color-primary">Guardar</ion-button>
+    </div>
+  </form>
 </ion-content>
