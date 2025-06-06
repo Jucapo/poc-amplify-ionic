@@ -80,7 +80,7 @@ export class DashboardPage implements OnInit {
       }
 
       const { data } = result;
-      this.username = data.firstName + data.lastName;
+      this.username = data.firstName + ' ' + data.lastName;
     } catch (error) {
       console.error('Error loading profile:', error);
       this.showError('Error al cargar el perfil');
