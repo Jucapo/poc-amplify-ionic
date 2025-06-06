@@ -1,7 +1,13 @@
 <ion-content [fullscreen]="true" class="bg-gray-50">
   <ng-container *ngIf="loadingInitialData(); else dashboard">
     <div class="loading-overlay">
-      <!-- Spinner de carga (mantener igual) -->
+      <div class="modern-spinner">
+        <div class="spinner-circle"></div>
+        <div class="spinner-logo">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </div>
+      </div>
+      <p class="loading-text">Cargando...</p>
     </div>
   </ng-container>
 
