@@ -320,3 +320,34 @@ ion-button[fill="outline"] {
     transform: rotate(360deg);
   }
 }
+
+/* =====================================================================
+   CENTRAR CONTENIDO EN DESKTOP
+   ==================================================================== */
+@media (min-width: 768px) {
+  ion-content .form-wrapper,
+  ion-content form {
+    max-width: 680px; /* cambia si necesitas otro ancho */
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* =====================================================================
+   SEGMENT – MODO MATERIAL (colores activo/inactivo)
+   ==================================================================== */
+ion-segment.segment-md {
+  --background: var(--gray-2); /* track gris claro */
+}
+
+ion-segment.segment-md ion-segment-button[aria-checked="true"] {
+  --background: var(--primary-light); /* botón activo */
+  --color: var(--white); /* texto activo */
+}
+
+/* =====================================================================
+   QUITA BORDE INFERIOR FANTASMA EN SEGMENT (Material)
+   ==================================================================== */
+ion-segment.segment-md {
+  border: none !important;
+}

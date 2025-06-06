@@ -20,12 +20,7 @@ import { MapPickerModalComponent } from '../../../shared/components/map-picker-m
   styleUrls: ['./create-prospect.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-    ReactiveFormsModule,
-    MapPickerModalComponent,
-  ],
+  imports: [CommonModule, IonicModule, ReactiveFormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CreateProspectPage {
