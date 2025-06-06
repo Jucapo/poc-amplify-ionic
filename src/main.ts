@@ -23,6 +23,7 @@ import outputs from '../amplify_outputs.json';
 
 import { addIcons } from 'ionicons';
 import * as allIcons from 'ionicons/icons';
+import './polyfills';
 
 // Configurar AWS Amplify
 Amplify.configure(outputs);
