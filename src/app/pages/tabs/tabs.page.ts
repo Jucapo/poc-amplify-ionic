@@ -6,7 +6,6 @@ import {
   IonIcon,
   IonTabButton,
   IonLabel,
-  IonRouterOutlet,
   IonTabBar,
   IonTabs,
 } from '@ionic/angular/standalone';
@@ -18,7 +17,6 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./tabs.page.scss'],
   standalone: true,
   imports: [
-    IonRouterOutlet,
     IonLabel,
     IonTabButton,
     IonIcon,
