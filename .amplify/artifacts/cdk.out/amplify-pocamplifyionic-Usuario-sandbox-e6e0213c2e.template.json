@@ -246,7 +246,7 @@
       {
        "Ref": "AWS::Region"
       },
-      "\\\"}\"]"
+      "\\\",\\\"paths\\\":{\\\"public/prospects/*\\\":{\\\"guest\\\":[\\\"get\\\",\\\"list\\\",\\\"write\\\"],\\\"authenticated\\\":[\\\"get\\\",\\\"list\\\",\\\"write\\\"]},\\\"protected/*\\\":{\\\"authenticated\\\":[\\\"get\\\",\\\"list\\\",\\\"write\\\"]},\\\"private/*\\\":{\\\"entityidentity\\\":[\\\"get\\\",\\\"list\\\",\\\"write\\\",\\\"delete\\\"]}}}\"]"
      ]
     ]
    }
@@ -350,7 +350,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/65e40ce072cf5903e72461864e20d8ce3569e8a00ae8887e35b1d3fb2c88fd9f.json"
+       "/d620352f947119dff289b493125a6b957befe874e291ea48bd99d56cd373ceae.json"
       ]
      ]
     }
@@ -366,6 +366,20 @@
   "storage0EC3F24A": {
    "Type": "AWS::CloudFormation::Stack",
    "Properties": {
+    "Parameters": {
+     "referencetoamplifypocamplifyionicUsuariosandboxe6e0213c2eauthNestedStackauthNestedStackResource4AFC431COutputsamplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthunauthenticatedUserRoleEB6FDE74Ref": {
+      "Fn::GetAtt": [
+       "auth179371D7",
+       "Outputs.amplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthunauthenticatedUserRoleEB6FDE74Ref"
+      ]
+     },
+     "referencetoamplifypocamplifyionicUsuariosandboxe6e0213c2eauthNestedStackauthNestedStackResource4AFC431COutputsamplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthauthenticatedUserRole791A398BRef": {
+      "Fn::GetAtt": [
+       "auth179371D7",
+       "Outputs.amplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthauthenticatedUserRole791A398BRef"
+      ]
+     }
+    },
     "Tags": [
      {
       "Key": "amplify:deployment-type",
@@ -392,7 +406,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/d41c384e97067132109f4da2e3364d13b788f37205d15b177c71ffc49798ac2c.json"
+       "/0f16bd2670debac7a38ce156b4e0c29bf3a4d5e474dc8e928bc7355f2dd1243f.json"
       ]
      ]
     }

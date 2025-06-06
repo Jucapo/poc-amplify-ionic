@@ -22,7 +22,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/821fd70cf8db2587a80d6ad512d1f4c39a1c87ba335ee437c5edc8ce06cf7514.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b677a5d6f8ae31a7d7732cdaa5aa66a81d3b3543389e8aac74d82aa145df6138.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -2419,6 +2419,24 @@
             "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
           }
         ],
+        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/storage/AMPLIFY_TEAM_DRIVE_BUCKET_NAMEParameter/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AMPLIFYTEAMDRIVEBUCKETNAMEParameterA8101723"
+          }
+        ],
+        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/storage/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e--storageAccess4/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifypocamplifyionicUsuariosandboxe6e0213c2estorageAccess496B04303"
+          }
+        ],
+        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/storage/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e--storageAccess5/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifypocamplifyionicUsuariosandboxe6e0213c2estorageAccess507F84834"
+          }
+        ],
         "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/storage/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
@@ -2429,6 +2447,18 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/storage/reference-to-amplifypocamplifyionicUsuariosandboxe6e0213c2eauthNestedStackauthNestedStackResource4AFC431COutputs.amplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthunauthenticatedUserRoleEB6FDE74Ref": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoamplifypocamplifyionicUsuariosandboxe6e0213c2eauthNestedStackauthNestedStackResource4AFC431COutputsamplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthunauthenticatedUserRoleEB6FDE74Ref"
+          }
+        ],
+        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/storage/reference-to-amplifypocamplifyionicUsuariosandboxe6e0213c2eauthNestedStackauthNestedStackResource4AFC431COutputs.amplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthauthenticatedUserRole791A398BRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoamplifypocamplifyionicUsuariosandboxe6e0213c2eauthNestedStackauthNestedStackResource4AFC431COutputsamplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthauthenticatedUserRole791A398BRef"
           }
         ],
         "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/storage/amplifypocamplifyionicUsuariosandboxe6e0213c2estorageamplifyTeamDriveBucket9D841447Ref": [
