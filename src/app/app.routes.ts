@@ -4,7 +4,6 @@ import { UserProfilePage } from './pages/user-profile/user-profile.page';
 import { AdminDashboardPage } from './pages/admin-dashboard/admin-dashboard.page';
 
 export const routes: Routes = [
-  // 1) Raíz redirige a /profile (o al que quieras por defecto)
   {
     path: '',
     redirectTo: 'profile',
@@ -17,6 +16,71 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboardPage,
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./pages/dashboard/dashboard.page').then((m) => m.DashboardPage),
+  },
+  {
+    path: 'tabs',
+    loadComponent: () =>
+      import('./pages/tabs/tabs.page').then((m) => m.TabsPage),
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.page').then(
+            (m) => m.DashboardPage,
+          ),
+      },
+      {
+        path: 'prospects',
+        children: [
+          {
+            path: 'new',
+            loadComponent: () =>
+              import(
+                './pages/prospects/create-prospect/create-prospect.page'
+              ).then((m) => m.CreateProspectPage),
+          },
+          {
+            path: 'edit/:id',
+            loadComponent: () =>
+              import('./pages/prospects/edit-prospect/edit-prospect.page').then(
+                (m) => m.EditProspectPage,
+              ),
+          },
+          {
+            path: 'list',
+            loadComponent: () =>
+              import(
+                './pages/prospects/prospects-list/prospects-list.page'
+              ).then((m) => m.ProspectsListPage),
+          },
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+        ],
+      },
+      {
+        path: 'activity',
+        loadComponent: () =>
+          import('./pages/activity/activity.page').then((m) => m.ActivityPage),
+      },
+      {
+        path: 'help',
+        loadComponent: () =>
+          import('./pages/help/help.page').then((m) => m.HelpPage),
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: 'privacy-policy',

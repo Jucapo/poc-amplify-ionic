@@ -1,9 +1,6 @@
 import { Component, computed, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonGrid,
   IonRow,
@@ -20,7 +17,6 @@ import {
   IonList,
   IonCardContent,
   IonCard,
-  IonButtons,
 } from '@ionic/angular/standalone';
 import { UserDataService } from '../../core/services/user-data.service';
 import { FormsModule } from '@angular/forms';
@@ -31,15 +27,11 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./admin-dashboard.page.scss'],
   standalone: true,
   imports: [
-    IonButtons,
     IonCard,
     IonCardContent,
     IonList,
     CommonModule,
     FormsModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonGrid,
     IonRow,

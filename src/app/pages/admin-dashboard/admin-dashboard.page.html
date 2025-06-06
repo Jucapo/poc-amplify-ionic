@@ -1,18 +1,26 @@
-<ion-content [fullscreen]="true" class="admin-content">
+<ion-content [fullscreen]="true" class="bg-gray-100">
   <!-- ============== -->
-  <!-- Controles de filtrado -->
+  <!-- Controles de filtrado (sticky, para que quede “pegado” arriba) -->
   <!-- ============== -->
-  <div class="dashboard-controls">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" size-md="4">
-          <ion-item class="filter-item">
-            <ion-label position="stacked">Filtrar por rol</ion-label>
+  <div class="bg-white p-4 mt-4 shadow mb-2 top-0 z-50">
+    <ion-grid class="max-w-screen-lg mx-auto">
+      <ion-row class="flex flex-wrap items-center -mx-2">
+        <!-- ============ Filtrar por rol ============ -->
+        <ion-col size="12" size-md="4" class="px-2">
+          <ion-item
+            class="bg-white border border-gray-300 rounded-lg p-2 my-2"
+            lines="none"
+          >
+            <ion-label position="stacked"
+              ><span class="text-gray-500 text-sm"
+                >Filtrar por rol</span
+              ></ion-label
+            >
             <ion-select
               [value]="roleFilter()"
               (ionChange)="roleFilter.set($any($event).detail.value); applyFilters()"
               interface="popover"
-              class="custom-select"
+              class="mt-1"
             >
               <ion-select-option value="">Todos</ion-select-option>
               <ion-select-option value="admin"
@@ -23,23 +31,40 @@
           </ion-item>
         </ion-col>
 
-        <ion-col size="12" size-md="5">
-          <ion-item class="search-item !mx-8">
-            <ion-label position="stacked">Buscar</ion-label>
+        <!-- ============ Buscar ============ -->
+        <ion-col size="12" size-md="5" class="px-2">
+          <ion-item
+            class="bg-white border border-gray-300 rounded-lg p-2 my-2 relative"
+            lines="none"
+          >
+            <ion-label position="stacked"
+              ><span class="text-gray-500 text-sm">Buscar</span></ion-label
+            >
             <ion-input
               [value]="searchText()"
               (ionInput)="searchText.set($any($event).target.value); applyFilters()"
               placeholder="Buscar por nombre, email..."
+              class="mt-1"
+              style="
+                --highlight-width: 0;
+                --border-width: 0;
+                --background: transparent;
+              "
             ></ion-input>
-            <ion-icon slot="end" name="search" class="search-icon"></ion-icon>
+            <ion-icon
+              slot="end"
+              name="search"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"
+            ></ion-icon>
           </ion-item>
         </ion-col>
 
-        <ion-col size="12" size-md="3">
+        <!-- ============ Botón Actualizar ============ -->
+        <ion-col size="12" size-md="3" class="px-2">
           <ion-button
             expand="block"
             (click)="refreshUsers()"
-            class="refresh-button"
+            class="bg-blue-400 text-white rounded-lg h-11 w-full mt-2 md:mt-0"
           >
             <ion-icon slot="start" name="refresh"></ion-icon>
             Actualizar
@@ -50,57 +75,72 @@
   </div>
 
   <!-- ============== -->
-  <!-- Tabla Desktop + Lista Móvil -->
+  <!--  Tabla Desktop + Lista Móvil  -->
   <!-- ============== -->
-  <div class="table-scroll-container">
+  <div class="overflow-x-auto mt-8 shadow p-4">
+    <!-- 1) Loading Overlay -->
     <ng-container *ngIf="isLoading()">
-      <div class="loading-overlay">
+      <div
+        class="absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center z-40"
+      >
         <ion-spinner name="crescent"></ion-spinner>
       </div>
     </ng-container>
 
+    <!-- 2) Si hay datos, mostrar tabla en desktop y tarjetas en móvil -->
     <ng-container
       *ngIf="displayedUsers() && displayedUsers().length > 0; else noData"
     >
-      <!-- DESKTOP: tabla con scroll horizontal suave -->
-      <div class="desktop-only">
-        <table class="user-table">
-          <thead>
-            <tr class="table-header">
+      <!-- —— DESKTOP: tabla con scroll horizontal —— -->
+      <div class="hidden md:block">
+        <table class="min-w-[600px] w-full border-collapse">
+          <thead class="bg-blue-400 text-white">
+            <tr>
               <th
                 *ngFor="let column of displayedColumns"
                 (click)="onSortChange(column)"
-                [class.active]="sortState().active === column"
+                [class.text-yellow-300]="sortState().active === column"
+                class="px-4 py-2 text-left font-semibold cursor-pointer select-none"
               >
                 {{ getColumnName(column) }}
                 <ion-icon
                   *ngIf="sortState().active === column"
-                  [name]="sortState().direction === 'asc' ? 'arrow-up' : 'arrow-down'"
+                  [name]="
+                    sortState().direction === 'asc'
+                      ? 'arrow-up'
+                      : 'arrow-down'
+                  "
+                  class="align-middle text-sm ml-1"
                 ></ion-icon>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of displayedUsers()" class="table-row">
-              <td>{{ user.email }}</td>
-              <td>{{ user.firstName || '-' }}</td>
-              <td>{{ user.lastName || '-' }}</td>
-              <td>{{ (user.role | titlecase) || '-' }}</td>
-              <td>{{ user.phone || '-' }}</td>
-              <td class="actions-col">
+            <tr
+              *ngFor="let user of displayedUsers()"
+              class="even:bg-gray-200 odd:bg-white"
+            >
+              <td class="px-4 py-2">{{ user.email }}</td>
+              <td class="px-4 py-2">{{ user.firstName || '-' }}</td>
+              <td class="px-4 py-2">{{ user.lastName || '-' }}</td>
+              <td class="px-4 py-2">{{ (user.role | titlecase) || '-' }}</td>
+              <td class="px-4 py-2">{{ user.phone || '-' }}</td>
+              <td class="px-4 py-2 text-center">
                 <ion-button
                   fill="clear"
                   color="primary"
+                  class="p-0 mr-2"
                   (click)="editUser(user)"
                 >
-                  <ion-icon name="create"></ion-icon>
+                  <ion-icon name="create" class="text-lg"></ion-icon>
                 </ion-button>
                 <ion-button
                   fill="clear"
                   color="danger"
+                  class="p-0"
                   (click)="deleteUser(user)"
                 >
-                  <ion-icon name="trash"></ion-icon>
+                  <ion-icon name="trash" class="text-lg"></ion-icon>
                 </ion-button>
               </td>
             </tr>
@@ -108,51 +148,66 @@
         </table>
       </div>
 
-      <!-- MÓVIL: lista de tarjetas para cada usuario -->
-      <div class="mobile-only user-card-list">
-        <ion-list>
-          <ion-card *ngFor="let user of displayedUsers()" class="user-card">
-            <ion-card-content>
-              <div class="card-row">
-                <div class="card-label">Email:</div>
-                <div class="card-value">{{ user.email }}</div>
+      <!-- —— MÓVIL: lista de tarjetas —— -->
+      <div class="block md:hidden">
+        <ion-list class="space-y-4">
+          <ion-card
+            *ngFor="let user of displayedUsers()"
+            class="rounded-lg shadow bg-white"
+          >
+            <ion-card-content class="p-4">
+              <div class="flex flex-wrap mb-2">
+                <div class="w-2/5 text-gray-600 text-sm font-medium">
+                  Email:
+                </div>
+                <div class="w-3/5 text-gray-800">{{ user.email }}</div>
               </div>
-              <div class="card-row">
-                <div class="card-label">Nombre:</div>
-                <div class="card-value">{{ user.firstName || '-' }}</div>
+              <div class="flex flex-wrap mb-2">
+                <div class="w-2/5 text-gray-600 text-sm font-medium">
+                  Nombre:
+                </div>
+                <div class="w-3/5 text-gray-800">
+                  {{ user.firstName || '-' }}
+                </div>
               </div>
-              <div class="card-row">
-                <div class="card-label">Apellido:</div>
-                <div class="card-value">{{ user.lastName || '-' }}</div>
+              <div class="flex flex-wrap mb-2">
+                <div class="w-2/5 text-gray-600 text-sm font-medium">
+                  Apellido:
+                </div>
+                <div class="w-3/5 text-gray-800">
+                  {{ user.lastName || '-' }}
+                </div>
               </div>
-              <div class="card-row">
-                <div class="card-label">Rol:</div>
-                <div class="card-value">
+              <div class="flex flex-wrap mb-2">
+                <div class="w-2/5 text-gray-600 text-sm font-medium">Rol:</div>
+                <div class="w-3/5 text-gray-800">
                   {{ (user.role | titlecase) || '-' }}
                 </div>
               </div>
-              <div class="card-row">
-                <div class="card-label">Teléfono:</div>
-                <div class="card-value">{{ user.phone || '-' }}</div>
+              <div class="flex flex-wrap mb-4">
+                <div class="w-2/5 text-gray-600 text-sm font-medium">
+                  Teléfono:
+                </div>
+                <div class="w-3/5 text-gray-800">{{ user.phone || '-' }}</div>
               </div>
-              <div class="card-actions">
+              <div class="flex justify-evently space-x-2">
                 <ion-button
                   fill="clear"
                   color="primary"
                   size="small"
                   (click)="editUser(user)"
+                  class="!px-2 !py-1 text-sm"
                 >
-                  <ion-icon slot="start" name="create"></ion-icon>
-                  Editar
+                  <ion-icon slot="start" name="create"></ion-icon> Editar
                 </ion-button>
                 <ion-button
                   fill="clear"
                   color="danger"
                   size="small"
                   (click)="deleteUser(user)"
+                  class="!px-2 !py-1 text-sm"
                 >
-                  <ion-icon slot="start" name="trash"></ion-icon>
-                  Eliminar
+                  <ion-icon slot="start" name="trash"></ion-icon> Eliminar
                 </ion-button>
               </div>
             </ion-card-content>
@@ -161,18 +216,20 @@
       </div>
     </ng-container>
 
-    <!-- Paginación -->
+    <!-- —— PAGINACIÓN —— -->
     <div
-      class="pagination-container"
       *ngIf="displayedUsers() && displayedUsers().length > 0"
+      class="mt-6 flex flex-col items-center space-y-3"
     >
-      <div class="page-size-control">
-        <ion-item>
-          <ion-label position="stacked">Elementos por página:</ion-label>
+      <div class="w-4/5 max-w-xs">
+        <ion-item lines="none" class="mt-2">
+          <ion-label position="stacked" class="text-gray-600 text-sm"
+            >Elementos por página:</ion-label
+          >
           <ion-select
             [value]="pageSize()"
             (ionChange)="pageSize.set($any($event).detail.value); applyFilters()"
-            class="custom-select"
+            class="mt-1"
           >
             <ion-select-option
               *ngFor="let option of pageSizeOptions"
@@ -183,11 +240,12 @@
           </ion-select>
         </ion-item>
       </div>
-      <div class="page-navigation">
+      <div class="flex items-center space-x-4 text-gray-700 text-sm">
         <ion-button
           fill="clear"
           [disabled]="pageIndex() === 0"
           (click)="previousPage()"
+          class="!px-0"
         >
           <ion-icon name="chevron-back"></ion-icon>
         </ion-button>
@@ -196,16 +254,17 @@
           fill="clear"
           [disabled]="pageIndex() >= totalPages() - 1"
           (click)="nextPage()"
+          class="!px-0"
         >
           <ion-icon name="chevron-forward"></ion-icon>
         </ion-button>
       </div>
     </div>
 
-    <!-- Mensaje “No hay datos” -->
+    <!-- —— “NO HAY DATOS” —— -->
     <ng-template #noData>
-      <div class="no-data">
-        <ion-icon name="people-outline"></ion-icon>
+      <div class="mt-12 flex flex-col items-center text-gray-500">
+        <ion-icon name="people-outline" class="text-3xl mb-2"></ion-icon>
         <p>No se encontraron usuarios</p>
       </div>
     </ng-template>

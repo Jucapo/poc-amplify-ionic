@@ -1,0 +1,22 @@
+<ion-tabs>
+  <ion-router-outlet tabs="true"></ion-router-outlet>
+
+  <ion-tab-bar slot="bottom" class="tabs-bar">
+    <ion-tab-button tab="dashboard" routerLink="/tabs/dashboard">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Inicio</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="prospects" routerLink="/tabs/prospects/list">
+      <ion-icon name="list-outline"></ion-icon>
+      <ion-label>Prospectos</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="activity" routerLink="/tabs/activity">
+      <ion-icon name="time-outline"></ion-icon>
+      <ion-label>Actividad</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="help" routerLink="/tabs/help">
+      <ion-icon name="help-circle-outline"></ion-icon>
+      <ion-label>Ayuda</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

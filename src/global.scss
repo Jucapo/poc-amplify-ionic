@@ -7,11 +7,11 @@
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
 
 /* ============== */
-/* Ionic Optional CSS */
+/* Ionic Utility CSS */
 /* ============== */
+@import "@ionic/angular/css/display.css";
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
@@ -58,15 +58,6 @@
   --ion-toolbar-color: var(--black);
 }
 
-/* ============== */
-/* Estilos Base */
-/* ============== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html,
 body,
 ion-app,
@@ -84,8 +75,8 @@ ion-app,
 ion-content {
   --background: var(--gray-1);
   --color: var(--black);
-  --padding-top: 16px;
-  --padding-bottom: 16px;
+  --padding-top: 50px;
+  --padding-bottom: 50px;
   --padding-start: 16px;
   --padding-end: 16px;
 }
@@ -99,10 +90,6 @@ ion-card {
   margin: 16px;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-}
-
-ion-card-header {
-  padding-bottom: 0;
 }
 
 ion-card-title {

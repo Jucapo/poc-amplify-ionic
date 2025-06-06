@@ -14,7 +14,6 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonContent,
   IonButton,
   IonIcon,
   IonButtons,
@@ -34,7 +33,6 @@ import {
     IonHeader,
     IonToolbar,
     IonTitle,
-    IonContent,
     IonButton,
     IonIcon,
     IonButtons,
@@ -68,7 +66,7 @@ export class AppComponent implements OnInit {
     const status = await this.authenticator.authStatus;
 
     if (status === 'authenticated') {
-      // Si ya está dentro de /privacy-policy, no re-redirijo
+      // Si ya está dentro de /privacy-policy, no redirijo
       if (!this.isPrivacyRoute) {
         await this.redirectBasedOnRole();
       }
@@ -78,25 +76,25 @@ export class AppComponent implements OnInit {
       // Si no es la página pública, lo dejo caer al flujo de login
       if (!this.isPrivacyRoute) {
         // Amplify mostrará el login automáticamente vía <amplify-authenticator>
-        // pero puedes forzar navegación si quieres:
+        // Si quisieras forzar navegación, podrías hacer:
         // await this.router.navigate(['/']);
       }
     }
   }
 
-  /** Redirige a /admin o /profile según rol */
+  /** Redirige a /admin o /tabs/dashboard según rol */
   private async redirectBasedOnRole() {
-    try {
-      const role = await this.authService.getCurrentUserRole();
-      if (role === 'admin' && !this.router.url.includes('/admin')) {
+    const role = await this.authService.getCurrentUserRole();
+    if (role === 'admin') {
+      if (!this.router.url.startsWith('/admin')) {
         await this.router.navigate(['/admin']);
-      } else if (role === 'user' && !this.router.url.includes('/profile')) {
-        await this.router.navigate(['/profile']);
       }
-    } catch (err) {
-      console.error('Error al determinar role:', err);
-      // En caso de error, dejo al usuario en profile
-      await this.router.navigate(['/profile']);
+    } else if (role === 'user') {
+      if (!this.router.url.startsWith('/tabs/dashboard')) {
+        await this.router.navigate(['/tabs/dashboard']);
+      }
+    } else {
+      await this.router.navigate(['/']);
     }
   }
 }

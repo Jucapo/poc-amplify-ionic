@@ -7,9 +7,6 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonItem,
   IonInput,
@@ -29,7 +26,6 @@ import {
   IonIcon,
   IonSpinner,
   ToastController,
-  IonText,
 } from '@ionic/angular/standalone';
 import { UserDataService } from '../../core/services/user-data.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -41,12 +37,8 @@ import { UserData, UpdateUserDataInput } from '../../models/API';
   styleUrls: ['./user-profile.page.scss'],
   standalone: true,
   imports: [
-    IonText,
     CommonModule,
     ReactiveFormsModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonItem,
     IonInput,

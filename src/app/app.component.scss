@@ -10,26 +10,7 @@
 }
 
 /* ============== */
-/* Auth Container */
-/* ============== */
-.auth-logo-container {
-  text-align: center;
-  background-color: transparent;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.auth-logo {
-  max-width: 160px;
-  height: auto;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-/* ============== */
-/* Header Styles  */
+/* Header Styles   */
 /* ============== */
 ion-header {
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
@@ -39,55 +20,13 @@ ion-header {
 ion-toolbar {
   --background: transparent;
   --color: var(--white);
-  padding: 0.5rem 1rem;
-}
-
-.header-logo {
-  height: 28px;
-  vertical-align: middle;
-  margin-right: 12px;
-  filter: brightness(0) invert(1);
+  padding: 0 1rem;
 }
 
 .nav-title {
   font-family: "Comfortaa", cursive;
   font-style: italic;
-  font-weight: 700; /* puedes usar 400 si lo quieres más delgado */
-  font-size: 1.4rem; /* ajusta el tamaño a tu gusto */
-  color: var(--white); /* o el color que necesites */
-}
-
-/* ============== */
-/* Content Styles */
-/* ============== */
-ion-content {
-  --background: var(--white);
-  --padding-top: 1rem;
-  --padding-bottom: 1rem;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
-}
-
-/* ============== */
-/* Responsive     */
-/* ============== */
-@media (max-width: 768px) {
-  .auth-logo {
-    max-width: 140px;
-  }
-  .header-logo {
-    height: 24px;
-  }
-  ion-toolbar {
-    padding: 0.5rem 0.75rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .auth-logo {
-    max-width: 120px;
-  }
-  ion-toolbar {
-    padding: 0.25rem 0.5rem;
-  }
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--white);
 }
