@@ -7,3 +7,10 @@ ion-tabs {
   --color-selected: var(--primary);
   --color: var(--gray-dark);
 }
+
+/* ===== Safe-area padding para el tab-bar (ADDED) ================ */
+ion-tab-bar,
+.tabs-bar {
+  padding-bottom: var(--ion-safe-area-bottom);
+}
+/* ===== Fin de la adición ======================================= */

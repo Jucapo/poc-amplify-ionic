@@ -47,6 +47,10 @@
   --ion-text-color: var(--black);
   --ion-toolbar-background: var(--gray-1);
   --ion-toolbar-color: var(--black);
+
+  --ion-safe-area-top: env(safe-area-inset-top); /* 👈 nuevo */
+  --ion-safe-area-bottom: env(safe-area-inset-bottom); /* 👈 nuevo */
+  --global-header-height: 56px;
 }
 
 /* =======================================================================
@@ -71,6 +75,27 @@ ion-content {
   --padding-bottom: 50px;
   --padding-start: 16px;
   --padding-end: 16px;
+}
+
+/* Empuja TODAS las páginas debajo del header global */
+ion-app > ion-router-outlet,
+ion-app > ion-router-outlet > * {
+  padding-top: calc(var(--global-header-height) + var(--ion-safe-area-top));
+  padding-bottom: var(--ion-safe-area-bottom);
+}
+
+/* Páginas que aún usen [fullscreen] (ej. header colapsable) */
+ion-content[fullscreen] {
+  --padding-top: var(--ion-safe-area-top);
+  --padding-bottom: var(--ion-safe-area-bottom);
+}
+
+/* Helper para reemplazar 100 vh “rota” por 100 dvh */
+.full-height,
+.vh-100,
+ion-content.full-height {
+  height: 100dvh;
+  max-height: 100dvh;
 }
 
 /* =======================================================================
@@ -148,6 +173,18 @@ amplify-authenticator {
 /* opcional: acotamos el ancho máximo de la tarjeta  */
 amplify-authenticator::part(router) {
   max-width: 420px; /* ajusta a tu gusto */
+}
+
+/* Header y Toolbar */
+ion-header,
+ion-toolbar {
+  padding-top: var(--ion-safe-area-top); /* 👈 nuevo */
+}
+
+/* Footer y Tab-bar */
+ion-footer,
+ion-tab-bar {
+  padding-bottom: var(--ion-safe-area-bottom); /* 👈 nuevo */
 }
 
 .loading-overlay {
@@ -365,6 +402,17 @@ ion-button[fill="outline"] {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+ion-content.fullscreen-fix {
+  /* opcional */
+  --padding-top: var(--ion-safe-area-top);
+  --padding-bottom: var(--ion-safe-area-bottom);
+}
+
+.full-height {
+  height: 100dvh; /* 100 vh dinámicos (Chrome 107+, Safari 15.4+) */
+  max-height: 100dvh;
 }
 
 /* =====================================================================

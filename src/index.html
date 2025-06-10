@@ -6,11 +6,16 @@
 
     <base href="/" />
 
+    <!-- Dark / Light mode -->
     <meta name="color-scheme" content="light dark" />
+
+    <!-- 👈 viewport-fit=cover ya estaba correcto -->
     <meta
       name="viewport"
-      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0,
+               minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
 
@@ -20,13 +25,12 @@
       rel="stylesheet"
     />
 
-    <!-- add to homescreen for iOS -->
+    <!-- PWA / Homescreen -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
-    <!-- Sólo UNA referencia al manifest -->
     <link rel="manifest" href="manifest.webmanifest" />
 
+    <!-- Google Maps (sin cambios) -->
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGbwAeKG11a6T-Z2VJVHJfFjQGw8swVXs&libraries=places"
       defer
@@ -35,8 +39,8 @@
 
   <body>
     <app-root></app-root>
-    <noscript>
-      Please enable JavaScript to continue using this application.
-    </noscript>
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
   </body>
 </html>
