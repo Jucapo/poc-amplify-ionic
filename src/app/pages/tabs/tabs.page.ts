@@ -1,5 +1,5 @@
 // src/pages/tabs/tabs.page.ts
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -27,8 +27,4 @@ import { RouterModule } from '@angular/router';
     RouterModule,
   ],
 })
-export class TabsPage implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class TabsPage {}

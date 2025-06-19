@@ -1,38 +1,51 @@
-/* Fuerza tema claro - Versión corregida */
+/* src/theme/variables.scss */
 :root {
-  /* Colores primarios */
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  /* ——— Paleta base ——— */
+  --gray-1: #f5f5f7; /* Gray No.1 */
+  --gray-2: #e1e1e5; /* Gray No.2 */
+  --gray-3: #c8c8cc; /* Gray No.3 */
+  --black: #000000; /* Black */
+  --black-text: #242424;
+  --white: #ffffff; /* White */
 
-  /* Colores de fondo y texto */
-  --ion-background-color: #ffffff;
-  --ion-background-color-rgb: 255, 255, 255;
-  --ion-text-color: #000000;
-  --ion-text-color-rgb: 0, 0, 0;
+  --primary: #007936;
+  --primary-light: #daede2;
+  --primary-dark: #00502f;
 
-  /* Colores para componentes específicos */
-  --ion-toolbar-background: var(--ion-color-primary);
-  --ion-toolbar-color: var(--ion-color-primary-contrast);
-  --ion-item-background: #ffffff;
-  --ion-item-color: #000000;
-  --ion-card-background: #ffffff;
-  --ion-card-color: #000000;
-}
+  --color-action: #007936; /* Action / Green */
+  --color-orange: #f48900; /* Orange */
+  --color-green-light: #daede2; /* Green-Light */
+  --color-green-dark: #00502f; /* Green-Dark */
 
-/* Sobrescribe completamente el modo oscuro */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ion-background-color: #ffffff;
-    --ion-text-color: #000000;
-    --ion-item-background: #ffffff;
-    --ion-item-color: #000000;
-    --ion-card-background: #ffffff;
-    --ion-card-color: #000000;
-  }
+  /* ——— Theming Ionic ——— */
+  /* Primary = tu color “action” */
+  --ion-color-primary: var(--color-action);
+  --ion-color-primary-contrast: var(--white);
+  --ion-color-primary-shade: var(--color-action);
+  --ion-color-primary-tint: var(--color-action);
+
+  /* Success = tu verde genérico */
+  --ion-color-success: var(--color-action);
+  --ion-color-success-contrast: var(--white);
+  --ion-color-success-shade: var(--color-green-dark);
+  --ion-color-success-tint: var(--color-green-light);
+
+  /* Warning = naranja */
+  --ion-color-warning: var(--color-orange);
+  --ion-color-warning-contrast: var(--black);
+
+  /* Grises de Ionic */
+  --ion-color-dark: var(--gray-3);
+  --ion-color-medium: var(--gray-2);
+  --ion-color-light: var(--gray-1);
+
+  /* Fondo y texto global */
+  --ion-background-color: var(--gray-1);
+  --ion-text-color: var(--black-text);
+
+  /* Toolbar */
+  --ion-toolbar-background: var(--gray-1);
+  --ion-toolbar-color: var(--black);
 }
 
 /* Estilos adicionales para asegurar el tema claro */

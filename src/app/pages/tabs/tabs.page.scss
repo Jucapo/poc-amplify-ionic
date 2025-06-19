@@ -1,16 +1,42 @@
-ion-tabs {
-  --background: var(--white);
+/* 1) Apunta al ion-tab-bar con tu clase */
+ion-tab-bar.tabs-bar {
+  /* fondo verde y textos blancos/naranjas */
+  --background: var(--color-action);
+  --color: var(--white);
+  --color-selected: var(--color-orange);
+
+  /* altura y safe-area */
+  height: 72px !important;
+  padding-bottom: env(safe-area-inset-bottom);
+
+  /* para que el border-top sobresalga */
+  overflow: visible !important;
+
+  /* asegúrate de que la barra esté por encima del page */
+  z-index: 1000 !important;
 }
 
-.tabs-bar {
-  --background: var(--gray-1);
-  --color-selected: var(--primary);
-  --color: var(--gray-dark);
+/* 2) Cada botón sin recortes y relativo */
+ion-tab-bar.tabs-bar ion-tab-button {
+  position: relative !important;
+  overflow: visible !important;
 }
 
-/* ===== Safe-area padding para el tab-bar (ADDED) ================ */
-ion-tab-bar,
-.tabs-bar {
-  padding-bottom: 60px;
+/* 3) El tab “seleccionado” (usa la clase que Ionic le pone) */
+ion-tab-bar.tabs-bar ion-tab-button.tab-selected {
+  /* la “pill” naranja */
+  border-top: 6px solid var(--color-orange) !important;
+  border-top-left-radius: 4px !important;
+  border-top-right-radius: 4px !important;
+
+  /* lo sube 6px para que sobresalga */
+  margin-top: -6px !important;
 }
-/* ===== Fin de la adición ======================================= */
+
+/* 4) Ajuste de icono y label */
+ion-tab-bar.tabs-bar ion-tab-button ion-icon {
+  font-size: 24px;
+}
+ion-tab-bar.tabs-bar ion-tab-button ion-label {
+  font-size: 12px;
+}

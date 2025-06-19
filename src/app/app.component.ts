@@ -4,37 +4,22 @@ import { filter } from 'rxjs/operators';
 import {
   AmplifyAuthenticatorModule,
   AuthenticatorService,
+  translations,
 } from '@aws-amplify/ui-angular';
 import { AuthService } from './core/services/auth.service';
-import {
-  IonApp,
-  IonRouterOutlet,
-  IonButton,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
-  IonIcon,
-} from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
+
+import { I18n } from 'aws-amplify/utils';
+import { Amplify } from 'aws-amplify';
+import awsExports from '../../amplify_outputs.json';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    IonIcon,
-    IonButtons,
-    IonTitle,
-    IonToolbar,
-    IonHeader,
-    IonButton,
-    IonRouterOutlet,
-    IonApp,
-    AmplifyAuthenticatorModule,
-  ],
+  imports: [CommonModule, IonRouterOutlet, IonApp, AmplifyAuthenticatorModule],
 })
 export class AppComponent implements OnInit {
   public isPrivacyRoute = false;
@@ -43,7 +28,15 @@ export class AppComponent implements OnInit {
     public authenticator: AuthenticatorService,
     private router: Router,
     private authService: AuthService,
-  ) {}
+  ) {
+    // 1) Configura Amplify
+    // 1) Configura Amplify
+    Amplify.configure(awsExports);
+
+    // 2) Inyecta vocabularios y fija el idioma
+    I18n.putVocabularies(translations);
+    I18n.setLanguage('es');
+  }
 
   ngOnInit() {
     // Detectar cambios de ruta para exponer /privacy-policy sin login

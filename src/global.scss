@@ -22,34 +22,9 @@
    VARIABLES GLOBALES
    ==================================================================== */
 :root {
-  --gray-1: #f5f5f7;
-  --gray-2: #e1e1e5;
-  --gray-3: #c8c8cc;
-
-  --ion-color-dark: #222428;
-  --ion-color-medium: #92949c;
-  --ion-color-light: #f4f5f8;
-
-  --primary: #2d9cdb;
-  --primary-light: #6ec1ff;
-  --primary-dark: #1f78b4;
-
-  --white: #ffffff;
-  --black: #000000;
-
-  --ion-color-primary: var(--primary);
-  --ion-color-primary-rgb: 45, 156, 219;
-  --ion-color-primary-contrast: var(--white);
-  --ion-color-primary-shade: var(--primary-dark);
-  --ion-color-primary-tint: var(--primary-light);
-
-  --ion-background-color: var(--gray-1);
-  --ion-text-color: var(--black);
-  --ion-toolbar-background: var(--gray-1);
-  --ion-toolbar-color: var(--black);
-
-  --ion-safe-area-top: env(safe-area-inset-top); /* 👈 nuevo */
-  --ion-safe-area-bottom: env(safe-area-inset-bottom); /* 👈 nuevo */
+  /* Safe‐areas y header fijo */
+  --ion-safe-area-top: env(safe-area-inset-top);
+  --ion-safe-area-bottom: env(safe-area-inset-bottom);
   --global-header-height: 56px;
 }
 
@@ -70,32 +45,11 @@ ion-app,
 /* Content padding */
 ion-content {
   --background: var(--gray-1);
-  --color: var(--black);
-  --padding-top: 50px;
-  --padding-bottom: 50px;
+  --color: var(--black-text);
+  --padding-top: 16px;
+  --padding-bottom: 16px;
   --padding-start: 16px;
   --padding-end: 16px;
-}
-
-/* Empuja TODAS las páginas debajo del header global */
-ion-app > ion-router-outlet,
-ion-app > ion-router-outlet > * {
-  padding-top: calc(var(--global-header-height) + var(--ion-safe-area-top));
-  padding-bottom: var(--ion-safe-area-bottom);
-}
-
-/* Páginas que aún usen [fullscreen] (ej. header colapsable) */
-ion-content[fullscreen] {
-  --padding-top: var(--ion-safe-area-top);
-  --padding-bottom: var(--ion-safe-area-bottom);
-}
-
-/* Helper para reemplazar 100 vh “rota” por 100 dvh */
-.full-height,
-.vh-100,
-ion-content.full-height {
-  height: 100dvh;
-  max-height: 100dvh;
 }
 
 /* =======================================================================
@@ -175,16 +129,20 @@ amplify-authenticator::part(router) {
   max-width: 420px; /* ajusta a tu gusto */
 }
 
-/* Header y Toolbar */
-ion-header,
-ion-toolbar {
-  padding-top: var(--ion-safe-area-top); /* 👈 nuevo */
+amplify-authenticator .amplify-button--primary {
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  text-transform: none;
 }
 
-/* Footer y Tab-bar */
-ion-footer,
-ion-tab-bar {
-  padding-bottom: var(--ion-safe-area-bottom); /* 👈 nuevo */
+amplify-authenticator .amplify-formfield {
+  margin-bottom: 1.5rem;
+}
+amplify-authenticator a {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: none;
 }
 
 .loading-overlay {
@@ -258,11 +216,13 @@ ion-item.item-input {
   --inner-padding-bottom: 12px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 4%);
 }
+
 ion-item.item-input.ion-focused {
   --border-color: var(--ion-color-primary);
   box-shadow: 0 0 0 3px
     color-mix(in srgb, var(--ion-color-primary) 35%, transparent);
 }
+
 ion-item.item-input ion-label {
   font-size: 0.75rem;
   font-weight: 600;
@@ -276,13 +236,16 @@ ion-textarea {
   font-weight: 500;
   color: var(--black);
 }
+
 ion-input::placeholder,
 ion-textarea::placeholder {
   color: #9ca3af;
 }
+
 ion-select::part(icon) {
   color: #6b7280;
 }
+
 ion-item[disabled] {
   opacity: 0.55;
 }
@@ -432,4 +395,58 @@ ion-segment.segment-md ion-segment-button[aria-checked="true"] {
    ==================================================================== */
 ion-segment.segment-md {
   border: none !important;
+}
+
+/* =======================================================================
+   AMPLIFY AUTHENTICATOR CUSTOM STYLES (Banrural - Español)
+   ==================================================================== */
+amplify-authenticator {
+  /* Colores base */
+  --amplify-colors-background-primary: var(--gray-1);
+  --amplify-colors-brand-primary-80: var(--primary);
+  --amplify-colors-brand-primary-90: var(--primary);
+  --amplify-colors-brand-primary-100: var(--primary-dark);
+
+  /* Contenedor principal - Sin card */
+  [data-amplify-router] {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0;
+    max-width: 400px;
+  }
+
+  /* Campos del formulario */
+  .amplify-textfield {
+    --amplify-components-fieldcontrol-border-color: var(--gray-3);
+    --amplify-components-fieldcontrol-focus-border-color: var(--primary);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Labels en español */
+  [data-amplify-form-field] > div > label {
+    font-weight: 500;
+    color: var(--black);
+    font-size: 14px;
+  }
+
+  /* Botón de inicio de sesión */
+  .amplify-button--primary {
+    --amplify-components-button-primary-background-color: var(--primary);
+    --amplify-components-button-primary-hover-background-color: var(
+      --primary-dark
+    );
+    border-radius: 8px;
+    font-weight: 500;
+    height: 48px;
+    margin-top: 1.5rem;
+  }
+
+  /* Enlace olvidé contraseña */
+  .amplify-button--link {
+    color: var(--primary) !important;
+    font-weight: 500;
+    justify-content: center;
+    margin-top: 1rem;
+  }
 }

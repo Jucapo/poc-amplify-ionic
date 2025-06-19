@@ -208,10 +208,17 @@
         </div>
       </div>
     </form>
+
+    <div class="mb-20">
+      <ion-button (click)="signOut()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <span class="ml-2">Cerrar sesión</span>
+      </ion-button>
+    </div>
   </ng-template>
 
   <!-- Botón flotante de guardar -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="mb-14 mr-4">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="mb-20 mr-4">
     <ion-fab-button
       (click)="onSubmit()"
       [disabled]="!profileForm.valid || loading()"

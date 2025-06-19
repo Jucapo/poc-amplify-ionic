@@ -19,10 +19,11 @@ import {
   IonIcon,
   IonSpinner,
   ToastController,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { UserDataService } from '../../core/services/user-data.service';
 import { AuthService } from '../../core/services/auth.service';
-import { UserData, UpdateUserDataInput } from '../../models/API';
+import { UpdateUserDataInput } from '../../models/API';
 
 @Component({
   selector: 'app-user-profile',
@@ -30,6 +31,7 @@ import { UserData, UpdateUserDataInput } from '../../models/API';
   styleUrls: ['./user-profile.page.scss'],
   standalone: true,
   imports: [
+    IonButton,
     CommonModule,
     ReactiveFormsModule,
     IonContent,
@@ -174,5 +176,15 @@ export class UserProfilePage implements OnInit {
       position: 'top',
     });
     await toast.present();
+  }
+
+  async signOut() {
+    try {
+      await this.authService.signOut();
+      // Opcional: redirige al login si usas routing
+      // this.router.navigate(['/login']);
+    } catch (error) {
+      console.error('Error signing out', error);
+    }
   }
 }
