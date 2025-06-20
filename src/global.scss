@@ -413,7 +413,8 @@ amplify-authenticator {
     box-shadow: none !important;
     border: none !important;
     padding: 0;
-    max-width: 400px;
+    min-width: 380px;
+    max-width: 500px;
   }
 
   /* Campos del formulario */
@@ -421,6 +422,11 @@ amplify-authenticator {
     --amplify-components-fieldcontrol-border-color: var(--gray-3);
     --amplify-components-fieldcontrol-focus-border-color: var(--primary);
     margin-bottom: 1.5rem;
+  }
+
+  .amplify-heading {
+    color: var(--color-gray-700);
+    margin-bottom: 2rem;
   }
 
   /* Labels en español */
