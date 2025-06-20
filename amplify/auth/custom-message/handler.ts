@@ -1,9 +1,13 @@
+//  /amplyfy/auth/cutom-message/handler.ts
 import type { CustomMessageTriggerHandler } from 'aws-lambda';
 
-// Helper para renderizar el bloque de código
-const codeContainer = (code: string, spaced: boolean) => {
-  const display = spaced ? code.split('').join(' ') : code;
-  return `
+export const handler: CustomMessageTriggerHandler = async (event) => {
+  const rawCode = event.request.codeParameter; // e.g. "123456"
+  const spacedCode = rawCode.split('').join(' '); // "1 2 3 4 5 6"
+  const email = event.request.userAttributes.email; // correo del usuario
+
+  // Bloque estilizado para recuperación de contraseña
+  const recoveryCodeBlock = `
     <div style="
       display: inline-block;
       background-color: #fcfcfc;
@@ -13,68 +17,52 @@ const codeContainer = (code: string, spaced: boolean) => {
       font-size: 1.5em;
       font-weight: bold;
       margin: 12px 0;
-      letter-spacing: ${spaced ? '0.5em' : 'normal'};
+      letter-spacing: 0.5em;
     ">
-      ${display}
+      ${spacedCode}
     </div>
   `;
-};
 
-export const handler: CustomMessageTriggerHandler = async (event) => {
-  const code = event.request.codeParameter;
-  const email = event.request.userAttributes.email;
+  // Bloque estilizado para contraseña temporal (admin create user)
+  const inviteCodeBlock = `
+    <div style="
+      display: inline-block;
+      background-color: #fcfcfc;
+      color: #000;
+      padding: 16px 24px;
+      border-radius: 6px;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 12px 0;
+      letter-spacing: normal;
+    ">
+      ${rawCode}
+    </div>
+  `;
 
-  let subject = '';
-  let message = '';
-
-  switch (event.triggerSource) {
-    // === Sign-Up y verificación de atributo (resend code) ===
-    case 'CustomMessage_SignUp':
-    case 'CustomMessage_VerifyUserAttribute':
-    case 'CustomMessage_ResendCode': // opcional, si quieres unificar también resend
-      subject = 'Verifica tu correo';
-      message = `
-        <p>Hola ${email},</p>
-        <p>Para verificar tu cuenta, utiliza este código:</p>
-        ${codeContainer(code, true)}
-        <p style="color: #555;">
-          Si no lo solicitaste, ignora este mensaje.
-        </p>
-      `;
-      break;
-
-    // === Olvidé mi contraseña ===
-    case 'CustomMessage_ForgotPassword':
-      subject = 'Restablece tu contraseña';
-      message = `
-        <p>Hola ${email},</p>
-        <p>Para restablecer tu contraseña, utiliza este código:</p>
-        ${codeContainer(code, true)}
-        <p style="color: #555;">
-          Si no lo solicitaste, ignora este correo.
-        </p>
-      `;
-      break;
-
-    // === Invitación / contraseña temporal (admin create user) ===
-    case 'CustomMessage_AdminCreateUser':
-      subject = '¡Bienvenido a MiApp!';
-      message = `
-        <p>¡Hola ${email}!</p>
-        <p>Tu contraseña temporal es:</p>
-        ${codeContainer(code, false)}
-        <p style="color: #555;">
-          Por favor, cámbiala en tu primer inicio de sesión.
-        </p>
-      `;
-      break;
-
-    default:
-      // Otros triggers (p.ej. UpdateUserAttribute) los dejamos pasar
-      return event;
+  if (event.triggerSource === 'CustomMessage_ForgotPassword') {
+    event.response.emailSubject = 'Restablece tu contraseña';
+    event.response.emailMessage = `
+      <p>Hola ${email},</p>
+      <p>Para restablecer tu contraseña, utiliza este código:</p>
+      ${recoveryCodeBlock}
+      <p style="color: #555;">
+        Si no lo solicitaste, ignora este correo.
+      </p>
+    `;
   }
 
-  event.response.emailSubject = subject;
-  event.response.emailMessage = message;
+  if (event.triggerSource === 'CustomMessage_AdminCreateUser') {
+    event.response.emailSubject = '¡Bienvenido a ADN APP!';
+    event.response.emailMessage = `
+      <p>¡Hola ${email}!</p>
+      <p>Tu contraseña temporal es:</p>
+      ${inviteCodeBlock}
+      <p style="color: #555;">
+        Por favor, cámbiala en tu primer inicio de sesión.
+      </p>
+    `;
+  }
+
   return event;
 };

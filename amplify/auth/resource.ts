@@ -4,11 +4,62 @@ import { customMessage } from './custom-message/resource';
 
 export const auth = defineAuth({
   loginWith: {
-    email: true,
+    email: {
+      // 1) Verificación de correo al registrarse
+      verificationEmailStyle: 'CODE',
+      verificationEmailSubject: 'Verifica tu correo',
+      verificationEmailBody: (createCode) => `
+        <p>Hola,</p>
+        <p>Para verificar tu correo, utiliza este código:</p>
+        <div style="
+          display: inline-block;
+          background-color: #fcfcfc;
+          padding: 16px 24px;
+          border-radius: 6px;
+          font-size: 1.5em;
+          font-weight: bold;
+          margin: 12px 0;
+          letter-spacing: 0.5em;
+        ">
+          ${createCode()}
+        </div>
+        <p style="color: #555;">
+          Si no lo solicitaste, ignora este mensaje.
+        </p>
+      `,
+
+      // 2) Invitación (admin create user) — código sin separación
+      userInvitation: {
+        emailSubject: '¡Bienvenido a ADN APP!',
+        emailBody: (user, code) => `
+          <p>¡Hola ${user()}!</p>
+          <p>Tu contraseña temporal es:</p>
+          <div style="
+            display: inline-block;
+            background-color: #fcfcfc;
+            padding: 16px 24px;
+            border-radius: 6px;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 12px 0;
+            letter-spacing: normal;
+          ">
+            ${code()}
+          </div>
+          <p style="color: #555;">
+            Por favor, cámbiala en tu primer inicio de sesión.
+          </p>
+        `,
+      },
+    },
   },
+
+  // Solo email como atributo obligatorio
   userAttributes: {
     email: { required: true },
   },
+
+  // Trigger Custom Message para Forgot Password
   triggers: {
     customMessage,
   },
