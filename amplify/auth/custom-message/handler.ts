@@ -41,25 +41,25 @@ export const handler: CustomMessageTriggerHandler = async (event) => {
   `;
 
   if (event.triggerSource === 'CustomMessage_ForgotPassword') {
-    event.response.emailSubject = 'Restablece tu contraseña';
+    event.response.emailSubject = 'Restablece tu contraseña (TEST Lambada)';
     event.response.emailMessage = `
       <p>Hola ${email},</p>
-      <p>Para restablecer tu contraseña, utiliza este código:</p>
+      <p>Para restablecer tu contraseña, utiliza este código: (TEST Lambada)</p>
       ${recoveryCodeBlock}
-      <p style="color: #555;">
+      <p style="color: #555555;">
         Si no lo solicitaste, ignora este correo.
       </p>
     `;
   }
 
   if (event.triggerSource === 'CustomMessage_AdminCreateUser') {
-    event.response.emailSubject = '¡Bienvenido a ADN APP!';
+    event.response.emailSubject = '¡Bienvenido a ADN APP! (TEST Lambada)';
     event.response.emailMessage = `
       <p>¡Hola ${email}!</p>
       <p>Tu contraseña temporal es:</p>
       ${inviteCodeBlock}
-      <p style="color: #555;">
-        Por favor, cámbiala en tu primer inicio de sesión.
+      <p style="color: #555555;">
+        Por favor, cámbiala en tu primer inicio de sesión. (TEST Lambada)
       </p>
     `;
   }

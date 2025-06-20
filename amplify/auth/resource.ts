@@ -10,7 +10,7 @@ export const auth = defineAuth({
       verificationEmailSubject: 'Verifica tu correo',
       verificationEmailBody: (createCode) => `
         <p>Hola,</p>
-        <p>Para verificar tu correo, utiliza este código:</p>
+        <p>Para restablecer tu contraseña, utiliza este código:</p>
         <div style="
           display: inline-block;
           background-color: #fcfcfc;
@@ -23,7 +23,7 @@ export const auth = defineAuth({
         ">
           ${createCode()}
         </div>
-        <p style="color: #555;">
+        <p style="color: #555555;">
           Si no lo solicitaste, ignora este mensaje.
         </p>
       `,
@@ -46,7 +46,7 @@ export const auth = defineAuth({
           ">
             ${code()}
           </div>
-          <p style="color: #555;">
+          <p style="color: #555555;">
             Por favor, cámbiala en tu primer inicio de sesión.
           </p>
         `,
