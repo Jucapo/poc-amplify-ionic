@@ -1,57 +1,10 @@
-// amplify/auth/resource.ts
 import { defineAuth } from '@aws-amplify/backend';
 import { customMessage } from './custom-message/resource';
 
 export const auth = defineAuth({
+  // Autenticación sólo por email, sin plantillas en línea
   loginWith: {
-    email: {
-      // 1) Verificación de correo al sign-up
-      verificationEmailStyle: 'CODE',
-      verificationEmailSubject: 'Verifica tu correo',
-      verificationEmailBody: (createCode) => `
-        <p>Hola,</p>
-        <p>Para verificar tu correo, utiliza este código:</p>
-        <div style="
-          display: inline-block;
-          background-color: #fcfcfc;
-          padding: 16px 24px;
-          border-radius: 6px;
-          font-size: 1.5em;
-          font-weight: bold;
-          margin: 12px 0;
-          letter-spacing: 0.5em;
-        ">
-          ${createCode()}
-        </div>
-        <p style="color: #555;">
-          Si no lo solicitaste, ignora este mensaje.
-        </p>
-      `,
-
-      // 2) Invitación (admin create user) con contraseña temporal
-      userInvitation: {
-        emailSubject: '¡Bienvenido a MiApp!',
-        emailBody: (user, code) => `
-          <p>¡Hola ${user()}!</p>
-          <p>Tu contraseña temporal es:</p>
-          <div style="
-            display: inline-block;
-            background-color: #fcfcfc;
-            padding: 16px 24px;
-            border-radius: 6px;
-            font-size: 1.5em;
-            font-weight: bold;
-            margin: 12px 0;
-            letter-spacing: 0.5em;
-          ">
-            ${code()}
-          </div>
-          <p style="color: #555;">
-            Por favor, cámbiala en tu primer inicio de sesión.
-          </p>
-        `,
-      },
-    },
+    email: true,
   },
 
   // Sólo email como atributo obligatorio
@@ -59,7 +12,6 @@ export const auth = defineAuth({
     email: { required: true },
   },
 
-  // Trigger Custom Message para Forgot Password
   triggers: {
     customMessage,
   },
