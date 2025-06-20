@@ -46,11 +46,6 @@
       "Mutable": true,
       "Name": "email",
       "Required": true
-     },
-     {
-      "Mutable": true,
-      "Name": "name",
-      "Required": true
      }
     ],
     "SmsVerificationMessage": "The verification code to your new account is {####}",
@@ -399,7 +394,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "8bed3da10ceb3870b042970ae04c661d678012f93b4b5b9783b3732c4c96fcea.zip"
+     "S3Key": "1750075c895e325c7bd645701d9769b97de4f9080e4130566dda4d891f211c48.zip"
     },
     "Environment": {
      "Variables": {
@@ -441,7 +436,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/custom-message-lambda/Resource",
-    "aws:asset:path": "asset.8bed3da10ceb3870b042970ae04c661d678012f93b4b5b9783b3732c4c96fcea",
+    "aws:asset:path": "asset.1750075c895e325c7bd645701d9769b97de4f9080e4130566dda4d891f211c48",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

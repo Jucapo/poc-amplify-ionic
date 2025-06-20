@@ -2,24 +2,55 @@ import type { CustomMessageTriggerHandler } from 'aws-lambda';
 
 export const handler: CustomMessageTriggerHandler = async (event) => {
   const code = event.request.codeParameter;
-  const name = event.request.userAttributes.fullname || event.userName;
+  const email = event.request.userAttributes.email;
 
   if (event.triggerSource === 'CustomMessage_ForgotPassword') {
     event.response.emailSubject = 'Restablece tu contraseña';
     event.response.emailMessage = `
-      Hola ${name},<br/><br/>
-      Tu código para restablecer la contraseña es: <strong>${code}</strong><br/><br/>
-      Si no lo solicitaste, ignora este mensaje.
+      <p>Hola ${email},</p>
+
+      <p>Para restablecer tu contraseña, utiliza el siguiente código:</p>
+
+      <div style="
+        display: inline-block;
+        background-color: #f5f5dc;
+        padding: 16px 24px;
+        border-radius: 6px;
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 12px 0;
+      ">
+        ${code}
+      </div>
+
+      <p style="color: #555;">
+        Si no lo solicitaste, puedes ignorar este correo.
+      </p>
     `;
   }
 
-  // (Opcional) si quieres sobreescribir también el admin-create-user desde aquí:
   if (event.triggerSource === 'CustomMessage_AdminCreateUser') {
     event.response.emailSubject = '¡Bienvenido a MiApp!';
     event.response.emailMessage = `
-      ¡Hola ${name}!<br/><br/>
-      Tu contraseña temporal es: <strong>${code}</strong><br/><br/>
-      Cámbiala al iniciar sesión por primera vez.
+      <p>¡Hola ${email}!</p>
+
+      <p>Tu contraseña temporal es:</p>
+
+      <div style="
+        display: inline-block;
+        background-color: #f5f5dc;
+        padding: 16px 24px;
+        border-radius: 6px;
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 12px 0;
+      ">
+        ${code}
+      </div>
+
+      <p style="color: #555;">
+        Por favor, cámbiala en tu primer inicio de sesión.
+      </p>
     `;
   }
 

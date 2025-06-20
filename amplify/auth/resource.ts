@@ -28,7 +28,6 @@ export const auth = defineAuth({
   // 2) Atributos de usuario obligatorios
   userAttributes: {
     email: { required: true },
-    fullname: { required: true }, // se mapea internamente al atributo Cognito “name”
   },
 
   // 3) Trigger Custom Message para “Forgot Password” y demás

@@ -6,8 +6,7 @@
     "identity_pool_id": "us-east-1:a2779e6b-7a38-4ed0-b30b-74dc282600eb",
     "mfa_methods": [],
     "standard_required_attributes": [
-      "email",
-      "name"
+      "email"
     ],
     "username_attributes": [
       "email"
