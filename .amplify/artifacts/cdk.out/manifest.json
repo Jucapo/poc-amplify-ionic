@@ -22,7 +22,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/5694f848f9b4e0402b1d6f77de7eb551da6df44a8636a59cd77886843d07ee48.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/53d66b46fcc2e081b59932ca883b09663ee47de4e847e37517f772d35dc3c6f9.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -71,12 +71,6 @@
             "data": "amplifyAuthUserPool4BA7F805"
           }
         ],
-        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/amplifyAuth/UserPool/CustomMessageCognito": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "amplifyAuthUserPoolCustomMessageCognito45E0E577"
-          }
-        ],
         "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/amplifyAuth/UserPoolAppClient/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -107,18 +101,6 @@
             "data": "amplifyAuthIdentityPoolRoleAttachment045F17C8"
           }
         ],
-        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/custom-message-lambda/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "custommessagelambdaServiceRole985A9C69"
-          }
-        ],
-        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/custom-message-lambda/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "custommessagelambda2E279E4B"
-          }
-        ],
         "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
@@ -147,12 +129,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "amplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthIdentityPoolCDB039E5Ref"
-          }
-        ],
-        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/amplifypocamplifyionicUsuariosandboxe6e0213c2eauthcustommessagelambda9EE4DF0ERef": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "amplifypocamplifyionicUsuariosandboxe6e0213c2eauthcustommessagelambda9EE4DF0ERef"
           }
         ],
         "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/amplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthauthenticatedUserRole791A398BRef": [
@@ -291,12 +267,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "groups"
-          }
-        ],
-        "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/definedFunctions": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "definedFunctions"
           }
         ],
         "/amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/data/amplifyData/GraphQLAPI/Resource": [
