@@ -15,14 +15,14 @@
     "AdminCreateUserConfig": {
      "AllowAdminCreateUserOnly": false,
      "InviteMessageTemplate": {
-      "EmailMessage": "¡Hola {username}! Tu contraseña temporal es: {####}\n\nPor favor, cámbiala en tu primer ingreso.",
-      "EmailSubject": "Bienvenido a MiApp"
+      "EmailMessage": "¡Hola {username}!\n\nTu contraseña temporal es: {####}\n\nPor favor, cámbiala en tu primer inicio de sesión.",
+      "EmailSubject": "¡Bienvenido a MiApp!"
      }
     },
     "AutoVerifiedAttributes": [
      "email"
     ],
-    "EmailVerificationMessage": "Hola,\n\nUsa este código para confirmar tu cuenta: {####}",
+    "EmailVerificationMessage": "Hola,\n\nUsa este código para verificar tu correo: {####}\n\nSi no lo solicitaste, ignora este mensaje.",
     "EmailVerificationSubject": "Verifica tu correo",
     "LambdaConfig": {
      "CustomMessage": {
@@ -46,6 +46,11 @@
       "Mutable": true,
       "Name": "email",
       "Required": true
+     },
+     {
+      "Mutable": true,
+      "Name": "name",
+      "Required": true
      }
     ],
     "SmsVerificationMessage": "The verification code to your new account is {####}",
@@ -67,7 +72,7 @@
     },
     "VerificationMessageTemplate": {
      "DefaultEmailOption": "CONFIRM_WITH_CODE",
-     "EmailMessage": "Hola,\n\nUsa este código para confirmar tu cuenta: {####}",
+     "EmailMessage": "Hola,\n\nUsa este código para verificar tu correo: {####}\n\nSi no lo solicitaste, ignora este mensaje.",
      "EmailSubject": "Verifica tu correo",
      "SmsMessage": "The verification code to your new account is {####}"
     }
@@ -394,7 +399,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "599665eda3a2fe16267bd776583e490c6e7563bd9b864879cc284400eed58903.zip"
+     "S3Key": "8bed3da10ceb3870b042970ae04c661d678012f93b4b5b9783b3732c4c96fcea.zip"
     },
     "Environment": {
      "Variables": {
@@ -436,7 +441,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/custom-message-lambda/Resource",
-    "aws:asset:path": "asset.599665eda3a2fe16267bd776583e490c6e7563bd9b864879cc284400eed58903",
+    "aws:asset:path": "asset.8bed3da10ceb3870b042970ae04c661d678012f93b4b5b9783b3732c4c96fcea",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

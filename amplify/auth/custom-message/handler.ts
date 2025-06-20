@@ -2,26 +2,25 @@ import type { CustomMessageTriggerHandler } from 'aws-lambda';
 
 export const handler: CustomMessageTriggerHandler = async (event) => {
   const code = event.request.codeParameter;
-  // opción A: usas el userName del evento
-  const username = event.userName;
-
-  // opción B: usas usernameParameter dentro de request
-  // const username = event.request.usernameParameter;
+  const name = event.request.userAttributes.fullname || event.userName;
 
   if (event.triggerSource === 'CustomMessage_ForgotPassword') {
     event.response.emailSubject = 'Restablece tu contraseña';
-    event.response.emailMessage =
-      `Hola ${username},\n\n` +
-      `Tu código para restablecer la contraseña es: ${code}\n\n` +
-      `Si no lo solicitaste, ignora este correo.`;
+    event.response.emailMessage = `
+      Hola ${name},<br/><br/>
+      Tu código para restablecer la contraseña es: <strong>${code}</strong><br/><br/>
+      Si no lo solicitaste, ignora este mensaje.
+    `;
   }
 
+  // (Opcional) si quieres sobreescribir también el admin-create-user desde aquí:
   if (event.triggerSource === 'CustomMessage_AdminCreateUser') {
-    event.response.emailSubject = 'Bienvenido a MiApp';
-    event.response.emailMessage =
-      `¡Hola ${username}!\n\n` +
-      `Tu contraseña temporal es: ${code}\n\n` +
-      `Por favor, cámbiala en tu primer inicio de sesión.`;
+    event.response.emailSubject = '¡Bienvenido a MiApp!';
+    event.response.emailMessage = `
+      ¡Hola ${name}!<br/><br/>
+      Tu contraseña temporal es: <strong>${code}</strong><br/><br/>
+      Cámbiala al iniciar sesión por primera vez.
+    `;
   }
 
   return event;

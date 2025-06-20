@@ -1,12 +1,13 @@
 {
   "auth": {
-    "user_pool_id": "us-east-1_sCeUXX8Pw",
+    "user_pool_id": "us-east-1_HpSlj1MbK",
     "aws_region": "us-east-1",
-    "user_pool_client_id": "1rfnetgl1giniubiomn3sc8j7g",
-    "identity_pool_id": "us-east-1:ee618cdc-e1cc-4173-a46a-f692aa847999",
+    "user_pool_client_id": "36sp5t00eg310vf3pn9po0s8jk",
+    "identity_pool_id": "us-east-1:a2779e6b-7a38-4ed0-b30b-74dc282600eb",
     "mfa_methods": [],
     "standard_required_attributes": [
-      "email"
+      "email",
+      "name"
     ],
     "username_attributes": [
       "email"
@@ -26,9 +27,9 @@
     "unauthenticated_identities_enabled": true
   },
   "data": {
-    "url": "https://nnkj5jhq3ffknjrrbfuf7u2a6u.appsync-api.us-east-1.amazonaws.com/graphql",
+    "url": "https://mdry56ovtjbohmuawrottyihoe.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_region": "us-east-1",
-    "api_key": "da2-dvjqzzmuxjfcbcuggoozwy4wsi",
+    "api_key": "da2-w2hqo34lzng2xauawupv34rgny",
     "default_authorization_type": "AMAZON_COGNITO_USER_POOLS",
     "authorization_types": [
       "API_KEY",
@@ -545,11 +546,11 @@
   },
   "storage": {
     "aws_region": "us-east-1",
-    "bucket_name": "amplify-pocamplifyionic-u-amplifyteamdrivebucket28-d5jm6n00gfnh",
+    "bucket_name": "amplify-pocamplifyionic-u-amplifyteamdrivebucket28-eynd7mfj3mkg",
     "buckets": [
       {
         "name": "amplifyTeamDrive",
-        "bucket_name": "amplify-pocamplifyionic-u-amplifyteamdrivebucket28-d5jm6n00gfnh",
+        "bucket_name": "amplify-pocamplifyionic-u-amplifyteamdrivebucket28-eynd7mfj3mkg",
         "aws_region": "us-east-1",
         "paths": {
           "public/prospects/*": {
