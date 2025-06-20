@@ -13,13 +13,25 @@
      ]
     },
     "AdminCreateUserConfig": {
-     "AllowAdminCreateUserOnly": false
+     "AllowAdminCreateUserOnly": false,
+     "InviteMessageTemplate": {
+      "EmailMessage": "¡Hola {username}! Tu contraseña temporal es: {####}\n\nPor favor, cámbiala en tu primer ingreso.",
+      "EmailSubject": "Bienvenido a MiApp"
+     }
     },
     "AutoVerifiedAttributes": [
      "email"
     ],
-    "EmailVerificationMessage": "The verification code to your new account is {####}",
-    "EmailVerificationSubject": "Verifica tu email",
+    "EmailVerificationMessage": "Hola,\n\nUsa este código para confirmar tu cuenta: {####}",
+    "EmailVerificationSubject": "Verifica tu correo",
+    "LambdaConfig": {
+     "CustomMessage": {
+      "Fn::GetAtt": [
+       "custommessagelambda2E279E4B",
+       "Arn"
+      ]
+     }
+    },
     "Policies": {
      "PasswordPolicy": {
       "MinimumLength": 8,
@@ -55,8 +67,8 @@
     },
     "VerificationMessageTemplate": {
      "DefaultEmailOption": "CONFIRM_WITH_CODE",
-     "EmailMessage": "The verification code to your new account is {####}",
-     "EmailSubject": "Verifica tu email",
+     "EmailMessage": "Hola,\n\nUsa este código para confirmar tu cuenta: {####}",
+     "EmailSubject": "Verifica tu correo",
      "SmsMessage": "The verification code to your new account is {####}"
     }
    },
@@ -64,6 +76,30 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/amplifyAuth/UserPool/Resource"
+   }
+  },
+  "amplifyAuthUserPoolCustomMessageCognito45E0E577": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "custommessagelambda2E279E4B",
+      "Arn"
+     ]
+    },
+    "Principal": "cognito-idp.amazonaws.com",
+    "SourceArn": {
+     "Fn::GetAtt": [
+      "amplifyAuthUserPool4BA7F805",
+      "Arn"
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/amplifyAuth/UserPool/CustomMessageCognito"
    }
   },
   "amplifyAuthUserPoolAppClient2626C6F8": {
@@ -298,10 +334,117 @@
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/amplifyAuth/IdentityPoolRoleAttachment"
    }
   },
+  "custommessagelambdaServiceRole985A9C69": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "custom-message"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/custom-message-lambda/ServiceRole/Resource"
+   }
+  },
+  "custommessagelambda2E279E4B": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "x86_64"
+    ],
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "599665eda3a2fe16267bd776583e490c6e7563bd9b864879cc284400eed58903.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AMPLIFY_SSM_ENV_CONFIG": "{}"
+     }
+    },
+    "EphemeralStorage": {
+     "Size": 512
+    },
+    "Handler": "index.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "custommessagelambdaServiceRole985A9C69",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs20.x",
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "custom-message"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "Timeout": 3
+   },
+   "DependsOn": [
+    "custommessagelambdaServiceRole985A9C69"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/custom-message-lambda/Resource",
+    "aws:asset:path": "asset.599665eda3a2fe16267bd776583e490c6e7563bd9b864879cc284400eed58903",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02LwQ6CMBBEv4V7WQt/YDh5MQbj2dR21YXSTegiMU3/3RCDcpqZNzM11FpDVZg5ltb1pacbpCNGQXcWY3tl5nhNlh+BhCFdIo4nZq+ae/j51TSeMMi2+pODwyAk7/W8zS173IsY+xwwSFZkBkgLXIaL5qxajDyNFrMK7BC6uHvVGioNuugiUTlOQWhAaL/6AYJT16nXAAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02M0W7CMAxFv4X31CvlC6DSpL0gVMRzFVLTuU0cqXaHpqj/PgVUxtO5vlfHFVRlCduNvUvhurHwdIV0RFHszmrdaOxd2uRiz6QR0kVwOsXoTX3jV15D7QlZ36f/5qtDVtLfVX6/m+hxr2rdd0DWxXgbrp2FVN/4hFMgEYqcpc+ZnVLkxZANkLKX68zVajl2OAgcH1gFI7vWiqAK7DOM7OAwuxH1YAUX06DEeXJoHutZbU/cLyb/gkE+fqoStiWUm0GIimlmpYDQPPkHkwGPokIBAAA="
    },
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/CDKMetadata/Default"
@@ -589,6 +732,11 @@
   "amplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthIdentityPoolCDB039E5Ref": {
    "Value": {
     "Ref": "amplifyAuthIdentityPool3FDE84CC"
+   }
+  },
+  "amplifypocamplifyionicUsuariosandboxe6e0213c2eauthcustommessagelambda9EE4DF0ERef": {
+   "Value": {
+    "Ref": "custommessagelambda2E279E4B"
    }
   },
   "amplifypocamplifyionicUsuariosandboxe6e0213c2eauthamplifyAuthauthenticatedUserRole791A398BRef": {
