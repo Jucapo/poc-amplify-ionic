@@ -390,7 +390,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "0946605c1866bc8805feaa0af06dccd8f0fd6e78e34cdb56be4677bb8971e738.zip"
+     "S3Key": "40dea9eb64c136db48f191de19fd1c9cf9e0d2aecaf789941c5b66a55f2bd9cf.zip"
     },
     "Environment": {
      "Variables": {
@@ -432,7 +432,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/custom-message-lambda/Resource",
-    "aws:asset:path": "asset.0946605c1866bc8805feaa0af06dccd8f0fd6e78e34cdb56be4677bb8971e738",
+    "aws:asset:path": "asset.40dea9eb64c136db48f191de19fd1c9cf9e0d2aecaf789941c5b66a55f2bd9cf",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

@@ -28,8 +28,10 @@ export const handler: CustomMessageTriggerHandler = async (event) => {
   let message = '';
 
   switch (event.triggerSource) {
-    // === Verificación de email (sign-up) ===
+    // === Sign-Up y verificación de atributo (resend code) ===
     case 'CustomMessage_SignUp':
+    case 'CustomMessage_VerifyUserAttribute':
+    case 'CustomMessage_ResendCode': // opcional, si quieres unificar también resend
       subject = 'Verifica tu correo';
       message = `
         <p>Hola ${email},</p>
@@ -41,7 +43,7 @@ export const handler: CustomMessageTriggerHandler = async (event) => {
       `;
       break;
 
-    // === Recuperación de contraseña ===
+    // === Olvidé mi contraseña ===
     case 'CustomMessage_ForgotPassword':
       subject = 'Restablece tu contraseña';
       message = `
@@ -68,7 +70,7 @@ export const handler: CustomMessageTriggerHandler = async (event) => {
       break;
 
     default:
-      // Para otros disparadores de CustomMessage, no tocamos nada
+      // Otros triggers (p.ej. UpdateUserAttribute) los dejamos pasar
       return event;
   }
 
