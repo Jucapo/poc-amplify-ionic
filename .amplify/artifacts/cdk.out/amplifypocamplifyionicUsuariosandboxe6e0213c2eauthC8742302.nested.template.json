@@ -15,14 +15,14 @@
     "AdminCreateUserConfig": {
      "AllowAdminCreateUserOnly": false,
      "InviteMessageTemplate": {
-      "EmailMessage": "¡Hola {username}!\n\nTu contraseña temporal es: {####}\n\nPor favor, cámbiala en tu primer inicio de sesión.",
+      "EmailMessage": "\n          <p>¡Hola {username}!</p>\n          <p>Tu contraseña temporal es:</p>\n          <div style=\"\n            display: inline-block;\n            background-color: #fcfcfc;\n            padding: 16px 24px;\n            border-radius: 6px;\n            font-size: 1.5em;\n            font-weight: bold;\n            margin: 12px 0;\n            letter-spacing: 0.5em;\n          \">\n            {####}\n          </div>\n          <p style=\"color: #555;\">\n            Por favor, cámbiala en tu primer inicio de sesión.\n          </p>\n        ",
       "EmailSubject": "¡Bienvenido a MiApp!"
      }
     },
     "AutoVerifiedAttributes": [
      "email"
     ],
-    "EmailVerificationMessage": "Hola,\n\nUsa este código para verificar tu correo: {####}\n\nSi no lo solicitaste, ignora este mensaje.",
+    "EmailVerificationMessage": "\n        <p>Hola,</p>\n        <p>Para verificar tu correo, utiliza este código:</p>\n        <div style=\"\n          display: inline-block;\n          background-color: #fcfcfc;\n          padding: 16px 24px;\n          border-radius: 6px;\n          font-size: 1.5em;\n          font-weight: bold;\n          margin: 12px 0;\n          letter-spacing: 0.5em;\n        \">\n          {####}\n        </div>\n        <p style=\"color: #555;\">\n          Si no lo solicitaste, ignora este mensaje.\n        </p>\n      ",
     "EmailVerificationSubject": "Verifica tu correo",
     "LambdaConfig": {
      "CustomMessage": {
@@ -67,7 +67,7 @@
     },
     "VerificationMessageTemplate": {
      "DefaultEmailOption": "CONFIRM_WITH_CODE",
-     "EmailMessage": "Hola,\n\nUsa este código para verificar tu correo: {####}\n\nSi no lo solicitaste, ignora este mensaje.",
+     "EmailMessage": "\n        <p>Hola,</p>\n        <p>Para verificar tu correo, utiliza este código:</p>\n        <div style=\"\n          display: inline-block;\n          background-color: #fcfcfc;\n          padding: 16px 24px;\n          border-radius: 6px;\n          font-size: 1.5em;\n          font-weight: bold;\n          margin: 12px 0;\n          letter-spacing: 0.5em;\n        \">\n          {####}\n        </div>\n        <p style=\"color: #555;\">\n          Si no lo solicitaste, ignora este mensaje.\n        </p>\n      ",
      "EmailSubject": "Verifica tu correo",
      "SmsMessage": "The verification code to your new account is {####}"
     }
@@ -394,7 +394,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "1750075c895e325c7bd645701d9769b97de4f9080e4130566dda4d891f211c48.zip"
+     "S3Key": "a31fdae8ae991eaf59f02c51e47d71c88353bb60d7c9563a176074621691e5ce.zip"
     },
     "Environment": {
      "Variables": {
@@ -436,7 +436,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/custom-message-lambda/Resource",
-    "aws:asset:path": "asset.1750075c895e325c7bd645701d9769b97de4f9080e4130566dda4d891f211c48",
+    "aws:asset:path": "asset.a31fdae8ae991eaf59f02c51e47d71c88353bb60d7c9563a176074621691e5ce",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

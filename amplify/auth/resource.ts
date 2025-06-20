@@ -3,34 +3,63 @@ import { defineAuth } from '@aws-amplify/backend';
 import { customMessage } from './custom-message/resource';
 
 export const auth = defineAuth({
-  // 1) Login sólo por e-mail
   loginWith: {
     email: {
-      // a) Verificación de correo al registrarse
+      // 1) Verificación de correo al sign-up
       verificationEmailStyle: 'CODE',
       verificationEmailSubject: 'Verifica tu correo',
-      verificationEmailBody: (createCode) =>
-        `Hola,\n\n` +
-        `Usa este código para verificar tu correo: ${createCode()}\n\n` +
-        `Si no lo solicitaste, ignora este mensaje.`,
+      verificationEmailBody: (createCode) => `
+        <p>Hola,</p>
+        <p>Para verificar tu correo, utiliza este código:</p>
+        <div style="
+          display: inline-block;
+          background-color: #fcfcfc;
+          padding: 16px 24px;
+          border-radius: 6px;
+          font-size: 1.5em;
+          font-weight: bold;
+          margin: 12px 0;
+          letter-spacing: 0.5em;
+        ">
+          ${createCode()}
+        </div>
+        <p style="color: #555;">
+          Si no lo solicitaste, ignora este mensaje.
+        </p>
+      `,
 
-      // b) Invitación (admin create user) con contraseña temporal
+      // 2) Invitación (admin create user) con contraseña temporal
       userInvitation: {
         emailSubject: '¡Bienvenido a MiApp!',
-        emailBody: (user, code) =>
-          `¡Hola ${user()}!\n\n` +
-          `Tu contraseña temporal es: ${code()}\n\n` +
-          `Por favor, cámbiala en tu primer inicio de sesión.`,
+        emailBody: (user, code) => `
+          <p>¡Hola ${user()}!</p>
+          <p>Tu contraseña temporal es:</p>
+          <div style="
+            display: inline-block;
+            background-color: #fcfcfc;
+            padding: 16px 24px;
+            border-radius: 6px;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 12px 0;
+            letter-spacing: 0.5em;
+          ">
+            ${code()}
+          </div>
+          <p style="color: #555;">
+            Por favor, cámbiala en tu primer inicio de sesión.
+          </p>
+        `,
       },
     },
   },
 
-  // 2) Atributos de usuario obligatorios
+  // Sólo email como atributo obligatorio
   userAttributes: {
     email: { required: true },
   },
 
-  // 3) Trigger Custom Message para “Forgot Password” y demás
+  // Trigger Custom Message para Forgot Password
   triggers: {
     customMessage,
   },
