@@ -3,5 +3,25 @@
     "@ionic/angular/common",
     "@ionic/angular"
   ],
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "interactive",
+
+  // —→ apunta al entrypoint SCSS
+  "tailwindCSS.experimental.configFile": "src/global.scss",
+
+  // —→ inyecta completions en HTML e inline-TS
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "typescript": "html"
+  },
+
+  // —→ permite completions dentro de cadenas
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+
+  // —→ trata los .scss como archivos Tailwind CSS
+  "files.associations": {
+    "*.scss": "tailwindcss",
+    "*.component.html": "html"
+  }
 }
