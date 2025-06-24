@@ -1,3 +1,4 @@
+// src/app/dashboard/dashboard.page.ts
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -16,7 +17,8 @@ import { Prospect } from '../prospects/prospects-list/prospects-list.page';
   imports: [CommonModule, IonicModule],
 })
 export class DashboardPage implements OnInit {
-  username: string = '';
+  username = '';
+  loadingInitialData = signal(false);
 
   prospects: Prospect[] = [
     {
@@ -57,8 +59,6 @@ export class DashboardPage implements OnInit {
     },
   ];
 
-  loadingInitialData = signal(false);
-
   constructor(
     private router: Router,
     private userDataService: UserDataService,
@@ -69,18 +69,22 @@ export class DashboardPage implements OnInit {
     this.loadUserData();
   }
 
-  async loadUserData() {
+  private async loadUserData() {
     this.loadingInitialData.set(true);
 
     try {
-      const result = await this.userDataService.getCompleteUserProfile();
+      // Ahora llamamos al nuevo método
+      const result = await this.userDataService.getCompleteUserData();
       if (!result) {
-        console.warn('No user profile found');
+        console.warn('No user data found');
         return;
       }
 
-      const { data } = result;
-      this.username = data.firstName + ' ' + data.lastName;
+      // Desestructuramos data (y opcionalmente role)
+      const { data /*, role*/ } = result;
+
+      // Montamos el nombre
+      this.username = `${data.firstName} ${data.lastName}`;
     } catch (error) {
       console.error('Error loading profile:', error);
       this.showError('Error al cargar el perfil');
@@ -90,13 +94,10 @@ export class DashboardPage implements OnInit {
   }
 
   onCreateProspect() {
-    console.log('🚀 ~ DashboardPage ~ onCreateProspect ~ onCreateProspect:');
-
     this.router.navigate(['/tabs/prospects/new']);
   }
 
   onViewProspect(id: string) {
-    // Dependiendo de tu implementación, quizás sea:
     this.router.navigate([`/tabs/prospects/edit/${id}`]);
   }
 

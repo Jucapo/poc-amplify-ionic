@@ -70,9 +70,6 @@ export class AppComponent implements OnInit {
       if (!this.isPrivacyRoute) {
         await this.redirectBasedOnRole();
       }
-    } else {
-      this.authService.clearCache();
-      // Amplify mostrará el login automáticamente
     }
   }
 

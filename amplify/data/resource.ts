@@ -3,20 +3,6 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 
 const schema = a.schema({
-  UserProfile: a
-    .model({
-      id: a.id().required(),
-      email: a.string().required(),
-      role: a.string().required(),
-      createdAt: a.datetime(),
-      updatedAt: a.datetime(),
-    })
-    .authorization((allow) => [
-      allow.authenticated().to(['read', 'create']),
-      allow.ownerDefinedIn('email').to(['read', 'update', 'delete']),
-      allow.groups(['admin']).to(['read', 'create', 'update', 'delete']),
-    ]),
-
   UserData: a
     .model({
       id: a.id().required(),

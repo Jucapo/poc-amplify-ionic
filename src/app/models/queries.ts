@@ -68,20 +68,6 @@ export const getUserData = /* GraphQL */ `query GetUserData($id: ID!) {
   APITypes.GetUserDataQueryVariables,
   APITypes.GetUserDataQuery
 >;
-export const getUserProfile = /* GraphQL */ `query GetUserProfile($id: ID!) {
-  getUserProfile(id: $id) {
-    createdAt
-    email
-    id
-    role
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetUserProfileQueryVariables,
-  APITypes.GetUserProfileQuery
->;
 export const listProspects = /* GraphQL */ `query ListProspects(
   $filter: ModelProspectFilterInput
   $id: ID
@@ -173,34 +159,4 @@ export const listUserData = /* GraphQL */ `query ListUserData(
 ` as GeneratedQuery<
   APITypes.ListUserDataQueryVariables,
   APITypes.ListUserDataQuery
->;
-export const listUserProfiles = /* GraphQL */ `query ListUserProfiles(
-  $filter: ModelUserProfileFilterInput
-  $id: ID
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listUserProfiles(
-    filter: $filter
-    id: $id
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      createdAt
-      email
-      id
-      role
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListUserProfilesQueryVariables,
-  APITypes.ListUserProfilesQuery
 >;

@@ -1,138 +1,95 @@
+// src/app/core/services/auth.service.ts
+
 import { Injectable } from '@angular/core';
 import {
-  fetchUserAttributes,
   fetchAuthSession,
+  fetchUserAttributes,
   signOut as amplifySignOut,
-} from 'aws-amplify/auth';
-import { generateClient } from 'aws-amplify/data';
-import { type Schema } from '../../../../amplify/data/resource';
+} from 'aws-amplify/auth'; // v6 Gen-2 modular
+import { generateClient } from 'aws-amplify/data'; // cliente GraphQL Gen-2
+import type { Schema } from '../../../../amplify/data/resource';
 import { Router } from '@angular/router';
-import { UserProfile } from '../../models/API';
-import { Amplify } from '@aws-amplify/core';
+import {
+  CognitoIdentityProviderClient,
+  AdminListGroupsForUserCommand,
+} from '@aws-sdk/client-cognito-identity-provider';
+import amplifyOutputs from '../../../../amplify_outputs.json';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private client = generateClient<Schema>();
-  private currentProfile: UserProfile | null = null;
   private readonly DEFAULT_ROLE: 'user' = 'user';
+  private readonly ADMIN_GROUP = 'admin';
 
-  constructor(private router: Router) {
-    // Inicializa el cliente solo después de asegurar que Amplify está configurado
-    try {
-      this.client = generateClient<Schema>();
-      console.log('GraphQL client initialized successfully');
-    } catch (error) {
-      console.error('Error initializing GraphQL client:', error);
-      throw new Error('Failed to initialize GraphQL client');
-    }
-  }
+  // Region y poolId desde tu JSON de sandbox
+  private readonly REGION = amplifyOutputs.auth.aws_region;
+  private readonly USER_POOL = amplifyOutputs.auth.user_pool_id;
 
-  /**
-   * Verifica si el usuario está autenticado
-   */
-  async isAuthenticated(): Promise<boolean> {
-    try {
-      const { tokens } = await fetchAuthSession();
-      return !!tokens?.accessToken;
-    } catch (error) {
-      console.error('Error verificando autenticación:', error);
-      return false;
-    }
-  }
+  // Cliente admin de Cognito (requiere cognito-idp:AdminListGroupsForUser)
+  private cognitoClient = new CognitoIdentityProviderClient({
+    region: this.REGION,
+    credentials: async () => {
+      // fetchAuthSession devuelve { tokens, credentials, identityId, userSub }
+      const { credentials } = await fetchAuthSession();
+      if (!credentials) {
+        throw new Error('No se pudieron obtener credenciales AWS');
+      }
+      return {
+        accessKeyId: credentials.accessKeyId!,
+        secretAccessKey: credentials.secretAccessKey!,
+        sessionToken: credentials.sessionToken!,
+      };
+    },
+  });
 
-  /**
-   * Limpia la caché del perfil
-   */
-  clearCache(): void {
-    this.currentProfile = null;
-    console.log('Cache de usuario limpiado');
-  }
+  constructor(private router: Router) {}
 
-  /**
-   * Obtiene el rol del usuario actual con manejo de errores mejorado
-   */
-  // si no está firmado, devolvemos rol por defecto
-
+  /** Devuelve 'admin' o 'user' leyendo su JWT actual */
   async getCurrentUserRole(): Promise<'admin' | 'user'> {
     try {
-      const session = await fetchAuthSession(); // ← sin opciones
-      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ session:', session);
-      const at = session.tokens?.accessToken; // ← token de acceso
-      const payload = at?.payload ?? {}; // ← todos los claims
-      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ at:', at);
-      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ payload:', payload);
-      const groups = (payload['cognito:groups'] as string[]) || [];
-      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ groups:', groups);
-
-      if (groups.includes('admins')) {
-        return 'admin';
-      }
-      if (groups.includes('users')) {
-        return 'user';
-      }
+      const { tokens } = await fetchAuthSession();
+      const raw = tokens?.accessToken.payload['cognito:groups'];
+      const groups = Array.isArray(raw) ? (raw as string[]) : [];
+      return groups.includes(this.ADMIN_GROUP) ? 'admin' : this.DEFAULT_ROLE;
     } catch (e) {
-      console.warn('No pude leer la sesión:', e);
-    }
-    return this.DEFAULT_ROLE;
-  }
-  /**
-   * Obtiene el perfil completo del usuario con caché y reintentos
-   */
-
-  async getCurrentUserProfile() {
-    try {
-      const { email } = await fetchUserAttributes();
-      if (!email) throw new Error('Email no disponible');
-
-      // Verificar que el cliente esté definido
-      if (!this.client) {
-        throw new Error('GraphQL client no está inicializado');
-      }
-
-      const { data: profiles, errors } =
-        await this.client.models.UserProfile.list({
-          filter: { email: { eq: email } },
-        });
-
-      if (errors) {
-        console.error('Errors fetching profile:', errors);
-        throw new Error(errors.map((e) => e.message).join(', '));
-      }
-
-      return profiles?.[0] || null;
-    } catch (error) {
-      console.error('Error obteniendo perfil:', error);
-      throw error;
+      console.error('Error obteniendo rol actual:', e);
+      return this.DEFAULT_ROLE;
     }
   }
 
-  /**
-   * Obtiene el email del usuario actual
-   */
+  /** Extrae el email del usuario logueado */
   async getCurrentUserEmail(): Promise<string | null> {
     try {
-      const { email } = await fetchUserAttributes();
-      return email || null;
-    } catch (error) {
-      console.error('Error obteniendo email:', error);
+      const attrs = await fetchUserAttributes();
+      // fetchUserAttributes en v6 retorna un objeto { [key]: value }
+      return (attrs as any).email ?? null;
+    } catch {
       return null;
     }
   }
 
-  /**
-   * Cierra la sesión del usuario con manejo de estado limpio
-   */
+  /** Cierra sesión y redirige a /sign-in */
   async signOut(): Promise<void> {
+    await amplifySignOut();
+    this.router.navigate(['/sign-in']);
+  }
+
+  /**
+   * Para el Admin Dashboard: consulta AdminListGroupsForUser
+   * y devuelve 'admin' o 'user' para cualquier email.
+   */
+  async getUserRoleByEmail(email: string): Promise<'admin' | 'user'> {
     try {
-      await amplifySignOut();
-      this.clearCache();
-      this.router.navigate(['/sign-in']);
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-      // Forzamos limpieza incluso si falla el signOut
-      this.clearCache();
-      this.router.navigate(['/sign-in']);
-      throw error;
+      const cmd = new AdminListGroupsForUserCommand({
+        UserPoolId: this.USER_POOL,
+        Username: email,
+      });
+      const res = await this.cognitoClient.send(cmd);
+      const groups = res.Groups?.map((g) => g.GroupName) || [];
+      return groups.includes(this.ADMIN_GROUP) ? 'admin' : this.DEFAULT_ROLE;
+    } catch (e) {
+      console.error('Error listando grupos para', email, e);
+      return this.DEFAULT_ROLE;
     }
   }
 }

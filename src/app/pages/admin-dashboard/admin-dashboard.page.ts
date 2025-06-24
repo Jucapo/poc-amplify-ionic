@@ -1,5 +1,8 @@
-import { Component, computed, OnInit, signal } from '@angular/core';
+// src/app/admin-dashboard/admin-dashboard.page.ts
+
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   IonContent,
   IonGrid,
@@ -13,25 +16,31 @@ import {
   IonIcon,
   IonButton,
   IonSpinner,
-  ToastController,
   IonList,
-  IonCardContent,
   IonCard,
+  IonCardContent,
+  ToastController,
 } from '@ionic/angular/standalone';
-import { UserDataService } from '../../core/services/user-data.service';
-import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { UserDataService } from 'src/app/core/services/user-data.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { UserData } from 'src/app/models/API';
+
+interface UserAdminProfileWithRole {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  role: string;
+}
 
 @Component({
   selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.page.html',
-  styleUrls: ['./admin-dashboard.page.scss'],
   standalone: true,
   imports: [
-    IonCard,
-    IonCardContent,
-    IonList,
     CommonModule,
     FormsModule,
+    IonicModule,
     IonContent,
     IonGrid,
     IonRow,
@@ -44,24 +53,14 @@ import { FormsModule } from '@angular/forms';
     IonIcon,
     IonButton,
     IonSpinner,
+    IonList,
+    IonCard,
+    IonCardContent,
   ],
+  templateUrl: './admin-dashboard.page.html',
+  styleUrls: ['./admin-dashboard.page.scss'],
 })
 export class AdminDashboardPage implements OnInit {
-  // Datos y estado
-  usersData = signal<any>(null);
-  displayedUsers = signal<any[]>([]);
-  isLoading = signal(false);
-
-  // Filtros y ordenamiento
-  searchText = signal<string>('');
-  roleFilter = signal<string>('');
-  pageSize = signal<number>(10);
-  sortState = signal<any>({ active: '', direction: 'asc' });
-
-  // Paginación
-  pageIndex = signal(0);
-  pageSizeOptions = [5, 10, 25, 100];
-
   // Columnas para la tabla
   displayedColumns = [
     'email',
@@ -71,7 +70,7 @@ export class AdminDashboardPage implements OnInit {
     'phone',
     'actions',
   ];
-  columnSizes: { [key: string]: string } = {
+  columnSizes: Record<string, string> = {
     email: '3',
     firstName: '2',
     lastName: '2',
@@ -79,8 +78,34 @@ export class AdminDashboardPage implements OnInit {
     phone: '1.5',
     actions: '2',
   };
+
+  // datos en crudo y filtrados/paginados
+  rawUsers = signal<UserAdminProfileWithRole[]>([]);
+  displayedUsers = signal<UserAdminProfileWithRole[]>([]);
+  isLoading = signal(false);
+
+  // filtros y paginación
+  searchText = signal('');
+  roleFilter = signal('');
+  pageIndex = signal(0);
+  pageSize = signal(10);
+  pageSizeOptions = [5, 10, 25, 100];
+  sortState = signal<{ active: string; direction: 'asc' | 'desc' }>({
+    active: '',
+    direction: 'asc',
+  });
+
+  // computed para total de páginas y total de ítems
+  totalPages = computed(() => {
+    const totalItems = this.filteredList().length;
+    return Math.ceil(totalItems / this.pageSize());
+  });
+
+  totalItems = computed(() => this.filteredList().length);
+
   constructor(
     private userDataService: UserDataService,
+    private authService: AuthService,
     private toastCtrl: ToastController,
   ) {}
 
@@ -88,87 +113,76 @@ export class AdminDashboardPage implements OnInit {
     await this.loadUsers();
   }
 
-  async loadUsers() {
+  /** Recarga toda la lista desde el servicio */
+  async refreshUsers() {
+    this.pageIndex.set(0);
+    await this.loadUsers();
+  }
+
+  /** Carga todos los UserData, les añade el role desde Cognito y aplica filtros */
+  private async loadUsers() {
     this.isLoading.set(true);
     try {
-      const data = await this.userDataService.getAllUsers();
-      this.usersData.set(data);
+      const userDatas = await this.userDataService.getAllUserData();
+      const usersWithRole: UserAdminProfileWithRole[] = await Promise.all(
+        userDatas.map(async (ud: UserData) => ({
+          email: ud.email,
+          firstName: ud.firstName,
+          lastName: ud.lastName,
+          phone: ud.phone,
+          role: await this.authService.getUserRoleByEmail(ud.email),
+        })),
+      );
+      this.rawUsers.set(usersWithRole);
       this.applyFilters();
-    } catch (error) {
-      console.error('Error loading users:', error);
+    } catch (e) {
+      console.error('Error loading users:', e);
       this.showError('Error al cargar usuarios');
     } finally {
       this.isLoading.set(false);
     }
   }
 
-  applyFilters() {
-    if (!this.usersData()) {
-      this.displayedUsers.set([]);
-      return;
-    }
-
-    const searchText = this.searchText().toLowerCase();
-    const roleFilter = this.roleFilter();
-
-    let filtered = this.combineUserData().filter((user: any) => {
+  /** Devuelve la lista filtrada (search + rol) sin paginar/ordenar */
+  private filteredList(): UserAdminProfileWithRole[] {
+    const search = this.searchText().toLowerCase();
+    const roleF = this.roleFilter();
+    return this.rawUsers().filter((u) => {
       const matchesSearch =
-        user.email.toLowerCase().includes(searchText) ||
-        (user.firstName && user.firstName.toLowerCase().includes(searchText)) ||
-        (user.lastName && user.lastName.toLowerCase().includes(searchText));
-
-      const matchesRole = !roleFilter || user.role === roleFilter;
-
+        u.email.toLowerCase().includes(search) ||
+        u.firstName.toLowerCase().includes(search) ||
+        u.lastName.toLowerCase().includes(search);
+      const matchesRole = !roleF || u.role === roleF;
       return matchesSearch && matchesRole;
     });
+  }
 
-    // Ordenamiento
-    if (this.sortState().active) {
-      filtered = this.sortData(filtered, this.sortState());
+  /** Aplica orden y paginación sobre la lista filtrada */
+  applyFilters() {
+    let list = [...this.filteredList()];
+
+    const { active, direction } = this.sortState();
+    if (active) {
+      list.sort((a, b) => {
+        const vA = (a as any)[active] ?? '';
+        const vB = (b as any)[active] ?? '';
+        if (vA < vB) return direction === 'asc' ? -1 : 1;
+        if (vA > vB) return direction === 'asc' ? 1 : -1;
+        return 0;
+      });
     }
 
-    // Paginación
-    const startIndex = this.pageIndex() * this.pageSize();
-    this.displayedUsers.set(
-      filtered.slice(startIndex, startIndex + this.pageSize()),
-    );
+    const start = this.pageIndex() * this.pageSize();
+    this.displayedUsers.set(list.slice(start, start + this.pageSize()));
   }
 
-  private combineUserData(): any[] {
-    if (!this.usersData()) return [];
-
-    return this.usersData().profiles.map((profile: any) => {
-      const userData =
-        this.usersData().data.find((d: any) => d.email === profile.email) || {};
-      return { ...profile, ...userData };
-    });
-  }
-
-  sortData(data: any[], sort: any): any[] {
-    if (!sort.active || sort.direction === '') {
-      return data;
-    }
-
-    return [...data].sort((a, b) => {
-      const valueA = a[sort.active] ?? '';
-      const valueB = b[sort.active] ?? '';
-
-      if (valueA < valueB) {
-        return sort.direction === 'asc' ? -1 : 1;
-      }
-      if (valueA > valueB) {
-        return sort.direction === 'asc' ? 1 : -1;
-      }
-      return 0;
-    });
-  }
-
+  /** Cambia la columna de orden y refresca */
   onSortChange(column: string) {
-    const currentSort = this.sortState();
-    if (currentSort.active === column) {
+    const sort = this.sortState();
+    if (sort.active === column) {
       this.sortState.set({
         active: column,
-        direction: currentSort.direction === 'asc' ? 'desc' : 'asc',
+        direction: sort.direction === 'asc' ? 'desc' : 'asc',
       });
     } else {
       this.sortState.set({ active: column, direction: 'asc' });
@@ -176,6 +190,7 @@ export class AdminDashboardPage implements OnInit {
     this.applyFilters();
   }
 
+  /** Navegar a la página anterior */
   previousPage() {
     if (this.pageIndex() > 0) {
       this.pageIndex.set(this.pageIndex() - 1);
@@ -183,6 +198,7 @@ export class AdminDashboardPage implements OnInit {
     }
   }
 
+  /** Navegar a la página siguiente */
   nextPage() {
     if (this.pageIndex() < this.totalPages() - 1) {
       this.pageIndex.set(this.pageIndex() + 1);
@@ -190,17 +206,21 @@ export class AdminDashboardPage implements OnInit {
     }
   }
 
-  totalPages = computed(() => {
-    const totalItems = this.usersData()?.profiles?.length || 0;
-    return Math.ceil(totalItems / this.pageSize());
-  });
+  /** Botón “Editar” */
+  editUser(user: UserAdminProfileWithRole) {
+    console.log('Editar usuario:', user);
+    // aquí tu lógica de navegación o modal
+  }
 
-  totalUsers = computed(() => {
-    return this.usersData()?.profiles?.length || 0;
-  });
+  /** Botón “Eliminar” */
+  deleteUser(user: UserAdminProfileWithRole) {
+    console.log('Eliminar usuario:', user);
+    // aquí tu diálogo de confirmación y llamada a tu servicio
+  }
 
+  /** Nombre para cada columna */
   getColumnName(column: string): string {
-    const names: any = {
+    const map: Record<string, string> = {
       email: 'Email',
       firstName: 'Nombre',
       lastName: 'Apellido',
@@ -208,22 +228,7 @@ export class AdminDashboardPage implements OnInit {
       phone: 'Teléfono',
       actions: 'Acciones',
     };
-    return names[column] || column;
-  }
-
-  async refreshUsers() {
-    this.pageIndex.set(0);
-    await this.loadUsers();
-  }
-
-  editUser(user: any) {
-    // Implementar lógica de edición
-    console.log('Editar usuario:', user);
-  }
-
-  deleteUser(user: any) {
-    // Implementar lógica de eliminación
-    console.log('Eliminar usuario:', user);
+    return map[column] ?? column;
   }
 
   private async showError(message: string) {

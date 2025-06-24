@@ -79,15 +79,30 @@ export class UserProfilePage implements OnInit {
     this.loadingInitialData.set(true);
 
     try {
-      const result = await this.userDataService.getCompleteUserProfile();
+      // 1) Llamamos al nuevo método
+      const result = await this.userDataService.getCompleteUserData();
       if (!result) {
-        console.warn('No user profile found');
+        console.warn('No user data found');
         return;
       }
 
-      const { data } = result;
-      this.profileForm.patchValue(data);
-      console.log('🚀 ~ UserProfilePage ~ loadUserData ~ data:', data);
+      // 2) Desestructuramos data y role
+      const { data, role } = result;
+
+      // 3) Rellenamos el formulario
+      this.profileForm.patchValue({
+        id: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+        address: data.address,
+        birthDate: data.birthDate,
+        gender: data.gender,
+        occupation: data.occupation,
+      });
+
+      // 4) (Opcional) si quieres mostrar el rol en esta página
+      console.log('User role:', role);
     } catch (error) {
       console.error('Error loading profile:', error);
       this.showError('Error al cargar el perfil');

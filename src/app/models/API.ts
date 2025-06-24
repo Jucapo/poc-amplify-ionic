@@ -52,15 +52,6 @@ export type UserData = {
   updatedAt?: string | null,
 };
 
-export type UserProfile = {
-  __typename: "UserProfile",
-  createdAt?: string | null,
-  email: string,
-  id: string,
-  role: string,
-  updatedAt?: string | null,
-};
-
 export type ModelProspectFilterInput = {
   agency?: ModelStringInput | null,
   amountNeeded?: ModelStringInput | null,
@@ -189,23 +180,6 @@ export type ModelUserDataConnection = {
   nextToken?: string | null,
 };
 
-export type ModelUserProfileFilterInput = {
-  and?: Array< ModelUserProfileFilterInput | null > | null,
-  createdAt?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  id?: ModelIDInput | null,
-  not?: ModelUserProfileFilterInput | null,
-  or?: Array< ModelUserProfileFilterInput | null > | null,
-  role?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type ModelUserProfileConnection = {
-  __typename: "ModelUserProfileConnection",
-  items:  Array<UserProfile | null >,
-  nextToken?: string | null,
-};
-
 export type ModelProspectConditionInput = {
   agency?: ModelStringInput | null,
   amountNeeded?: ModelStringInput | null,
@@ -306,33 +280,11 @@ export type CreateUserDataInput = {
   updatedAt?: string | null,
 };
 
-export type ModelUserProfileConditionInput = {
-  and?: Array< ModelUserProfileConditionInput | null > | null,
-  createdAt?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  not?: ModelUserProfileConditionInput | null,
-  or?: Array< ModelUserProfileConditionInput | null > | null,
-  role?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type CreateUserProfileInput = {
-  createdAt?: string | null,
-  email: string,
-  id?: string | null,
-  role: string,
-  updatedAt?: string | null,
-};
-
 export type DeleteProspectInput = {
   id: string,
 };
 
 export type DeleteUserDataInput = {
-  id: string,
-};
-
-export type DeleteUserProfileInput = {
   id: string,
 };
 
@@ -381,14 +333,6 @@ export type UpdateUserDataInput = {
   lastName?: string | null,
   occupation?: string | null,
   phone?: string | null,
-  updatedAt?: string | null,
-};
-
-export type UpdateUserProfileInput = {
-  createdAt?: string | null,
-  email?: string | null,
-  id: string,
-  role?: string | null,
   updatedAt?: string | null,
 };
 
@@ -474,16 +418,6 @@ export type ModelSubscriptionUserDataFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
 };
 
-export type ModelSubscriptionUserProfileFilterInput = {
-  and?: Array< ModelSubscriptionUserProfileFilterInput | null > | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  email?: ModelStringInput | null,
-  id?: ModelSubscriptionIDInput | null,
-  or?: Array< ModelSubscriptionUserProfileFilterInput | null > | null,
-  role?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-};
-
 export type GetProspectQueryVariables = {
   id: string,
 };
@@ -542,21 +476,6 @@ export type GetUserDataQuery = {
     lastName: string,
     occupation: string,
     phone: string,
-    updatedAt?: string | null,
-  } | null,
-};
-
-export type GetUserProfileQueryVariables = {
-  id: string,
-};
-
-export type GetUserProfileQuery = {
-  getUserProfile?:  {
-    __typename: "UserProfile",
-    createdAt?: string | null,
-    email: string,
-    id: string,
-    role: string,
     updatedAt?: string | null,
   } | null,
 };
@@ -639,29 +558,6 @@ export type ListUserDataQuery = {
   } | null,
 };
 
-export type ListUserProfilesQueryVariables = {
-  filter?: ModelUserProfileFilterInput | null,
-  id?: string | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
-};
-
-export type ListUserProfilesQuery = {
-  listUserProfiles?:  {
-    __typename: "ModelUserProfileConnection",
-    items:  Array< {
-      __typename: "UserProfile",
-      createdAt?: string | null,
-      email: string,
-      id: string,
-      role: string,
-      updatedAt?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type CreateProspectMutationVariables = {
   condition?: ModelProspectConditionInput | null,
   input: CreateProspectInput,
@@ -722,22 +618,6 @@ export type CreateUserDataMutation = {
     lastName: string,
     occupation: string,
     phone: string,
-    updatedAt?: string | null,
-  } | null,
-};
-
-export type CreateUserProfileMutationVariables = {
-  condition?: ModelUserProfileConditionInput | null,
-  input: CreateUserProfileInput,
-};
-
-export type CreateUserProfileMutation = {
-  createUserProfile?:  {
-    __typename: "UserProfile",
-    createdAt?: string | null,
-    email: string,
-    id: string,
-    role: string,
     updatedAt?: string | null,
   } | null,
 };
@@ -806,22 +686,6 @@ export type DeleteUserDataMutation = {
   } | null,
 };
 
-export type DeleteUserProfileMutationVariables = {
-  condition?: ModelUserProfileConditionInput | null,
-  input: DeleteUserProfileInput,
-};
-
-export type DeleteUserProfileMutation = {
-  deleteUserProfile?:  {
-    __typename: "UserProfile",
-    createdAt?: string | null,
-    email: string,
-    id: string,
-    role: string,
-    updatedAt?: string | null,
-  } | null,
-};
-
 export type UpdateProspectMutationVariables = {
   condition?: ModelProspectConditionInput | null,
   input: UpdateProspectInput,
@@ -882,22 +746,6 @@ export type UpdateUserDataMutation = {
     lastName: string,
     occupation: string,
     phone: string,
-    updatedAt?: string | null,
-  } | null,
-};
-
-export type UpdateUserProfileMutationVariables = {
-  condition?: ModelUserProfileConditionInput | null,
-  input: UpdateUserProfileInput,
-};
-
-export type UpdateUserProfileMutation = {
-  updateUserProfile?:  {
-    __typename: "UserProfile",
-    createdAt?: string | null,
-    email: string,
-    id: string,
-    role: string,
     updatedAt?: string | null,
   } | null,
 };
@@ -965,22 +813,6 @@ export type OnCreateUserDataSubscription = {
   } | null,
 };
 
-export type OnCreateUserProfileSubscriptionVariables = {
-  email?: string | null,
-  filter?: ModelSubscriptionUserProfileFilterInput | null,
-};
-
-export type OnCreateUserProfileSubscription = {
-  onCreateUserProfile?:  {
-    __typename: "UserProfile",
-    createdAt?: string | null,
-    email: string,
-    id: string,
-    role: string,
-    updatedAt?: string | null,
-  } | null,
-};
-
 export type OnDeleteProspectSubscriptionVariables = {
   filter?: ModelSubscriptionProspectFilterInput | null,
   userId?: string | null,
@@ -1044,22 +876,6 @@ export type OnDeleteUserDataSubscription = {
   } | null,
 };
 
-export type OnDeleteUserProfileSubscriptionVariables = {
-  email?: string | null,
-  filter?: ModelSubscriptionUserProfileFilterInput | null,
-};
-
-export type OnDeleteUserProfileSubscription = {
-  onDeleteUserProfile?:  {
-    __typename: "UserProfile",
-    createdAt?: string | null,
-    email: string,
-    id: string,
-    role: string,
-    updatedAt?: string | null,
-  } | null,
-};
-
 export type OnUpdateProspectSubscriptionVariables = {
   filter?: ModelSubscriptionProspectFilterInput | null,
   userId?: string | null,
@@ -1119,22 +935,6 @@ export type OnUpdateUserDataSubscription = {
     lastName: string,
     occupation: string,
     phone: string,
-    updatedAt?: string | null,
-  } | null,
-};
-
-export type OnUpdateUserProfileSubscriptionVariables = {
-  email?: string | null,
-  filter?: ModelSubscriptionUserProfileFilterInput | null,
-};
-
-export type OnUpdateUserProfileSubscription = {
-  onUpdateUserProfile?:  {
-    __typename: "UserProfile",
-    createdAt?: string | null,
-    email: string,
-    id: string,
-    role: string,
     updatedAt?: string | null,
   } | null,
 };

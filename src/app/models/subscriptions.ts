@@ -71,23 +71,6 @@ export const onCreateUserData = /* GraphQL */ `subscription OnCreateUserData($fi
   APITypes.OnCreateUserDataSubscriptionVariables,
   APITypes.OnCreateUserDataSubscription
 >;
-export const onCreateUserProfile = /* GraphQL */ `subscription OnCreateUserProfile(
-  $email: String
-  $filter: ModelSubscriptionUserProfileFilterInput
-) {
-  onCreateUserProfile(email: $email, filter: $filter) {
-    createdAt
-    email
-    id
-    role
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateUserProfileSubscriptionVariables,
-  APITypes.OnCreateUserProfileSubscription
->;
 export const onDeleteProspect = /* GraphQL */ `subscription OnDeleteProspect(
   $filter: ModelSubscriptionProspectFilterInput
   $userId: String
@@ -151,23 +134,6 @@ export const onDeleteUserData = /* GraphQL */ `subscription OnDeleteUserData($fi
   APITypes.OnDeleteUserDataSubscriptionVariables,
   APITypes.OnDeleteUserDataSubscription
 >;
-export const onDeleteUserProfile = /* GraphQL */ `subscription OnDeleteUserProfile(
-  $email: String
-  $filter: ModelSubscriptionUserProfileFilterInput
-) {
-  onDeleteUserProfile(email: $email, filter: $filter) {
-    createdAt
-    email
-    id
-    role
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteUserProfileSubscriptionVariables,
-  APITypes.OnDeleteUserProfileSubscription
->;
 export const onUpdateProspect = /* GraphQL */ `subscription OnUpdateProspect(
   $filter: ModelSubscriptionProspectFilterInput
   $userId: String
@@ -230,21 +196,4 @@ export const onUpdateUserData = /* GraphQL */ `subscription OnUpdateUserData($fi
 ` as GeneratedSubscription<
   APITypes.OnUpdateUserDataSubscriptionVariables,
   APITypes.OnUpdateUserDataSubscription
->;
-export const onUpdateUserProfile = /* GraphQL */ `subscription OnUpdateUserProfile(
-  $email: String
-  $filter: ModelSubscriptionUserProfileFilterInput
-) {
-  onUpdateUserProfile(email: $email, filter: $filter) {
-    createdAt
-    email
-    id
-    role
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateUserProfileSubscriptionVariables,
-  APITypes.OnUpdateUserProfileSubscription
 >;

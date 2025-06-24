@@ -74,23 +74,6 @@ export const createUserData = /* GraphQL */ `mutation CreateUserData(
   APITypes.CreateUserDataMutationVariables,
   APITypes.CreateUserDataMutation
 >;
-export const createUserProfile = /* GraphQL */ `mutation CreateUserProfile(
-  $condition: ModelUserProfileConditionInput
-  $input: CreateUserProfileInput!
-) {
-  createUserProfile(condition: $condition, input: $input) {
-    createdAt
-    email
-    id
-    role
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateUserProfileMutationVariables,
-  APITypes.CreateUserProfileMutation
->;
 export const deleteProspect = /* GraphQL */ `mutation DeleteProspect(
   $condition: ModelProspectConditionInput
   $input: DeleteProspectInput!
@@ -157,23 +140,6 @@ export const deleteUserData = /* GraphQL */ `mutation DeleteUserData(
   APITypes.DeleteUserDataMutationVariables,
   APITypes.DeleteUserDataMutation
 >;
-export const deleteUserProfile = /* GraphQL */ `mutation DeleteUserProfile(
-  $condition: ModelUserProfileConditionInput
-  $input: DeleteUserProfileInput!
-) {
-  deleteUserProfile(condition: $condition, input: $input) {
-    createdAt
-    email
-    id
-    role
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteUserProfileMutationVariables,
-  APITypes.DeleteUserProfileMutation
->;
 export const updateProspect = /* GraphQL */ `mutation UpdateProspect(
   $condition: ModelProspectConditionInput
   $input: UpdateProspectInput!
@@ -239,21 +205,4 @@ export const updateUserData = /* GraphQL */ `mutation UpdateUserData(
 ` as GeneratedMutation<
   APITypes.UpdateUserDataMutationVariables,
   APITypes.UpdateUserDataMutation
->;
-export const updateUserProfile = /* GraphQL */ `mutation UpdateUserProfile(
-  $condition: ModelUserProfileConditionInput
-  $input: UpdateUserProfileInput!
-) {
-  updateUserProfile(condition: $condition, input: $input) {
-    createdAt
-    email
-    id
-    role
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateUserProfileMutationVariables,
-  APITypes.UpdateUserProfileMutation
 >;
