@@ -8,12 +8,13 @@ import { generateClient } from 'aws-amplify/data';
 import { type Schema } from '../../../../amplify/data/resource';
 import { Router } from '@angular/router';
 import { UserProfile } from '../../models/API';
+import { Amplify } from '@aws-amplify/core';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private client = generateClient<Schema>();
   private currentProfile: UserProfile | null = null;
-  private readonly DEFAULT_ROLE = 'user';
+  private readonly DEFAULT_ROLE: 'user' = 'user';
 
   constructor(private router: Router) {
     // Inicializa el cliente solo después de asegurar que Amplify está configurado
@@ -50,16 +51,30 @@ export class AuthService {
   /**
    * Obtiene el rol del usuario actual con manejo de errores mejorado
    */
-  async getCurrentUserRole(): Promise<string> {
-    try {
-      const profile = await this.getCurrentUserProfile();
-      return profile?.role || this.DEFAULT_ROLE;
-    } catch (error) {
-      console.error('Error obteniendo rol:', error);
-      return this.DEFAULT_ROLE;
-    }
-  }
+  // si no está firmado, devolvemos rol por defecto
 
+  async getCurrentUserRole(): Promise<'admin' | 'user'> {
+    try {
+      const session = await fetchAuthSession(); // ← sin opciones
+      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ session:', session);
+      const at = session.tokens?.accessToken; // ← token de acceso
+      const payload = at?.payload ?? {}; // ← todos los claims
+      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ at:', at);
+      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ payload:', payload);
+      const groups = (payload['cognito:groups'] as string[]) || [];
+      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ groups:', groups);
+
+      if (groups.includes('admins')) {
+        return 'admin';
+      }
+      if (groups.includes('users')) {
+        return 'user';
+      }
+    } catch (e) {
+      console.warn('No pude leer la sesión:', e);
+    }
+    return this.DEFAULT_ROLE;
+  }
   /**
    * Obtiene el perfil completo del usuario con caché y reintentos
    */

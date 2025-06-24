@@ -78,16 +78,15 @@ export class AppComponent implements OnInit {
 
   private async redirectBasedOnRole() {
     const role = await this.authService.getCurrentUserRole();
+
     if (role === 'admin') {
       if (!this.router.url.startsWith('/admin')) {
         await this.router.navigate(['/admin']);
       }
-    } else if (role === 'user') {
+    } else {
       if (!this.router.url.startsWith('/tabs/dashboard')) {
         await this.router.navigate(['/tabs/dashboard']);
       }
-    } else {
-      await this.router.navigate(['/']);
     }
   }
 }
