@@ -1,19 +1,13 @@
 {
   "auth": {
-    "user_pool_id": "us-east-1_HpSlj1MbK",
-    "aws_region": "us-east-1",
-    "user_pool_client_id": "36sp5t00eg310vf3pn9po0s8jk",
-    "identity_pool_id": "us-east-1:a2779e6b-7a38-4ed0-b30b-74dc282600eb",
+    "user_pool_id": "us-east-2_3Y54FcQts",
+    "aws_region": "us-east-2",
+    "user_pool_client_id": "6rmt5hudvkd5fn02u6cthss5ah",
+    "identity_pool_id": "us-east-2:2d4f87b4-97c1-4158-98be-e95b2d1aabf6",
     "mfa_methods": [],
-    "standard_required_attributes": [
-      "email"
-    ],
-    "username_attributes": [
-      "email"
-    ],
-    "user_verification_types": [
-      "email"
-    ],
+    "standard_required_attributes": ["email"],
+    "username_attributes": ["email"],
+    "user_verification_types": ["email"],
     "groups": [],
     "mfa_configuration": "NONE",
     "password_policy": {
@@ -26,17 +20,98 @@
     "unauthenticated_identities_enabled": true
   },
   "data": {
-    "url": "https://mdry56ovtjbohmuawrottyihoe.appsync-api.us-east-1.amazonaws.com/graphql",
-    "aws_region": "us-east-1",
-    "api_key": "da2-w2hqo34lzng2xauawupv34rgny",
+    "url": "https://ccdna4iprff4xguzzpwwalwg4q.appsync-api.us-east-2.amazonaws.com/graphql",
+    "aws_region": "us-east-2",
+    "api_key": "da2-5fuhidhrubaavowxzifoapcnbi",
     "default_authorization_type": "AMAZON_COGNITO_USER_POOLS",
-    "authorization_types": [
-      "API_KEY",
-      "AWS_IAM"
-    ],
+    "authorization_types": ["API_KEY", "AWS_IAM"],
     "model_introspection": {
       "version": 1,
       "models": {
+        "UserProfile": {
+          "name": "UserProfile",
+          "fields": {
+            "id": {
+              "name": "id",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": true,
+              "attributes": []
+            },
+            "email": {
+              "name": "email",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "role": {
+              "name": "role",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "createdAt": {
+              "name": "createdAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": []
+            },
+            "updatedAt": {
+              "name": "updatedAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": []
+            }
+          },
+          "syncable": true,
+          "pluralName": "UserProfiles",
+          "attributes": [
+            {
+              "type": "model",
+              "properties": {}
+            },
+            {
+              "type": "key",
+              "properties": {
+                "fields": ["id"]
+              }
+            },
+            {
+              "type": "auth",
+              "properties": {
+                "rules": [
+                  {
+                    "allow": "private",
+                    "operations": ["read", "create"]
+                  },
+                  {
+                    "provider": "userPools",
+                    "ownerField": "email",
+                    "allow": "owner",
+                    "operations": ["read", "update", "delete"],
+                    "identityClaim": "cognito:username"
+                  },
+                  {
+                    "groupClaim": "cognito:groups",
+                    "provider": "userPools",
+                    "allow": "groups",
+                    "operations": ["read", "create", "update", "delete"],
+                    "groups": ["admin"]
+                  }
+                ]
+              }
+            }
+          ],
+          "primaryKeyInfo": {
+            "isCustomPrimaryKey": false,
+            "primaryKeyFieldName": "id",
+            "sortKeyFieldNames": []
+          }
+        },
         "UserData": {
           "name": "UserData",
           "fields": {
@@ -128,9 +203,7 @@
             {
               "type": "key",
               "properties": {
-                "fields": [
-                  "id"
-                ]
+                "fields": ["id"]
               }
             },
             {
@@ -139,12 +212,7 @@
                 "rules": [
                   {
                     "allow": "private",
-                    "operations": [
-                      "read",
-                      "create",
-                      "update",
-                      "delete"
-                    ]
+                    "operations": ["read", "create", "update", "delete"]
                   }
                 ]
               }
@@ -387,9 +455,7 @@
             {
               "type": "key",
               "properties": {
-                "fields": [
-                  "id"
-                ]
+                "fields": ["id"]
               }
             },
             {
@@ -400,33 +466,19 @@
                     "provider": "userPools",
                     "ownerField": "userId",
                     "allow": "owner",
-                    "operations": [
-                      "read",
-                      "update",
-                      "delete"
-                    ],
+                    "operations": ["read", "update", "delete"],
                     "identityClaim": "cognito:username"
                   },
                   {
                     "allow": "private",
-                    "operations": [
-                      "create",
-                      "read"
-                    ]
+                    "operations": ["create", "read"]
                   },
                   {
                     "groupClaim": "cognito:groups",
                     "provider": "userPools",
                     "allow": "groups",
-                    "operations": [
-                      "read",
-                      "create",
-                      "update",
-                      "delete"
-                    ],
-                    "groups": [
-                      "admin"
-                    ]
+                    "operations": ["read", "create", "update", "delete"],
+                    "groups": ["admin"]
                   }
                 ]
               }
@@ -444,44 +496,27 @@
     }
   },
   "storage": {
-    "aws_region": "us-east-1",
-    "bucket_name": "amplify-pocamplifyionic-u-amplifyteamdrivebucket28-eynd7mfj3mkg",
+    "aws_region": "us-east-2",
+    "bucket_name": "amplify-d2bcvxe2ubai7g-ma-amplifyteamdrivebucket28-zgqwkwfcublt",
     "buckets": [
       {
         "name": "amplifyTeamDrive",
-        "bucket_name": "amplify-pocamplifyionic-u-amplifyteamdrivebucket28-eynd7mfj3mkg",
-        "aws_region": "us-east-1",
+        "bucket_name": "amplify-d2bcvxe2ubai7g-ma-amplifyteamdrivebucket28-zgqwkwfcublt",
+        "aws_region": "us-east-2",
         "paths": {
           "public/prospects/*": {
-            "guest": [
-              "get",
-              "list",
-              "write"
-            ],
-            "authenticated": [
-              "get",
-              "list",
-              "write"
-            ]
+            "guest": ["get", "list", "write"],
+            "authenticated": ["get", "list", "write"]
           },
           "protected/*": {
-            "authenticated": [
-              "get",
-              "list",
-              "write"
-            ]
+            "authenticated": ["get", "list", "write"]
           },
           "private/*": {
-            "entityidentity": [
-              "get",
-              "list",
-              "write",
-              "delete"
-            ]
+            "entityidentity": ["get", "list", "write", "delete"]
           }
         }
       }
     ]
   },
-  "version": "1.4"
+  "version": "1.3"
 }

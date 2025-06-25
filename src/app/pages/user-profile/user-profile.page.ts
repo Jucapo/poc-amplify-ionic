@@ -196,8 +196,6 @@ export class UserProfilePage implements OnInit {
   async signOut() {
     try {
       await this.authService.signOut();
-      // Opcional: redirige al login si usas routing
-      // this.router.navigate(['/login']);
     } catch (error) {
       console.error('Error signing out', error);
     }

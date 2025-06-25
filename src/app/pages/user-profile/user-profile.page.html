@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" class="relative">
+<ion-content class="relative tabs-page">
   <!-- Loading State -->
   <ng-container *ngIf="loadingInitialData(); else formTemplate">
     <div
@@ -209,7 +209,7 @@
       </div>
     </form>
 
-    <div class="mb-20">
+    <div class="mb-8 flex justify-center">
       <ion-button (click)="signOut()">
         <ion-icon name="log-out-outline"></ion-icon>
         <span class="ml-2">Cerrar sesión</span>

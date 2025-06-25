@@ -22,9 +22,9 @@
    ==================================================================== */
 :root {
   /* Safe‐areas y header fijo */
-  --ion-safe-area-top: env(safe-area-inset-top);
-  --ion-safe-area-bottom: env(safe-area-inset-bottom);
-  --global-header-height: 56px;
+  --ion-safe-area-top: env(safe-area-inset-top, 0px);
+  --ion-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --tab-bar-height: 72px;
 }
 
 /* =======================================================================
@@ -49,6 +49,17 @@ ion-content {
   --padding-bottom: 16px;
   --padding-start: 16px;
   --padding-end: 16px;
+}
+
+/* global.scss or admin-dashboard.page.scss */
+ion-content.tabs-page {
+  --padding-bottom: calc(
+    var(--tab-bar-height) + var(--ion-safe-area-bottom, 0px)
+  ) !important;
+
+  --offset-bottom: calc(
+    var(--tab-bar-height) + var(--ion-safe-area-bottom, 0px)
+  ) !important;
 }
 
 /* =======================================================================

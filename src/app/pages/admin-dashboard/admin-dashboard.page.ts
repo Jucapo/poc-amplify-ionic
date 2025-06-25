@@ -237,4 +237,12 @@ export class AdminDashboardPage implements OnInit {
     });
     await toast.present();
   }
+
+  async signOut() {
+    try {
+      await this.authService.signOut();
+    } catch (error) {
+      console.error('Error signing out', error);
+    }
+  }
 }
