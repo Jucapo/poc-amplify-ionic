@@ -1,5 +1,4 @@
 // src/app/admin-dashboard/admin-dashboard.page.ts
-
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +20,6 @@ import {
   IonCardContent,
   ToastController,
 } from '@ionic/angular/standalone';
-import { IonicModule } from '@ionic/angular';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserData } from 'src/app/models/API';
@@ -40,7 +38,6 @@ interface UserAdminProfileWithRole {
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
     IonContent,
     IonGrid,
     IonRow,

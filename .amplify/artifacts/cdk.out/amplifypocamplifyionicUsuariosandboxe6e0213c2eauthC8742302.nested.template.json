@@ -305,7 +305,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02LwQ6CMBBEv4V7WQt/YDh5MQbj2dR21YXSTegiMU3/3RCDcpqZNzM11FpDVZg5ltb1pacbpCNGQXcWY3tl5nhNlh+BhCFdIo4nZq+ae/j51TSeMMi2+pODwyAk7/W8zS173IsY+xwwSFZkBkgLXIaL5qxajDyNFrMK7BC6uHvVGioNuugiUTlOQWhAaL/6AYJT16nXAAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02LwQrCMBBEv8V7usb8gfTkRaTiWWKy6rZpFpqtRUL+XYpUe5qZNzMGjDagN3ZKlfNdFegG+YhJ0J/Fuk7ZKV2z40ckYciXhMOJOaj6Hn9+MXUgjLKu/uTgMQrJezmvc8MB9yLWPXuMUhTZHvIM5+GspagGE4+Dw6Iie4Q2bV9Gw06D3rSJqBrGKNQjNF/9ABEzdFPXAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/auth/CDKMetadata/Default"

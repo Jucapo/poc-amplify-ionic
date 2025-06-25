@@ -75,6 +75,7 @@ export class AppComponent implements OnInit {
 
   private async redirectBasedOnRole() {
     const role = await this.authService.getCurrentUserRole();
+    console.log('🚀 ~ AppComponent ~ redirectBasedOnRole ~ role:', role);
 
     if (role === 'admin') {
       if (!this.router.url.startsWith('/admin')) {

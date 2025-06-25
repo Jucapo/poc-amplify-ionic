@@ -3,7 +3,7 @@
 </ng-container>
 
 <ng-template #authFlow>
-  <amplify-authenticator>
+  <amplify-authenticator [hideSignUp]="true">
     <ng-template amplifySlot="header">
       <div class="flex flex-col items-center">
         <img src="assets/logo.png" alt="Banrural Logo" class="w-[200px] mb-8" />

@@ -19,7 +19,7 @@ import amplifyOutputs from '../../../../amplify_outputs.json';
 export class AuthService {
   private client = generateClient<Schema>();
   private readonly DEFAULT_ROLE: 'user' = 'user';
-  private readonly ADMIN_GROUP = 'admin';
+  private readonly ADMIN_GROUP = 'admins';
 
   // Region y poolId desde tu JSON de sandbox
   private readonly REGION = amplifyOutputs.auth.aws_region;
@@ -50,6 +50,7 @@ export class AuthService {
       const { tokens } = await fetchAuthSession();
       const raw = tokens?.accessToken.payload['cognito:groups'];
       const groups = Array.isArray(raw) ? (raw as string[]) : [];
+      console.log('🚀 ~ AuthService ~ getCurrentUserRole ~ groups:', groups);
       return groups.includes(this.ADMIN_GROUP) ? 'admin' : this.DEFAULT_ROLE;
     } catch (e) {
       console.error('Error obteniendo rol actual:', e);
@@ -85,7 +86,9 @@ export class AuthService {
         Username: email,
       });
       const res = await this.cognitoClient.send(cmd);
+      console.log('🚀 ~ AuthService ~ getUserRoleByEmail ~ res:', res);
       const groups = res.Groups?.map((g) => g.GroupName) || [];
+      console.log('🚀 ~ AuthService ~ getUserRoleByEmail ~ groups:', groups);
       return groups.includes(this.ADMIN_GROUP) ? 'admin' : this.DEFAULT_ROLE;
     } catch (e) {
       console.error('Error listando grupos para', email, e);

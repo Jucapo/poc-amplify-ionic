@@ -1,5 +1,5 @@
 {
- "Description": "{\"createdOn\":\"Windows\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"1.20.1\",\"stackType\":\"api-AppSync\",\"metadata\":{\"dataSources\":\"dynamodb\",\"authorizationModes\":\"amazon_cognito_identity_pools,amazon_cognito_user_pools,api_key,aws_iam\",\"customOperations\":\"\"}}",
+ "Description": "{\"createdOn\":\"Windows\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"1.20.3\",\"stackType\":\"api-AppSync\",\"metadata\":{\"dataSources\":\"dynamodb\",\"authorizationModes\":\"amazon_cognito_identity_pools,amazon_cognito_user_pools,api_key,aws_iam\",\"customOperations\":\"\"}}",
  "Resources": {
   "amplifyDataGraphQLAPI42A6FA33": {
    "Type": "AWS::AppSync::GraphQLApi",
@@ -72,7 +72,7 @@
       "ApiId"
      ]
     },
-    "Expires": 1753381129
+    "Expires": 1753406151
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
@@ -140,7 +140,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/e5c1711ab8035310c4e5a3aff741fa00a403b3fb2a0930622359e80722390f86.json"
+       "/39dbae850751b77693ef9d8d3bb2c50c10185f1231e1e31d4b0ce4d333de1cc7.json"
       ]
      ]
     }
@@ -230,7 +230,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/0a055dd79aefe5e9b40b64100d4765dbd6b75feb11b30494f4cbdc6e3ed179df.json"
+       "/6f6f6511f7fb57ff8e4463b70d0071cbe938492c51bdd35b558c8bf3766d8e65.json"
       ]
      ]
     }
@@ -323,7 +323,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/fede5a47520c1108651d8d1cd60c330007f0014921be69fd960be4e2cbd8ab5f.json"
+       "/3de3962ebce74329dff6bf070064c6a0bf821c354df18a1cb4db0781547464c3.json"
       ]
      ]
     }
@@ -484,7 +484,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "b8ab94266984268614c3fb2824a1c3a55395746c48b28c003b08bc1d08688f3e.zip"
+     "S3Key": "1b2c92f2cd21c170884393633bd4c732676df6290562199b6e3ca5e2a1be7d18.zip"
     },
     "Description": "/opt/awscli/aws"
    },
@@ -492,7 +492,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsDeployment/AwsCliLayer/Resource",
-    "aws:asset:path": "asset.b8ab94266984268614c3fb2824a1c3a55395746c48b28c003b08bc1d08688f3e.zip",
+    "aws:asset:path": "asset.1b2c92f2cd21c170884393633bd4c732676df6290562199b6e3ca5e2a1be7d18.zip",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Content"
    }
@@ -996,7 +996,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "b8ab94266984268614c3fb2824a1c3a55395746c48b28c003b08bc1d08688f3e.zip"
+     "S3Key": "1b2c92f2cd21c170884393633bd4c732676df6290562199b6e3ca5e2a1be7d18.zip"
     },
     "Description": "/opt/awscli/aws"
    },
@@ -1004,7 +1004,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/data/modelIntrospectionSchemaBucketDeployment/AwsCliLayer/Resource",
-    "aws:asset:path": "asset.b8ab94266984268614c3fb2824a1c3a55395746c48b28c003b08bc1d08688f3e.zip",
+    "aws:asset:path": "asset.1b2c92f2cd21c170884393633bd4c732676df6290562199b6e3ca5e2a1be7d18.zip",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Content"
    }
@@ -1119,7 +1119,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VQy27CMBD8Fu7GDfQLQlB7KEWUSL1Gi7MJBsd2vQ5RFOXfK8cllNM8Vjua3TVfJwlfLaCjpSivSyVPfNgjeSxzD+LKjkimdQIZdFQMYC31WvDh3YE9/6jUyg0QsqzSk/O1S638p3JxxgaCkVr5gT3bG41b8JDH0KzSDzUyeuXDphVX9GHyxyIcjJKif9h/OorQIWwXQ4lWmb5B7XkcbWeDARF64mmAkSloTiXwIav0Dnp03+hIGs1yqWuF3ui3VgsfnJlk1WyOTELDh6NR0xETPipGNjKihg+5d1LXB3DQoEc3ze9iHIOMn85a8qaZ/x1S7zx2LVToWUBHQkmedpQpOVVn00m5h1rq+ik/iE+wdvKf8g/O3GSJLr5OmxL5hV5u64SvEp4sLiTl0rXaywb5MeIvnLEUSCwCAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VQy27CMBD8Fu7GTdMvCEHtoRRRIvUaLc4SDI7teh2iKMq/V44hlNM8Vjua3ZSnScqTBXS0FNVlqeSBD1skj1XhQVzYHsm0TiCDjsoBrKVeCz58OLCnX5VZuQJClh/15HxvMiv/qUKcsIFgZFZ+Ys+2RuMaPBQxND/qhxoZvfFh1YoL+jC5sQg7o6ToH/ZNRxE6hO1yqNAq0zeoPY+j9WwwIEJPPAswMgXNoQI+5Ee9gR7dDzqSRrNC6lqhN/q91cIHZyb5cTZHJqHhw96o6YgJHxUjGxlRw4fCO6nrHTho0KOb5ncxjkHGT+ctedPM/w6pdx67lir0LKEjoSTPOsqVnKqz6aTCQy11/ZQfxBdYO/lP+TtnrrJCF1+nTYX8TC/XNOGvCU8WZ5Jy6VrtZYN8H/EP8pAoYSwCAAA="
    },
    "Metadata": {
     "aws:cdk:path": "amplify-pocamplifyionic-Usuario-sandbox-e6e0213c2e/data/CDKMetadata/Default"
